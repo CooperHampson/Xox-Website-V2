@@ -1,0 +1,90 @@
+.header {
+  height: 72px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  transition: color 0.3s ease;
+}
+
+.header-light .ms-text {
+  color: white;
+}
+
+.header-dark .ms-text {
+  color: rgb(21, 13, 69);
+}
+
+.middle-section {
+  display: flex;
+}
+
+.xox-branding {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-general {
+  display: block;
+  text-decoration: none;
+  margin: 0;
+}
+
+.logo-container {
+  position: relative;
+
+  display: block;
+
+  height: 44px;
+  max-width: 44px;
+
+  flex-shrink: 0;
+}
+
+.ms-text {
+  margin: 0;
+  font-family: "Delius", cursive;
+  font-size: 36px;
+}
+
+.ms-img {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  height: 44px;
+
+}
+
+.logo-white {
+  opacity: 1;
+}
+
+.logo-inverted {
+  opacity: 0;
+}
+
+.header-dark .logo-white {
+  opacity: 0;
+}
+
+.header-dark .logo-inverted {
+  opacity: 1;
+}
+
+.ms-img, .ms-text {
+  transition: opacity 0.3s ease, color 0.3s ease;
+}

@@ -1,0 +1,260 @@
+.contact-section {
+  width: 100%;
+
+  scroll-margin-top: 100px;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-rows: 1fr;
+
+  justify-items: center;
+
+  width: 100%;
+}
+
+.contact-title {
+  font-family: "Delius", cursive;
+  color: white;
+  font-size: 100px;
+  font-weight: bold;
+
+  text-align: center;
+
+  max-width: 600px;
+
+  margin: 0 auto;
+  margin-top: 124px;
+  margin-bottom: 24px;
+
+  transition: opacity 0.7s ease-in-out;
+  opacity: 1;
+
+  z-index: 100;
+}
+
+.contact-title.is-visible {
+  animation: slideUp 1s ease-out forwards;
+}
+
+.contact-title.is-hidden {
+  opacity: 0;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 750px) {
+  .contact-title {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact-title {
+    max-width: 720px;
+  }
+}
+
+.colour-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+
+  width: 100%;
+
+  opacity: 1;
+  transition: opacity 0.7s ease-in-out;
+
+}
+
+.colour-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgb(34, 34, 34);
+
+  z-index: 0;
+}
+
+.colour-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgb(34, 34, 34);
+
+  z-index: 0;
+}
+
+.colour-section.is-visible::before {
+  animation: fill-left 1s ease forwards;
+}
+
+.colour-section.is-visible::after {
+  animation: fill-right 1s ease forwards;
+}
+
+.colour-section.is-hidden::before {
+  animation: clear-left 1s ease forwards;
+}
+
+.colour-section.is-hidden::after {
+  animation: clear-right 1s ease forwards;
+}
+
+.colour-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fill-left {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50%;
+  }
+}
+@keyframes fill-right {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50%;
+  }
+}
+
+@keyframes clear-left {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 0;
+  }
+}
+@keyframes clear-right {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+.contact-details {
+  font-family: "Delius", cursive;
+  color: white;
+  font-size: 22px;
+
+  text-align: center;
+
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  z-index: 100;
+}
+
+.contact-details.is-visible {
+  animation: slideUp 1s ease-out forwards;
+}
+
+.contact-details.is-hidden {
+  opacity: 0;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 750px) {
+  .contact-details {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact-details {
+    max-width: 720px;
+  }
+}
+
+.contact-details:hover {
+  cursor: pointer;
+}
+
+.mail-link {
+  text-decoration: none;
+}
+
+.instagram-me {
+  font-family: "Delius", cursive;
+  color: white;
+  font-size: 22px;
+
+  text-align: center;
+
+  max-width: 600px;
+
+  margin: 0 auto;
+  margin-top: 16px;
+
+  z-index: 100;
+}
+
+.instagram-me.is-visible {
+  animation: slideUp 1s ease-out forwards;
+}
+
+.instagram-me.is-hidden {
+  opacity: 0;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 750px) {
+  .instagram-me {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .instagram-me {
+    max-width: 720px;
+  }
+}
+
+.instagram-me:hover {
+  cursor: pointer;
+}
+
+.insta-link {
+  text-decoration: none;
+}
