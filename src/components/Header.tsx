@@ -12,8 +12,8 @@ export function Header() {
         <div className="middle-section">
           <div className="xox-branding">
             <Link smooth to="#/" className="link-general logo-container">
-              <img src="Images/Header/LogoWhite.png" className="ms-img logo-white" alt="Xoxxly Logo" />
-              <img src="Images/Header/LogoInverted.png" className="ms-img logo-inverted" alt="" />
+              <img src={`${import.meta.env.BASE_URL}Images/Header/LogoWhite.png`} className="ms-img logo-white" alt="Xoxxly Logo" />
+              <img src={`${import.meta.env.BASE_URL}Images/Header/LogoInverted.png`} className="ms-img logo-inverted" alt="" />
             </Link>
             <Link smooth to="#/" className="link-general">
               <p className="ms-text">Xoxxly</p>
