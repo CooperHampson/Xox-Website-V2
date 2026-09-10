@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/Home/HomePage';
-import { MerchStore } from './pages/Merch/MerchStore';
+import { MerchStore } from './pages/Merch/MerchStoreHome';
 import './App.css'
 
 function App() {

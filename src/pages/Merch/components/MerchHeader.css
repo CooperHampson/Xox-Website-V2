@@ -1,0 +1,385 @@
+.Merch-Header {
+  height: 60px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+}
+
+/* --------- Left Section --------- */
+
+.MH-left-section {
+  display: flex;
+
+  margin-left: 24px;
+}
+
+.MH-Main-Site {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-MS-img {
+  height: 44px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.MH-Store-Site {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-SS-text {
+  margin: 0;
+  margin-left: 24px;
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  color: black;
+}
+
+.products-button-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 24px;
+}
+
+.products-dropdown-button {
+  background-color: white;
+  border: none;
+
+  margin: 0;
+  padding: 0;
+
+  transition: all 0.5s ease;
+}
+
+.products-horizontal-menu {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-10px);
+
+  height: 36px;
+
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+
+  background-color: rgb(226, 226, 226);
+  z-index: 999;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.products-button-container:hover .products-horizontal-menu {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+.product-hz-link {
+  text-decoration: none;
+
+  margin-left: 24px;
+}
+
+.phz-text {
+  font-family: "Delius", cursive;
+  color: black;
+}
+
+.products-dropdown {
+  margin: 0;
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  color: black;
+
+  cursor: pointer;
+
+}
+
+.products-dropdown::after {
+  content: " \2193";
+}
+
+.products-button-container:hover .products-dropdown::after {
+  content: " \2191";
+}
+
+/* --------- Middle Section --------- */
+
+.MH-middle-section {
+  display: flex;
+
+  margin: 0 24px 0 24px;
+}
+
+.MH-Middle-link {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-Middle-text {
+  margin: 0;
+
+  font-family: "Delius", cursive;
+  font-size: 36px;
+  color: black;
+}
+
+/* --------- Right Section --------- */
+
+.MH-right-section {
+  display: flex;
+
+  margin-right: 24px;
+}
+
+.currency-select-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 24px;
+}
+
+.currency-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  
+  font-family: "Delius", cursive;
+  font-size: 16px;
+
+  transform: scale(1.10);
+
+  align-self: center;
+  justify-self: center;
+}
+
+.dropdown-trigger::after {
+  content: " \2193";
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+
+  min-width: none;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+
+  z-index: 1001;
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 0 0;
+}
+
+.currency-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown-menu ul button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: black;
+  font-size: 14px;
+  font-family: "Delius", cursive;
+  cursor: pointer;
+  display: block;
+  padding: 8px 12px;
+}
+
+.dropdown-menu ul button:hover {
+  background-color: #f1f1f1;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dropdown-menu ul button.active {
+  font-weight: bold;
+  background-color: #e6e6e6;
+}
+
+/* ---- Search Section ---- */
+
+.search-products-button-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 24px;
+}
+
+.search-horizontal-bar {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-10px);
+
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background-color: white;
+  z-index: 1005;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease;
+}
+
+.search-horizontal-bar.active {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+.search-input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 48px;
+
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 20px;
+  padding: 4px 12px;
+  width: 50%;
+  max-width: 600px;
+}
+
+.search-input {
+  flex-grow: 1;
+
+  border: none;
+  background: none;
+  outline: none;
+
+  font-family: "Delius", cursive;
+  font-size: 24px;
+
+  padding: 4px 8px;
+}
+
+.inner-search-btn, .inner-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.isb-text {
+  margin: 0;
+  margin-bottom: 4px;
+
+  font-family: "Delius", cursive;
+  font-size: 32px;
+}
+
+.icb-text {
+  margin: 0;
+  
+  font-family: "Delius", cursive;
+  font-size: 24px;
+}
+
+.sp-button {
+  background-color: white;
+  border: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.spb-text {
+  margin: 0;
+  margin-bottom: 8px;
+
+  font-family: "Delius", cursive;
+  font-size: 48px;
+  color: black;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.spb-text:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ---- End Search Section ---- */
+
+.MH-RS-cart-link {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-RS-CL-img {
+  height: 30px;
+
+  margin-bottom: 4px;
+}
