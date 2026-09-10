@@ -18,7 +18,7 @@ export const ScrollAnimate: React.FC<ScrollAnimateProps> = ({ children, classNam
       {
         root: null,
         rootMargin: '-72px 0px 0px 0px',
-        threshold: 0.5,
+        threshold: 0.1,
       }
     );
   

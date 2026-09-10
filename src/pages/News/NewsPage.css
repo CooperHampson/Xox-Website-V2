@@ -322,3 +322,12 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ---------- Mobile ----------*/
+
+@media (max-width: 450px) {
+  .News-Card-System {
+    max-width: 90vw;
+    width: 360px;
+  }
+}
