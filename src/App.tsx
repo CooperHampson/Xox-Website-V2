@@ -8,6 +8,8 @@ import { HoodiesPage } from './pages/Merch/CategoryPages/HoodiesPage';
 import { FootwearPage } from './pages/Merch/CategoryPages/FootwearPage';
 import { DailyLifePage } from './pages/Merch/CategoryPages/DailyLifePage';
 import { GamingPeripheralsPage } from './pages/Merch/CategoryPages/GamingPeripheralsPage';
+import { ProductPage } from './pages/Merch/components/ProductPage';
+import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
 import './App.css'
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="store/footwear" element={<FootwearPage />} />
         <Route path="store/daily-life" element={<DailyLifePage />} />
         <Route path="store/gaming-peripherals" element={<GamingPeripheralsPage />} />
+        <Route path="store/product/:productId" element={<ProductPage />} />
+        <Route path="store/search" element={<SearchResultsPage />} />
       </Routes>
 
     </>

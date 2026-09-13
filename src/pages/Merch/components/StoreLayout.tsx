@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { MerchData } from './MerchData';
 import type { MerchItem } from './MerchData';
 import { useCurrency } from '../currency/CurrencyContext';
@@ -36,13 +38,15 @@ export function StoreLayout({ category, featured = false, items, layout = 'defau
             const formattedPrice = formatPrice(convertedPrice, currentCurrency.code);
 
             return (
-              <div className="merch-item" key={item.id}>
-                <img className="merch-item-img" src={`${import.meta.env.BASE_URL}${item.image}`} alt={item.name} />
+              <Link to={`/store/product/${item.id}`} className="merch-item-link" key={item.id}>
+                <div className="merch-item" key={item.id}>
+                  <img className="merch-item-img" src={`${import.meta.env.BASE_URL}${item.images[0]}`} alt={item.name} />
 
-                <h2 className="merch-item-name">{item.name}</h2>
+                  <h2 className="merch-item-name">{item.name}</h2>
 
-                <p className="merch-item-price">{formattedPrice}</p>
-              </div>
+                  <p className="merch-item-price">{formattedPrice}</p>
+                </div>
+              </Link>
             );
           })}
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { currencies, useCurrency, type Currency } from '../currency/CurrencyContext';
 
@@ -9,6 +9,7 @@ export function MerchHeader() {
   const { currentCurrency, setCurrentCurrency } = useCurrency();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleCurrencyChange = (currency: Currency) => {
     setCurrentCurrency(currency);
@@ -17,9 +18,14 @@ export function MerchHeader() {
   };
 
   const handleSearchSubmit = () => {
-    if (searchQuery.trim()) {
-      console.log(`Searching for: ${searchQuery}`);
+    const query = searchQuery.trim();
+
+    if (!query) {
+      return;
     }
+
+    navigate(`/store/search?q=${encodeURIComponent(query)}`);
+    setIsSearchOpen(false);
   };
 
   const handleCloseSearch = () => {

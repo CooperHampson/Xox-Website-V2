@@ -1,0 +1,98 @@
+.search-results-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 84px 24px 24px 24px;
+}
+
+.search-results-header {
+  margin-bottom: 24px;
+}
+
+.search-results-header h1 {
+  font-family: "Delius", cursive;
+  font-size: 36px;
+  margin: 0 0 8px 0;
+}
+
+.search-results-header p {
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  margin: 0;
+}
+
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 168px);
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.search-result-link {
+  display: block;
+  width: 168px;
+  align-self: start;
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-result-item {
+  display: flex;
+  flex-direction: column;
+  width: 168px;
+  border: 1px solid black;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.search-result-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.search-result-name {
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  margin: 0 10px 5px 10px;
+}
+
+.search-result-price {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: rgb(25, 0, 94);
+  margin: 0 10px 8px 10px;
+}
+
+.search-no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Delius", cursive;
+  padding: 80px 20px;
+}
+
+.search-no-results h2 {
+  margin-bottom: 8px;
+}
+
+.search-no-results p {
+  margin-bottom: 24px;
+}
+
+.search-no-results a {
+  color: inherit;
+}
+
+@media (max-width: 600px) {
+  .search-results-page {
+    padding: 100px 16px 32px 16px;
+  }
+
+  .search-results-header h1 {
+    font-size: 30px;
+  }
+}
