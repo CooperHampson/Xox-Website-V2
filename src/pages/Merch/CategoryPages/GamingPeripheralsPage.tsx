@@ -11,7 +11,7 @@ import './CategoryPages.css';
 export function GamingPeripheralsPage() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
 
-  const gamingperipheralsItems = MerchData.filter((item) => item.category === 'pants');
+  const gamingperipheralsItems = MerchData.filter((item) => item.category === 'gaming-peripherals');
 
   const filteredItems = filterMerch(gamingperipheralsItems, filters);
   return (

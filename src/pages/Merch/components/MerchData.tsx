@@ -95,7 +95,7 @@ export const MerchData: MerchItem[] = [
     featured: true,
     description: "test shirt desc",
     details: ["100% cotton", "Unisex Fit", "Machine washable", "Made in the USA"],
-    tags: ["black", "streetwear", "casual"],
+    tags: ["streetwear", "casual"],
     colours: ["black", "blue"],
     materials: ["cotton"]
   }

@@ -12,7 +12,7 @@ import './CategoryPages.css';
 export function DailyLifePage() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
 
-  const dailyLifeItems = MerchData.filter((item) => item.category === 'pants');
+  const dailyLifeItems = MerchData.filter((item) => item.category === 'daily-life');
 
   const filteredItems = filterMerch(dailyLifeItems, filters);
   return (

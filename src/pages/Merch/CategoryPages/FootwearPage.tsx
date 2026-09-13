@@ -11,7 +11,7 @@ import './CategoryPages.css';
 export function FootwearPage() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
 
-  const footwearItems = MerchData.filter((item) => item.category === 'pants');
+  const footwearItems = MerchData.filter((item) => item.category === 'footwear');
 
   const filteredItems = filterMerch(footwearItems, filters);
 

@@ -12,7 +12,7 @@ import './CategoryPages.css';
 export function HoodiesPage() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
 
-  const hoodiesItems = MerchData.filter((item) => item.category === 'pants');
+  const hoodiesItems = MerchData.filter((item) => item.category === 'hoodies');
 
   const filteredItems = filterMerch(hoodiesItems, filters);
 
