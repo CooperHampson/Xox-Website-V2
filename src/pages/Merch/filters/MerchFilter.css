@@ -1,0 +1,98 @@
+.merch-filter {
+  position: fixed;
+
+  left: 24px;
+  top: 120px;
+
+  width: 200px;
+
+  padding: 20px;
+
+  border: 1px solid gray;
+  border-radius: 8px;
+
+  background-color: white;
+}
+
+.merch-filter-title {
+  font-family: "Delius", cursive;
+
+  font-size: 24px;
+
+  margin: 0 0 20px 0;
+}
+
+.merch-filter-section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+
+  border-bottom: 1px solid lightgray;
+}
+
+.merch-filter-section-title {
+  font-family: "Delius", cursive;
+
+  font-size: 18px;
+
+  margin: 0 0 4px 0;
+}
+
+.merch-filter-option {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-family: "Delius", cursive;
+
+  text-transform: capitalize;
+
+  cursor: pointer;
+}
+
+.merch-filter-option input {
+  cursor: pointer;
+}
+
+.merch-price-inputs {
+display: flex;
+
+flex-direction: column;
+
+gap: 8px;
+}
+
+.merch-price-inputs input {
+width: 100%;
+
+padding: 8px;
+
+box-sizing: border-box;
+
+border: 1px solid gray;
+
+border-radius: 4px;
+
+font-family: "Delius", cursive;
+}
+
+.clear-filters-button {
+width: 100%;
+
+padding: 10px;
+
+border: 1px solid black;
+
+border-radius: 6px;
+
+background: transparent;
+
+font-family: "Delius", cursive;
+
+cursor: pointer;
+}

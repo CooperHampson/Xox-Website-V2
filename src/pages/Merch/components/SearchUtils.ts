@@ -110,6 +110,18 @@ function getSearchFields(item: MerchItem): SearchField[] {
     {
       value: item.description,
       weight: 2
+    },
+    {
+      value: item.tags?.join(' ') ?? '',
+      weight: 3
+    },
+    {
+      value: item.colours?.join(' ') ?? '',
+      weight: 2
+    },
+    {
+      value: item.materials?.join(' ') ?? '',
+      weight: 1
     }
   ];
 }

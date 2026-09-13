@@ -9,7 +9,7 @@ export type MerchItem = {
   details?: string[];
   tags?: string[];
   colours?: string[];
-  material?: string;
+  materials?: string[];
 
 };
 
@@ -22,7 +22,8 @@ export const MerchData: MerchItem[] = [
     category: "hoodies",
     featured: false,
     description: "test hoodie desc",
-    details: ["100% cotton", "Unisex Fit", "Machine washable", "Made in the USA"]
+    details: ["100% cotton", "Unisex Fit", "Machine washable", "Made in the USA"],
+    colours: ["black", "white", "red", "purple"]
   },
   {
     id: "e6fb71b4-6859-4b9b-933b-9a04881bbd37",
@@ -72,7 +73,8 @@ export const MerchData: MerchItem[] = [
     category: "gaming peripherals",
     featured: true,
     description: "test mousepad desc",
-    details: ["Smooth Surface", "Multiple Sizes", "Made in the USA"]
+    details: ["Smooth Surface", "Multiple Sizes", "Made in the USA"],
+    materials: ["polymer"]
   },
   {
     id: "fb9174ab-0adb-4734-96db-9b3189d4c347",
@@ -92,6 +94,9 @@ export const MerchData: MerchItem[] = [
     category: "shirts",
     featured: true,
     description: "test shirt desc",
-    details: ["100% cotton", "Unisex Fit", "Machine washable", "Made in the USA"]
+    details: ["100% cotton", "Unisex Fit", "Machine washable", "Made in the USA"],
+    tags: ["black", "streetwear", "casual"],
+    colours: ["black", "blue"],
+    materials: ["cotton"]
   }
 ]
