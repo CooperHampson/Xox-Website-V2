@@ -13,6 +13,8 @@
   font-family: "Delius", cursive;
   font-size: 36px;
   margin: 0 0 8px 0;
+
+  border-bottom: 1px solid gray;
 }
 
 .search-results-header p {
