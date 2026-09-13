@@ -1,0 +1,29 @@
+.home-page-container {
+  width: 100%;
+
+  padding: 0 24px 24px 24px;
+  margin-top: 84px;
+}
+
+.hp-title {
+  font-family: "Delius", cursive;
+  font-size: 32px;
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid gray;
+}
+
+.featured-page-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 400px);
+
+  gap: 16px;
+}
+
+.featured-page-group {
+  border: 1px solid gray;
+  border-radius: 12px;
+  padding: 16px;
+}
+

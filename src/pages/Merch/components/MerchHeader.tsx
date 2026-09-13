@@ -1,25 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { currencies, useCurrency, type Currency } from '../currency/CurrencyContext';
+
 import './MerchHeader.css';
 
-interface Currency {
-  code: string;
-  symbol: string;
-  label: string;
-}
-
-const currencies: Currency[] = [
-  { code: 'JPY', symbol: '¥', label: 'Japanese Yen' },
-  { code: 'USD', symbol: '$', label: 'US Dollar' },
-  { code: 'AUD', symbol: '$', label: 'Australian Dollar' },
-  { code: 'EUR', symbol: '€', label: 'Euro' },
-  { code: 'GBP', symbol: '£', label: 'Great British Pound' },
-  { code: 'CAD', symbol: '$', label: 'Canadian Dollar' },
-  { code: 'NZD', symbol: '$', label: 'New Zealand Dollar' }
-];
-
 export function MerchHeader() {
-  const [currentCurrency, setCurrentCurrency] = useState<Currency>(currencies[0]);
+  const { currentCurrency, setCurrentCurrency } = useCurrency();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -82,6 +69,28 @@ export function MerchHeader() {
               </Link>
             </div>
           </div>
+
+          <div className="search-products-button-container">
+
+            <button className={`sp-button ${isSearchOpen ? 'active' : ''}`} onClick={() => setIsSearchOpen(!isSearchOpen)}>
+              <p className="spb-text">&#x2315;</p>
+            </button>
+
+            <div className={`search-horizontal-bar ${isSearchOpen ? 'active' : ''}`}>
+              <div className="search-input-wrapper">
+                <button type="button" className="inner-search-btn" onClick={handleSearchSubmit}>
+                  <p className="isb-text">&#x2315;</p>
+                </button>
+
+                <input type="text" placeholder="Search products..." className="search-input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()} />
+
+                <button type="button" className="inner-close-btn" onClick={handleCloseSearch}>
+                  <p className="icb-text">X</p>
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div className="MH-middle-section">
@@ -111,29 +120,16 @@ export function MerchHeader() {
             </div>
           </div>
 
-          <div className="search-products-button-container">
-
-            <button className={`sp-button ${isSearchOpen ? 'active' : ''}`} onClick={() => setIsSearchOpen(!isSearchOpen)}>
-              <p className="spb-text">&#x2315;</p>
-            </button>
-
-            <div className={`search-horizontal-bar ${isSearchOpen ? 'active' : ''}`}>
-              <div className="search-input-wrapper">
-                <button type="button" className="inner-search-btn" onClick={handleSearchSubmit}>
-                  <p className="isb-text">&#x2315;</p>
-                </button>
-
-                <input type="text" placeholder="Search products..." className="search-input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()} />
-
-                <button type="button" className="inner-close-btn" onClick={handleCloseSearch}>
-                  <p className="icb-text">X</p>
-                </button>
-              </div>
-            </div>
-          </div>
+          <Link to ="store/orders" className="MH-RS-order-link">
+            <p className="MH-RS-OL-text">Orders</p>
+          </Link>
 
           <Link to="/store/cart" className="MH-RS-cart-link">
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T.png`} className="MH-RS-CL-img" />
+          </Link>
+
+          <Link to="/store/account" className="MH-RS-account-link">
+            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`} className="MH-RS-ACC-img" />
           </Link>
         </div>
       </div>

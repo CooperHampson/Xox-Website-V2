@@ -137,118 +137,6 @@
   content: " \2191";
 }
 
-/* --------- Middle Section --------- */
-
-.MH-middle-section {
-  display: flex;
-
-  margin: 0 24px 0 24px;
-}
-
-.MH-Middle-link {
-  text-decoration: none;
-
-  display: grid;
-  align-items: center;
-  justify-content: center;
-}
-
-.MH-Middle-text {
-  margin: 0;
-
-  font-family: "Delius", cursive;
-  font-size: 36px;
-  color: black;
-}
-
-/* --------- Right Section --------- */
-
-.MH-right-section {
-  display: flex;
-
-  margin-right: 24px;
-}
-
-.currency-select-container {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-
-  margin-right: 24px;
-}
-
-.currency-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-trigger {
-  border: none;
-  border-radius: 4px;
-  background-color: white;
-  color: black;
-  
-  font-family: "Delius", cursive;
-  font-size: 16px;
-
-  transform: scale(1.10);
-
-  align-self: center;
-  justify-self: center;
-}
-
-.dropdown-trigger::after {
-  content: " \2193";
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: white;
-
-  min-width: none;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-
-  z-index: 1001;
-  list-style: none;
-  margin: 0;
-  padding: 6px 0 0 0;
-}
-
-.currency-dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown-menu ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.dropdown-menu ul button {
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  color: black;
-  font-size: 14px;
-  font-family: "Delius", cursive;
-  cursor: pointer;
-  display: block;
-  padding: 8px 12px;
-}
-
-.dropdown-menu ul button:hover {
-  background-color: #f1f1f1;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.dropdown-menu ul button.active {
-  font-weight: bold;
-  background-color: #e6e6e6;
-}
-
 /* ---- Search Section ---- */
 
 .search-products-button-container {
@@ -256,7 +144,7 @@
   align-items: center;
   justify-content: center;
 
-  margin-right: 24px;
+  margin-left: 24px;
 }
 
 .search-horizontal-bar {
@@ -370,6 +258,135 @@
 
 /* ---- End Search Section ---- */
 
+/* --------- Middle Section --------- */
+
+.MH-middle-section {
+  display: flex;
+
+  margin: 0 24px 0 24px;
+}
+
+.MH-Middle-link {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-Middle-text {
+  margin: 0;
+
+  font-family: "Delius", cursive;
+  font-size: 36px;
+  color: black;
+}
+
+/* --------- Right Section --------- */
+
+.MH-right-section {
+  display: flex;
+
+  margin-right: 24px;
+}
+
+.currency-select-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 24px;
+}
+
+.currency-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  
+  font-family: "Delius", cursive;
+  font-size: 16px;
+
+  transform: scale(1.10);
+
+  align-self: center;
+  justify-self: center;
+}
+
+.dropdown-trigger::after {
+  content: " \2193";
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+
+  min-width: none;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+
+  z-index: 1001;
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 0 0;
+}
+
+.currency-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown-menu ul button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: black;
+  font-size: 14px;
+  font-family: "Delius", cursive;
+  cursor: pointer;
+  display: block;
+  padding: 8px 12px;
+}
+
+.dropdown-menu ul button:hover {
+  background-color: #f1f1f1;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dropdown-menu ul button.active {
+  font-weight: bold;
+  background-color: #e6e6e6;
+}
+
+.MH-RS-order-link {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-RS-OL-text {
+  margin: 0;
+  margin-right: 24px;
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  color: black;
+}
+
 .MH-RS-cart-link {
   text-decoration: none;
 
@@ -382,4 +399,18 @@
   height: 30px;
 
   margin-bottom: 4px;
+}
+
+.MH-RS-account-link {
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.MH-RS-ACC-img {
+  height: 48px;
+
+  margin-bottom: 2px;
 }

@@ -1,0 +1,56 @@
+.merch-layout-container {
+  display: grid;
+  width: 100%;
+}
+
+.merch-row-default {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 168px);
+
+  justify-content: center;
+
+  gap: 16px;
+  width: 100%;
+}
+
+.merch-row-featured {
+  display: grid;
+  grid-template-columns: repeat(2, 168px);
+  grid-template-rows: repeat(2, auto);
+
+  justify-content: center;
+
+  gap: 16px;
+  width: 100%;
+}
+
+.merch-item{
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid black;
+  border-radius: 6px;
+
+  width: 168px;
+}
+
+.merch-item-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.merch-item-name {
+  font-family: "Delius", cursive;
+  font-size: 18px;
+
+  margin: 10px 10px 5px 10px;
+}
+
+.merch-item-price {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: rgb(25, 0, 94);
+
+  margin: 0 10px 5px 10px;
+}

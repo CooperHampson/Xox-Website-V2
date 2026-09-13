@@ -1,0 +1,18 @@
+.category-container {
+  width: 100%;
+
+  padding: 0 24px 24px 24px;
+  margin-top: 84px;
+
+  display: grid;
+  grid-template-rows: 60px 1fr;
+}
+
+.category-title {
+  font-family: "Delius", cursive;
+  font-size: 32px;
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid gray;
+
+  text-align: center;
+}
