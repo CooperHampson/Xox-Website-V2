@@ -1,21 +1,24 @@
 import type { MerchFilters } from './MerchFilters';
 import { getUniqueCategories, getUniqueColours, getUniqueTags, getUniqueMaterials } from './FilterOptions';
+import type { MerchItem } from '../components/MerchData';
 import './MerchFilter.css';
 
 interface MerchFilterProps {
+  items: MerchItem[];
   filters: MerchFilters;
   onFiltersChange: (filters: MerchFilters) => void;
+  showCategories?: boolean;
 }
 
-export function MerchFilter({ filters, onFiltersChange }: MerchFilterProps) {
+export function MerchFilter({ items, filters, onFiltersChange, showCategories = false }: MerchFilterProps) {
 
-  const categories = getUniqueCategories();
+  const categories = getUniqueCategories(items);
 
-  const colours = getUniqueColours();
+  const colours = getUniqueColours(items);
 
-  const tags = getUniqueTags();
+  const tags = getUniqueTags(items);
 
-  const materials = getUniqueMaterials();
+  const materials = getUniqueMaterials(items);
 
   const toggleFilter = (
     filterType:
@@ -37,8 +40,8 @@ export function MerchFilter({ filters, onFiltersChange }: MerchFilterProps) {
     <aside className="merch-filter">
       <h2 className="merch-filter-title">Filters</h2>
 
-      {categories.length > 0 && (
-        <div className="merch-filter-selection">
+      {showCategories && categories.length > 0 && (
+        <div className="merch-filter-section">
           <h3 className="merch-filter-section-title">Categories</h3>
 
           {categories.map((category) => (
@@ -52,7 +55,7 @@ export function MerchFilter({ filters, onFiltersChange }: MerchFilterProps) {
       )}
 
       {colours.length > 0 && (
-        <div className="merch-filter-selection">
+        <div className="merch-filter-section">
           <h3 className="merch-filter-section-title">Colours</h3>
 
           {colours.map((colour) => (
@@ -81,22 +84,24 @@ export function MerchFilter({ filters, onFiltersChange }: MerchFilterProps) {
       {materials.length > 0 && (
         <div className="merch-filter-section">
           <h3 className="merch-filter-section-title"> Materials </h3>
-          {materials.map((material) => (<label key={material} className="merch-filter-option" >
-            <input type="checkbox" checked={filters.materials.includes(material)} onChange={() => toggleFilter('materials', material)} />
-            <span> {material} </span>
-          </label>
+          {materials.map((material) => (
+            <label key={material} className="merch-filter-option" >
+              <input type="checkbox" checked={filters.materials.includes(material)} onChange={() => toggleFilter('materials', material)} />
+              <span> {material} </span>
+            </label>
           ))}
         </div>
       )}
 
       <div className="merch-filter-section">
         <h3 className="merch-filter-section-title"> Price </h3>
-        <div className="merch-price-inputs"> <input type="number" placeholder="Min price" value={filters.minPrice === null ? '' : filters.minPrice / 100} onChange={(event) => { const value = event.target.value; onFiltersChange({ ...filters, minPrice: value === '' ? null : Number(value) * 100 }); }} />
-          <input type="number" placeholder="Max price" value={filters.maxPrice === null ? '' : filters.maxPrice / 100} onChange={(event) => { const value = event.target.value; onFiltersChange({ ...filters, maxPrice: value === '' ? null : Number(value) * 100 }); }} />
+        <div className="merch-price-inputs">
+          <input type="number" placeholder="Min price" value={filters.minPrice ?? ''} onChange={(event) => { const value = event.target.value; onFiltersChange({ ...filters, minPrice: value === '' ? null : Number(value) }); }} />
+          <input type="number" placeholder="Max price" value={filters.maxPrice ?? ''} onChange={(event) => { const value = event.target.value; onFiltersChange({ ...filters, maxPrice: value === '' ? null : Number(value) }); }} />
         </div>
       </div>
 
-      <button type="button" className="clear-filters-button" onClick={() => onFiltersChange({ categories: [], colours: [], tags: [], materials: [], minPrice: null, maxPrice: null, }) } > Clear Filters </button>
+      <button type="button" className="clear-filters-button" onClick={() => onFiltersChange({ categories: [], colours: [], tags: [], materials: [], minPrice: null, maxPrice: null, })} > Clear Filters </button>
     </aside >
   );
 }

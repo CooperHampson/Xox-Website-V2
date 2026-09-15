@@ -7,12 +7,16 @@ import { MerchData } from "../components/MerchData";
 import { defaultMerchFilters, type MerchFilters } from "../filters/MerchFilters";
 import { filterMerch } from "../filters/FilterMerch";
 
+import { useCurrency } from "../currency/CurrencyContext";
+
 import './CategoryPages.css';
 
 export function AllProducts() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
 
-  const filteredItems = filterMerch(MerchData, filters);
+  const { currentCurrency } = useCurrency();
+
+  const filteredItems = filterMerch(MerchData, filters, currentCurrency.code);
 
   return (
     <>
@@ -23,7 +27,7 @@ export function AllProducts() {
       <div className="category-container">
         <p className="category-title">All Products</p>
 
-        <MerchFilter filters={filters} onFiltersChange={setFilters} />
+        <MerchFilter items={MerchData} filters={filters} onFiltersChange={setFilters} showCategories={true} />
         
         <StoreLayout items={filteredItems}/>
       </div>

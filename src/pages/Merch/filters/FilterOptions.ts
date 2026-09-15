@@ -1,33 +1,33 @@
-import { MerchData } from "../components/MerchData";
+import type { MerchItem } from "../components/MerchData";
 
-export function getUniqueCategories(): string[] {
+export function getUniqueCategories( items: MerchItem[]): string[] {
   return [
     ...new Set(
-      MerchData.map((item) => item.category)
+      items.map((item) => item.category)
     )
   ].sort();
 }
 
-export function getUniqueColours(): string[] {
+export function getUniqueColours( items: MerchItem[]): string[] {
   return [
     ...new Set(
-      MerchData.flatMap((item) => item.colours ?? [])
+      items.flatMap((item) => item.colours ?? [])
     )
   ].sort();
 }
 
-export function getUniqueTags(): string[] {
+export function getUniqueTags( items: MerchItem[]): string[] {
   return [
     ...new Set(
-      MerchData.flatMap((item) => item.tags ?? [])
+      items.flatMap((item) => item.tags ?? [])
     )
   ].sort();
 }
 
-export function getUniqueMaterials(): string[] {
+export function getUniqueMaterials( items: MerchItem[]): string[] {
   return [
     ...new Set(
-      MerchData.flatMap((item) => item.materials ?? [])
+      items.flatMap((item) => item.materials ?? [])
     )
   ].sort();
 }

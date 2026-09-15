@@ -1,9 +1,11 @@
 import type { MerchItem } from '../components/MerchData';
 import type { MerchFilters } from './MerchFilters';
+import { convertPrice } from '../currency/CurrencyConverter';
 
 export function filterMerch(
   items: MerchItem[],
-  filters: MerchFilters
+  filters: MerchFilters,
+  currencyCode: string
 ): MerchItem[] {
 
   return items.filter((item) => {
@@ -18,7 +20,7 @@ export function filterMerch(
 
     // PRICE FILTER
 
-    const itemPrice = Number(item.price);
+    const itemPrice = convertPrice(item.price, currencyCode);
 
     const matchesMinPrice =
       filters.minPrice === null ||
