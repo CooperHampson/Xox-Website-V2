@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MerchHeader } from '../components/MerchHeader';
 import { StoreLayout } from '../components/StoreLayout';
@@ -27,10 +27,12 @@ export function CategoryPage({ category, title}: CategoryPageProps) {
 
   const filteredItems = filterMerch( categoryItems, filters, currentCurrency.code);
 
+  useEffect(() => {
+    document.title = `Xoxxly | Merch ${title}`;
+  }, [title]);
+
   return (
     <>
-      <title> Xoxxly | Merch {title}</title>
-
       <MerchHeader />
 
       <div className="category-container">
