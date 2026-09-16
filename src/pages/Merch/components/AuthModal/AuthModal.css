@@ -1,0 +1,114 @@
+.auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1099;
+}
+
+.auth-modal {
+  position: relative;
+  width: min(90%, 420px);
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: none;
+  background: transparent;
+  font-family: "Delius", cursive;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.auth-modal h3 {
+  margin: 0 0 2rem;
+
+  font-family: "Delius", cursive;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.auth-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.auth-modal label {
+  font-family: "Delius", cursive;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.auth-modal input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 0.85rem 1rem;
+
+  border: 1px solid #000000;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  font-family: "Delius", cursive;
+  font-size: 1rem;
+}
+
+.auth-modal input:focus {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.auth-modal form button {
+  margin-top: 0.75rem;
+
+  padding: 0.9rem 1rem;
+
+  border: 1px solid #000000;
+  border-radius: 10px;
+
+  background: #000000;
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.auth-modal form button:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+.auth-modal > div > p {
+  margin: 1.5rem 0 0.5rem;
+
+  font-family: "Delius", cursive;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-modal > div > button:not(.auth-modal-close) {
+  display: block;
+  margin: 0 auto;
+
+  border: none;
+  background: transparent;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: underline;
+
+  cursor: pointer;
+}

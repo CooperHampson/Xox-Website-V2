@@ -407,6 +407,11 @@
   display: grid;
   align-items: center;
   justify-content: center;
+
+  border: none;
+  background-color: white;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .MH-RS-ACC-img {

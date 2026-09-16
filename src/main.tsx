@@ -5,14 +5,17 @@ import { HelmetProvider } from 'react-helmet-async'
 import { CurrencyProvider } from './pages/Merch/currency/CurrencyContext.tsx'
 import './index.css'
 import App from './App.tsx'
+import { AuthProvider } from './auth/AuthContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
       <HashRouter>
-        <CurrencyProvider>
-          <App />
-        </CurrencyProvider>
+        <AuthProvider>
+          <CurrencyProvider>
+            <App />
+          </CurrencyProvider>
+        </AuthProvider>
       </HashRouter>
     </HelmetProvider>
   </StrictMode>,

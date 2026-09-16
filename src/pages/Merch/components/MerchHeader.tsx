@@ -3,13 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { currencies, useCurrency, type Currency } from '../currency/CurrencyContext';
 
+import { AuthModal } from './AuthModal/AuthModal';
+import { useAuth } from '../../../auth/AuthContext';
+
 import './MerchHeader.css';
 
 export function MerchHeader() {
   const { currentCurrency, setCurrentCurrency } = useCurrency();
+  const { isAuthenticated } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   const handleCurrencyChange = (currency: Currency) => {
     setCurrentCurrency(currency);
@@ -126,7 +131,7 @@ export function MerchHeader() {
             </div>
           </div>
 
-          <Link to ="store/orders" className="MH-RS-order-link">
+          <Link to="store/orders" className="MH-RS-order-link">
             <p className="MH-RS-OL-text">Orders</p>
           </Link>
 
@@ -134,11 +139,22 @@ export function MerchHeader() {
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T.png`} className="MH-RS-CL-img" />
           </Link>
 
-          <Link to="/store/account" className="MH-RS-account-link">
+          <button type="button" className="MH-RS-account-link" onClick={() => {
+            if (isAuthenticated) {
+              navigate('/store/account');
+              return;
+            }
+
+            setIsAuthOpen(true);
+          }}>
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`} className="MH-RS-ACC-img" />
-          </Link>
+          </button>
         </div>
       </div>
+
+      {isAuthOpen && (
+        <AuthModal onClose={() => setIsAuthOpen(false)} />
+      )}
     </>
   );
 }
