@@ -13,6 +13,7 @@ import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
 import './App.css'
 
 function App() {
+
   return (
     <>
 
