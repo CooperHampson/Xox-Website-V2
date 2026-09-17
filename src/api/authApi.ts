@@ -32,13 +32,28 @@ export type LoginResponse = {
   user: AuthUser;
 };
 
-export type RegisterResponse = {
+export type StartRegistrationResponse = {
+  pendingRegistrationId: number;
+};
+
+export type VerifyRegistrationData = {
+  pendingRegistrationId: number;
+  verificationCode: string;
+};
+
+export type VerifyRegistrationResponse = {
   accessToken: string;
   user: AuthUser;
 };
 
-export async function registerUser(data: RegisterData) {
-  const response = await api.post<RegisterResponse>('/users', data);
+export async function startRegistration(data: RegisterData) {
+  const response = await api.post<StartRegistrationResponse>('/users/register', data);
+
+  return response.data;
+}
+
+export async function verifyRegistration(data: VerifyRegistrationData,) {
+  const response = await api.post<VerifyRegistrationResponse>('/users/register/verify', data,);
 
   return response.data;
 }

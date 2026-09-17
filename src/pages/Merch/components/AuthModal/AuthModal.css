@@ -187,3 +187,8 @@
 .register-input-group:focus-within .register-input-rules {
   display: block;
 }
+
+.rfv-t {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+}
