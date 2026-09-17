@@ -7,11 +7,13 @@ import { useAuth } from '../../../../auth/AuthContext';
 type LoginFormProps = {
   onRegisterClick: () => void;
   onLoginSuccess: () => void;
+  onForgotPasswordClick: () => void;
 };
 
 export default function LoginForm({
   onRegisterClick,
   onLoginSuccess,
+  onForgotPasswordClick,
 }: LoginFormProps) {
   const { login } = useAuth();
 
@@ -100,6 +102,13 @@ export default function LoginForm({
             setPassword(event.target.value)
           }
         />
+
+        <button
+          type="button"
+          onClick={onForgotPasswordClick}
+        >
+          Forgot Password?
+        </button>
 
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}

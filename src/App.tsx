@@ -11,6 +11,7 @@ import { GamingPeripheralsPage } from './pages/Merch/CategoryPages/GamingPeriphe
 import { ProductPage } from './pages/Merch/components/ProductPage';
 import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
 import { AccountPage } from './pages/Merch/Account/AccountPage';
+import ResetPassword from './pages/Merch/ResetPassword/ResetPassword';
 import './App.css'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="store/product/:productId" element={<ProductPage />} />
         <Route path="store/search" element={<SearchResultsPage />} />
         <Route path="store/account" element={<AccountPage />} />
+        <Route path="store/reset-password" element={<ResetPassword />} />
       </Routes>
 
     </>

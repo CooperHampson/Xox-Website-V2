@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { startRegistration, verifyRegistration } from '../../../../api/authApi';
+import { startRegistration, verifyRegistration, resendRegistrationCode, } from '../../../../api/authApi';
 import { useAuth } from '../../../../auth/AuthContext';
 
 type RegisterFormProps = {
@@ -22,6 +22,21 @@ export default function RegisterForm({
 
   const [pendingRegistrationId, setPendingRegistrationId] = useState<number | null>(null);
   const [verificationCode, setVerificationCode] = useState('');
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setResendCooldown((current) => current - 1);
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [resendCooldown]);
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -40,6 +55,8 @@ export default function RegisterForm({
       setPendingRegistrationId(
         result.pendingRegistrationId,
       );
+
+      setResendCooldown(60);
 
       setIsLoading(false);
 
@@ -126,6 +143,54 @@ export default function RegisterForm({
       }
 
       setVerificationCode('');
+      setIsLoading(false);
+    }
+  }
+
+  async function handleResendCode() {
+    if (
+      pendingRegistrationId === null ||
+      resendCooldown > 0
+    ) {
+      return;
+    }
+
+    setErrorMessage('');
+    setIsLoading(true);
+
+    try {
+      await resendRegistrationCode({
+        pendingRegistrationId,
+      });
+
+      setVerificationCode('');
+      setResendCooldown(60);
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        if (!error.response) {
+          setErrorMessage(
+            'Unable to connect to the server.',
+          );
+        } else if (
+          error.response.status === 400
+        ) {
+          setErrorMessage(
+            error.response.data?.message ??
+            'Unable to resend verification code.',
+          );
+        } else {
+          setErrorMessage(
+            'Something went wrong. Please try again.',
+          );
+        }
+      } else {
+        setErrorMessage(
+          'Something went wrong. Please try again.',
+        );
+      }
+    } finally {
       setIsLoading(false);
     }
   }
@@ -265,12 +330,26 @@ export default function RegisterForm({
                 : 'Verify Account'}
             </button>
 
+            <button
+              type="button"
+              onClick={handleResendCode}
+              disabled={
+                isLoading ||
+                resendCooldown > 0
+              }
+            >
+              {resendCooldown > 0
+                ? `Resend Code (${resendCooldown}s)`
+                : 'Resend Code'}
+            </button>
+
             <button type="button" onClick={() => {
               setPendingRegistrationId(null);
               setVerificationCode('');
               setErrorMessage('');
+              setResendCooldown(0);
             }}
-            disabled={isLoading}
+              disabled={isLoading}
             >
               Back
             </button>

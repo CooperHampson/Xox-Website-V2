@@ -46,6 +46,31 @@ export type VerifyRegistrationResponse = {
   user: AuthUser;
 };
 
+export type ResendRegistrationData = {
+  pendingRegistrationId: number;
+};
+
+export type ResendRegistrationResponse = {
+  message: string;
+};
+
+export type ResetPasswordData = {
+  token: string;
+  password: string;
+};
+
+export type ResetPasswordResponse = {
+  message: string;
+};
+
+export type ForgotPasswordData = {
+  email: string;
+};
+
+export type ForgotPasswordResponse = {
+  message: string;
+};
+
 export async function startRegistration(data: RegisterData) {
   const response = await api.post<StartRegistrationResponse>('/users/register', data);
 
@@ -54,6 +79,42 @@ export async function startRegistration(data: RegisterData) {
 
 export async function verifyRegistration(data: VerifyRegistrationData,) {
   const response = await api.post<VerifyRegistrationResponse>('/users/register/verify', data,);
+
+  return response.data;
+}
+
+export async function resendRegistrationCode(
+  data: ResendRegistrationData,
+) {
+  const response =
+    await api.post<ResendRegistrationResponse>(
+      '/users/register/resend',
+      data,
+    );
+
+  return response.data;
+}
+
+export async function resetPassword(
+  data: ResetPasswordData,
+) {
+  const response =
+    await api.post<ResetPasswordResponse>(
+      '/users/reset-password',
+      data,
+    );
+
+  return response.data;
+}
+
+export async function requestPasswordReset(
+  data: ForgotPasswordData,
+) {
+  const response =
+    await api.post<ForgotPasswordResponse>(
+      '/users/forgot-password',
+      data,
+    );
 
   return response.data;
 }

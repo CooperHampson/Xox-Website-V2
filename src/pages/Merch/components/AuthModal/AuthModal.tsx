@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import ForgotPasswordForm from '../../Account/ForgotPasswordForm';
 
 import './AuthModal.css';
 
@@ -15,6 +16,7 @@ export function AuthModal({
   const [isLogin, setIsLogin] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const [registerSuccessful, setRegisterSuccessful] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   function handleLoginSuccess() {
     setLoginSuccessful(true);
@@ -52,9 +54,19 @@ export function AuthModal({
           <div className="auth-register-success">
             <p>Created account successfully</p>
           </div>
+        ) : isForgotPassword ? (
+          <ForgotPasswordForm
+            onLoginClick={() => {
+              setIsForgotPassword(false);
+              setIsLogin(true);
+            }}
+          />
         ) : isLogin ? (
           <LoginForm
             onRegisterClick={() => setIsLogin(false)}
+            onForgotPasswordClick={() =>
+              setIsForgotPassword(true)
+            }
             onLoginSuccess={handleLoginSuccess}
           />
         ) : (
