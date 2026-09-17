@@ -23,8 +23,13 @@ export type LoginResponse = {
   user: AuthUser;
 };
 
+export type RegisterResponse = {
+  accessToken: string;
+  user: AuthUser;
+};
+
 export async function registerUser(data: RegisterData) {
-  const response = await api.post<AuthUser>('/users', data);
+  const response = await api.post<RegisterResponse>('/users', data);
 
   return response.data;
 }

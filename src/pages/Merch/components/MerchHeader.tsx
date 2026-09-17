@@ -135,7 +135,7 @@ export function MerchHeader() {
             <p className="MH-RS-OL-text">Orders</p>
           </Link>
 
-          <Link to="/store/cart" className="MH-RS-cart-link">
+          <Link to="store/cart" className="MH-RS-cart-link">
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T.png`} className="MH-RS-CL-img" />
           </Link>
 

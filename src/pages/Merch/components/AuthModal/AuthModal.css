@@ -112,3 +112,47 @@
 
   cursor: pointer;
 }
+
+.auth-login-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.auth-login-success p {
+  margin: 0;
+  color: green;
+
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Delius", cursive;
+}
+
+.auth-register-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.auth-register-success p {
+  margin: 0;
+  color: green;
+
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Delius", cursive;
+}
+
+.auth-error {
+  margin: 0 0 1rem;
+  color: #d00000;
+  font-family: "Delius", cursive;
+  font-weight: 600;
+}
+
+.auth-modal form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

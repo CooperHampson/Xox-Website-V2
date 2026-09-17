@@ -1,39 +1,82 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 import { registerUser } from '../../../../api/authApi';
+import { useAuth } from '../../../../auth/AuthContext';
 
 type RegisterFormProps = {
   onLoginClick: () => void;
+  onRegisterSuccess: () => void;
 };
 
 export default function RegisterForm({
   onLoginClick,
+  onRegisterSuccess,
 }: RegisterFormProps) {
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
+    setErrorMessage('');
+    setIsLoading(true);
     try {
-      const user = await registerUser({
+      const result = await registerUser({
         username,
         email,
         password,
       });
 
-      console.log(user);
+      login(result.user, result.accessToken,);
+
+      onRegisterSuccess();
     } catch (error) {
       console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        if (!error.response) {
+          setErrorMessage(
+            'Unable to connect to the server.',
+          );
+        } else if (error.response.status === 409) {
+          setErrorMessage(
+            'An account with this username or email already exists.',
+          );
+        } else {
+          setErrorMessage(
+            'Something went wrong. Please try again.',
+          );
+        }
+      } else {
+        setErrorMessage(
+          'Something went wrong. Please try again.',
+        );
+      }
+
+      setUsername('');
+      setEmail('');
+      setPassword('');
+
+      setIsLoading(false);
     }
   }
 
   return (
     <div>
       <h3>Create Account</h3>
+
+      {errorMessage && (
+        <p className="auth-error">
+          {errorMessage}
+        </p>
+      )}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="register-username">
@@ -78,8 +121,8 @@ export default function RegisterForm({
           }
         />
 
-        <button type="submit">
-          Create Account
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Creating account...' : 'Create Account'}
         </button>
       </form>
 

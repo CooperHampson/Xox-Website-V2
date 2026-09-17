@@ -10,6 +10,7 @@ import { DailyLifePage } from './pages/Merch/CategoryPages/DailyLifePage';
 import { GamingPeripheralsPage } from './pages/Merch/CategoryPages/GamingPeripheralsPage';
 import { ProductPage } from './pages/Merch/components/ProductPage';
 import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
+import { AccountPage } from './pages/Merch/Account/AccountPage';
 import './App.css'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="store/gaming-peripherals" element={<GamingPeripheralsPage />} />
         <Route path="store/product/:productId" element={<ProductPage />} />
         <Route path="store/search" element={<SearchResultsPage />} />
+        <Route path="store/account" element={<AccountPage />} />
       </Routes>
 
     </>
