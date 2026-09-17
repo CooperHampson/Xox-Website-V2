@@ -79,19 +79,29 @@ export default function RegisterForm({
       )}
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="register-username">
-          Username
-        </label>
+        <div className="register-input-group">
+          <label htmlFor="register-username">
+            Username
+          </label>
 
-        <input
-          id="register-username"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(event) =>
-            setUsername(event.target.value)
-          }
-        />
+          <input
+            id="register-username"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(event) =>
+              setUsername(event.target.value)
+            }
+          />
+
+          <div className="register-input-rules">
+            <p>Username requirements</p>
+            <ul>
+              <li>3-15 characters</li>
+              <li>Must be unique</li>
+            </ul>
+          </div>
+        </div>
 
         <label htmlFor="register-email">
           Email
@@ -107,19 +117,28 @@ export default function RegisterForm({
           }
         />
 
-        <label htmlFor="register-password">
-          Password
-        </label>
+        <div className="register-input-group">
+          <label htmlFor="register-password">
+            Password
+          </label>
 
-        <input
-          id="register-password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) =>
-            setPassword(event.target.value)
-          }
-        />
+          <input
+            id="register-password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) =>
+              setPassword(event.target.value)
+            }
+          />
+
+          <div className="register-input-rules">
+            <p>Password requirements</p>
+            <ul>
+              <li>8-18 Characters</li>
+            </ul>
+          </div>
+        </div>
 
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Creating account...' : 'Create Account'}

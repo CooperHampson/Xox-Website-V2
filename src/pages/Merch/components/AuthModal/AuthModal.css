@@ -156,3 +156,34 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.register-input-group {
+  position: relative;
+}
+
+.register-input-rules {
+  display: none;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  background-color: white;
+  font-family: "Delius", cursive;
+  font-size: 14px;
+}
+
+.register-input-rules p {
+  margin: 0 0 4px;
+  font-family: "Delius", cursive;
+  font-weight: 600;
+}
+
+.register-input-rules ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.register-input-group:hover .register-input-rules,
+.register-input-group:focus-within .register-input-rules {
+  display: block;
+}

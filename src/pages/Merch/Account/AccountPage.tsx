@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,12 @@ export function AccountPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setUsername(user?.username ?? '');
+    setEmail(user?.email ?? '');
+    setPassword('');
+  }, [user]);
 
   function getNextUpdateDate(updatedAt: string | null,) {
     if (!updatedAt) {
