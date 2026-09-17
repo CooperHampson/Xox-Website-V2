@@ -11,6 +11,7 @@
 }
 
 .account-page-title {
+  
   font-family: "Delius", cursive;
   font-size: 36px;
   font-weight: 400;
@@ -23,7 +24,14 @@
 
 .account-info-container {
   display: grid;
-  grid-template-rows: 30px 1fr;
+  grid-template-rows: 32px 1fr;
+  row-gap: 16px;
+  width: 100%;
+}
+
+.account-info-form {
+  display: grid;
+  grid-template-rows: auto;
   row-gap: 16px;
   width: 100%;
 }
@@ -38,13 +46,61 @@
   margin: 0;
 }
 
+.account-info-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
 .account-info-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   font-family: "Delius", cursive;
   font-size: 22px;
   color: black;
 
   text-align: start;
-  margin: 0;
+  margin: 0 0 8px 0;
+}
+
+.account-info-req-title {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+
+  margin: 0 0 0 16px;
+}
+
+.account-info-req-title span {
+  border-bottom: 1px solid lightgray;
+}
+
+.account-info-req-text {
+  font-family: "Delius", cursive;
+  font-size: 14px;
+
+  margin: 0 0 0 16px;
+}
+
+.save-changes-button {
+  width: 120px;
+  height: 30px;
+
+  background-color: white;
+
+  border: 1px solid gray;
+  border-radius: 8px;
+
+  font-family: "Delius", cursive;
+  font-size: 16px;
+
+  transition: background-color 0.2s ease;
+}
+
+.save-changes-button:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
 .logout-button {
@@ -66,4 +122,42 @@
 .logout-button:hover {
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
+}
+
+.account-info-input {
+  width: 100%;
+  max-width: 400px;
+
+  height: 32px;
+  padding: 4px;
+
+  border: 1px solid gray;
+  border-radius: 8px;
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  color: black;
+}
+
+.account-success {
+  margin: 0 0 1rem;
+  color: #16803c;
+  font-family: "Delius", cursive;
+  font-weight: 600;
+}
+
+.account-info-cooldown {
+  margin: 0 0 4px 0;
+  font-family: "Delius", cursive;
+  font-size: 14px;
+  color: gray;
+}
+
+.account-info-cooldown-locked {
+  color: #b00020;
+}
+
+.account-info-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

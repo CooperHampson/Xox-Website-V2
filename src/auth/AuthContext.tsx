@@ -18,6 +18,7 @@ type AuthContextType = {
     user: AuthUser,
     accessToken: string,
   ) => void;
+  updateUser: (user: AuthUser) => void;
   logout: () => void;
 };
 
@@ -43,39 +44,58 @@ export function AuthProvider({
   >(null);
 
   useEffect(() => {
-  const storedAuth =
-    localStorage.getItem(AUTH_STORAGE_KEY);
-
-  if (!storedAuth) {
-    return;
-  }
-
-  const parsedAuth = JSON.parse(storedAuth);
-
-  setUser(parsedAuth.user);
-  setAccessToken(parsedAuth.accessToken);
-
-  getCurrentUser()
-    .then((currentUser) => {
-      setUser(currentUser);
-
-      localStorage.setItem(
-        AUTH_STORAGE_KEY,
-        JSON.stringify({
-          user: currentUser,
-          accessToken: parsedAuth.accessToken,
-        }),
-      );
-    })
-    .catch(() => {
+    function handleAuthExpired() {
       setUser(null);
       setAccessToken(null);
+    }
 
-      localStorage.removeItem(
-        AUTH_STORAGE_KEY,
+    window.addEventListener(
+      'xox-auth-expired',
+      handleAuthExpired,
+    );
+
+    return () => {
+      window.removeEventListener(
+        'xox-auth-expired',
+        handleAuthExpired,
       );
-    });
-}, []);
+    };
+  }, []);
+
+  useEffect(() => {
+    const storedAuth =
+      localStorage.getItem(AUTH_STORAGE_KEY);
+
+    if (!storedAuth) {
+      return;
+    }
+
+    const parsedAuth = JSON.parse(storedAuth);
+
+    setUser(parsedAuth.user);
+    setAccessToken(parsedAuth.accessToken);
+
+    getCurrentUser()
+      .then((currentUser) => {
+        setUser(currentUser);
+
+        localStorage.setItem(
+          AUTH_STORAGE_KEY,
+          JSON.stringify({
+            user: currentUser,
+            accessToken: parsedAuth.accessToken,
+          }),
+        );
+      })
+      .catch(() => {
+        setUser(null);
+        setAccessToken(null);
+
+        localStorage.removeItem(
+          AUTH_STORAGE_KEY,
+        );
+      });
+  }, []);
 
   function login(
     user: AuthUser,
@@ -93,6 +113,24 @@ export function AuthProvider({
     );
   }
 
+  function updateUser(updatedUser: AuthUser) {
+    setUser(updatedUser);
+
+    const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
+
+    if (!storedAuth) {
+      return;
+    }
+
+    const parsedAuth = JSON.parse(storedAuth);
+
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({
+      user: updatedUser,
+      accessToken: parsedAuth.accessToken,
+    }),
+    );
+  }
+
   function logout() {
     setUser(null);
     setAccessToken(null);
@@ -107,6 +145,7 @@ export function AuthProvider({
         accessToken,
         isAuthenticated: user !== null,
         login,
+        updateUser,
         logout,
       }}
     >

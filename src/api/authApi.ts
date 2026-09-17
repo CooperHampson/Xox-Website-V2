@@ -11,11 +11,20 @@ export type LoginData = {
   password: string;
 };
 
+export type UpdateUserData = {
+  username?: string;
+  email?: string;
+  password?: string;
+};
+
 export type AuthUser = {
   id: number;
   username: string;
   email: string;
   createdAt: string;
+  usernameUpdatedAt: string | null;
+  emailUpdatedAt: string | null;
+  passwordUpdatedAt: string | null;
 };
 
 export type LoginResponse = {
@@ -45,6 +54,12 @@ export async function loginUser(data: LoginData) {
 
 export async function getCurrentUser() {
   const response = await api.get<AuthUser>('/users/me',);
+
+  return response.data;
+}
+
+export async function updateCurrentUser(data: UpdateUserData,) {
+  const response = await api.patch<AuthUser>('/users/me', data,);
 
   return response.data;
 }
