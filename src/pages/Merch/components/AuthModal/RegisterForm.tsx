@@ -227,6 +227,7 @@ export default function RegisterForm({
                 <p>Username requirements</p>
                 <ul>
                   <li>3-15 characters</li>
+                  <li>No spaces</li>
                   <li>Must be unique</li>
                 </ul>
               </div>
@@ -265,6 +266,9 @@ export default function RegisterForm({
                 <p>Password requirements</p>
                 <ul>
                   <li>8-18 Characters</li>
+                  <li>No Spaces</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
                 </ul>
               </div>
             </div>

@@ -10,7 +10,7 @@ import './MerchHeader.css';
 
 export function MerchHeader() {
   const { currentCurrency, setCurrentCurrency } = useCurrency();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ export function MerchHeader() {
 
             setIsAuthOpen(true);
           }}>
-            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`} className="MH-RS-ACC-img" />
+            <img src={isAuthenticated && user?.image ? user.image : `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`} className="MH-RS-ACC-img" />
           </button>
         </div>
       </div>

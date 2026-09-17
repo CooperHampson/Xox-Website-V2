@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { MerchHeader } from '../components/MerchHeader';
 import { useAuth } from '../../../auth/AuthContext';
 import { updateCurrentUser } from '../../../api/authApi';
+import { updateProfileImage } from '../../../api/authApi';
 
 import './AccountPage.css';
 
@@ -17,6 +18,40 @@ export function AccountPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+
+  const handleProfileImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleProfileImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setIsUploadingImage(true);
+
+    try {
+      const updatedUser =
+        await updateProfileImage(file);
+
+      updateUser(updatedUser);
+    } catch (error) {
+      console.error(
+        'Failed to update profile image:',
+        error,
+      );
+    } finally {
+      setIsUploadingImage(false);
+      event.target.value = '';
+    }
+  };
 
   useEffect(() => {
     setUsername(user?.username ?? '');
@@ -168,7 +203,7 @@ export function AccountPage() {
               <p className="account-info-req-title">
                 <span>Username Requirements</span>
               </p>
-              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters</p>
+              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters <br /> &bull; No Spaces <br /> &bull; Must be unique</p>
             </div>
 
             <div className="account-info-field">
@@ -195,7 +230,7 @@ export function AccountPage() {
               <p className="account-info-req-title">
                 <span>Password Requirements</span>
               </p>
-              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters</p>
+              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters <br /> &bull; No Spaces <br /> &bull; At least one number <br /> &bull; At lease one special character</p>
             </div>
 
 
@@ -214,6 +249,34 @@ export function AccountPage() {
             <button type="submit" disabled={isLoading} className="save-changes-button">
               {isLoading ? 'Saving...' : 'Save Changes'}
             </button>
+
+            <img
+              src={
+                user?.image ??
+                `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`
+              }
+              alt="Profile"
+              className="account-profile-image-preview"
+            />
+
+            <button
+              type="button"
+              onClick={handleProfileImageClick}
+              disabled={isUploadingImage}
+              className="change-profile-pic-button"
+            >
+              {isUploadingImage
+                ? 'Uploading...'
+                : 'Change profile image'}
+            </button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={handleProfileImageChange}
+              hidden
+            />
           </form>
 
           <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>

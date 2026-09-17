@@ -21,6 +21,7 @@ export type AuthUser = {
   id: number;
   username: string;
   email: string;
+  image: string | null;
   createdAt: string;
   usernameUpdatedAt: string | null;
   emailUpdatedAt: string | null;
@@ -136,6 +137,21 @@ export async function getCurrentUser() {
 
 export async function updateCurrentUser(data: UpdateUserData,) {
   const response = await api.patch<AuthUser>('/users/me', data,);
+
+  return response.data;
+}
+
+export async function updateProfileImage(
+  file: File,
+) {
+  const formData = new FormData();
+
+  formData.append('image', file);
+
+  const response = await api.patch(
+    '/users/me/image',
+    formData,
+  );
 
   return response.data;
 }
