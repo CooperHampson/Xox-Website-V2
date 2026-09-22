@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { MerchHeader } from '../components/MerchHeader';
 import { useAuth } from '../../../auth/AuthContext';
 import { updateCurrentUser } from '../../../api/authApi';
-import { updateProfileImage } from '../../../api/authApi';
+import { updateProfileImage, removeProfileImage } from '../../../api/authApi';
 
 import './AccountPage.css';
 
@@ -21,6 +21,7 @@ export function AccountPage() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [profileImageError, setProfileImageError] = useState('');
 
   const handleProfileImageClick = () => {
     fileInputRef.current?.click();
@@ -35,6 +36,32 @@ export function AccountPage() {
       return;
     }
 
+    const ALLOWED_TYPES = [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+    ];
+
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      setProfileImageError(
+        'Only JPEG, PNG, and WebP images are allowed.',
+      );
+      event.target.value = '';
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      setProfileImageError(
+        'Profile images must be 5MB or smaller.',
+      );
+      event.target.value = '';
+      return;
+    }
+
+    setProfileImageError('');
+
     setIsUploadingImage(true);
 
     try {
@@ -47,9 +74,35 @@ export function AccountPage() {
         'Failed to update profile image:',
         error,
       );
+
+      setProfileImageError(
+        'Failed to update profile image. Please try again.',
+      );
     } finally {
       setIsUploadingImage(false);
       event.target.value = '';
+    }
+  };
+
+  const handleRemoveProfileImage = async () => {
+    setIsUploadingImage(true);
+
+    try {
+      const updatedUser =
+        await removeProfileImage();
+
+      updateUser(updatedUser);
+    } catch (error) {
+      console.error(
+        'Failed to remove profile image:',
+        error,
+      );
+
+      setProfileImageError(
+        'Failed to remove profile image. Please try again.',
+      );
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
@@ -270,6 +323,17 @@ export function AccountPage() {
                 : 'Change profile image'}
             </button>
 
+            <button
+              type="button"
+              onClick={handleRemoveProfileImage}
+              disabled={
+                isUploadingImage || !user?.image
+              }
+              className="remove-profile-pic-button"
+            >
+              Remove profile image
+            </button>
+
             <input
               ref={fileInputRef}
               type="file"
@@ -277,6 +341,12 @@ export function AccountPage() {
               onChange={handleProfileImageChange}
               hidden
             />
+
+            {profileImageError && (
+              <p className="account-profile-image-error">
+                {profileImageError}
+              </p>
+            )}
           </form>
 
           <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>

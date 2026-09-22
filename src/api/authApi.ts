@@ -155,3 +155,11 @@ export async function updateProfileImage(
 
   return response.data;
 }
+
+export async function removeProfileImage() {
+  const response = await api.delete(
+    '/users/me/image',
+  );
+
+  return response.data;
+}

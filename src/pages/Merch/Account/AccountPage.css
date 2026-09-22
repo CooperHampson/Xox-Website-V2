@@ -195,3 +195,29 @@
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
+
+.remove-profile-pic-button {
+  width: 200px;
+  height: 30px;
+
+  background-color: white;
+
+  border: 1px solid gray;
+  border-radius: 8px;
+
+  font-family: "Delius", cursive;
+  font-size: 16px;
+
+  transition: background-color 0.2s ease;
+}
+
+.remove-profile-pic-button:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.account-profile-image-error {
+  margin: 0;
+  font-family: "Delius", cursive;
+  font-size: 14px;
+}
