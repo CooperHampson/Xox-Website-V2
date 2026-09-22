@@ -233,6 +233,8 @@ export function AccountPage() {
 
   return (
     <>
+      <title>Xoxxly Merch Store | Account</title>
+
       <MerchHeader />
 
       <div className="account-page-container">
