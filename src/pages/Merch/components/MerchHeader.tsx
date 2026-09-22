@@ -43,7 +43,7 @@ export function MerchHeader() {
       <div className="Merch-Header">
         <div className="MH-left-section">
           <Link to="/" className="MH-Main-Site">
-            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/LogoBlack.png`} className="MH-MS-img" />
+            <img src={`${import.meta.env.BASE_URL}Images/Header/LogoWhite.png`} className="MH-MS-img" />
           </Link>
 
           <Link to="/" className="MH-Store-Site">
@@ -136,7 +136,7 @@ export function MerchHeader() {
           </Link>
 
           <Link to="/store/cart" className="MH-RS-cart-link">
-            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T.png`} className="MH-RS-CL-img" />
+            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T-white.png`} className="MH-RS-CL-img" />
           </Link>
 
           <button type="button" className="MH-RS-account-link" onClick={() => {
@@ -147,7 +147,7 @@ export function MerchHeader() {
 
             setIsAuthOpen(true);
           }}>
-            <img src={isAuthenticated && user?.image ? user.image : `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`} className="MH-RS-ACC-img" />
+            <img src={isAuthenticated && user?.image ? user.image : `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account-white-transparent.png`} className="MH-RS-ACC-img" />
           </button>
         </div>
       </div>

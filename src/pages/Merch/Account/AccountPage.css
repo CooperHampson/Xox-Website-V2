@@ -1,3 +1,15 @@
+.background-container {
+  min-height: 100vh;
+  width: 100%;
+
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .account-page-container {
   display: grid;
   grid-template-rows: auto;
@@ -6,8 +18,7 @@
   width: 100%;
   align-items: center;
 
-  padding: 16px;
-  margin-top: 60px;
+  padding: 84px 16px 16px 16px;
 }
 
 .account-page-title {
@@ -15,7 +26,7 @@
   font-family: "Delius", cursive;
   font-size: 36px;
   font-weight: 400;
-  color: black;
+  color: white;
 
   text-align: center;
 
@@ -29,6 +40,13 @@
   width: 100%;
 }
 
+.account-info-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  width: 100%;
+}
+
 .account-info-form {
   display: grid;
   grid-template-rows: auto;
@@ -36,10 +54,33 @@
   width: 100%;
 }
 
+.account-info-form-img {
+  display: grid;
+  grid-template-rows: 120px 1fr;
+  row-gap: 16px;
+  width: 100%;
+}
+
+.account-info-form-img img {
+  justify-self: center;
+  align-self: center;
+}
+
+.img-button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.img-button-container button {
+  justify-self: center;
+}
+
 .account-info-title {
   font-family: "Delius", cursive;
   font-size: 28px;
-  color: black;
+  color: white;
 
   text-align: start;
   border-bottom: 1px solid gray;
@@ -59,7 +100,7 @@
 
   font-family: "Delius", cursive;
   font-size: 22px;
-  color: black;
+  color: white;
 
   text-align: start;
   margin: 0 0 8px 0;
@@ -68,6 +109,7 @@
 .account-info-req-title {
   font-family: "Delius", cursive;
   font-size: 16px;
+  color: white;
 
   margin: 0 0 0 16px;
 }
@@ -79,6 +121,7 @@
 .account-info-req-text {
   font-family: "Delius", cursive;
   font-size: 14px;
+  color: white;
 
   margin: 0 0 0 16px;
 }
@@ -87,13 +130,14 @@
   width: 120px;
   height: 30px;
 
-  background-color: white;
+  background-color: transparent;
 
   border: 1px solid gray;
   border-radius: 8px;
 
   font-family: "Delius", cursive;
   font-size: 16px;
+  color: white;
 
   transition: background-color 0.2s ease;
 }
@@ -107,14 +151,15 @@
   width: 150px;
   height: 40px;
 
-  background-color: white;
+  background-color: transparent;
 
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 12px;
 
   font-family: "Delius", cursive;
   font-size: 20px;
   font-weight: 600;
+  color: white;
 
   transition: background-color 0.2s ease;
 }
@@ -136,7 +181,8 @@
 
   font-family: "Delius", cursive;
   font-size: 18px;
-  color: black;
+  color: white;
+  background-color: transparent;
 }
 
 .account-success {
@@ -150,7 +196,7 @@
   margin: 0 0 4px 0;
   font-family: "Delius", cursive;
   font-size: 14px;
-  color: gray;
+  color: rgb(206, 206, 206);
 }
 
 .account-info-cooldown-locked {
@@ -180,13 +226,14 @@
   width: 200px;
   height: 30px;
 
-  background-color: white;
+  background-color: transparent;
 
   border: 1px solid gray;
   border-radius: 8px;
 
   font-family: "Delius", cursive;
   font-size: 16px;
+  color: white;
 
   transition: background-color 0.2s ease;
 }
@@ -200,13 +247,14 @@
   width: 200px;
   height: 30px;
 
-  background-color: white;
+  background-color: transparent;
 
   border: 1px solid gray;
   border-radius: 8px;
 
   font-family: "Delius", cursive;
   font-size: 16px;
+  color: white;
 
   transition: background-color 0.2s ease;
 }
@@ -220,4 +268,5 @@
   margin: 0;
   font-family: "Delius", cursive;
   font-size: 14px;
+  color: #b00020;
 }

@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
 
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 6px;
 
   width: 168px;
@@ -43,6 +43,7 @@
 .merch-item-name {
   font-family: "Delius", cursive;
   font-size: 18px;
+  color: white;
 
   margin: 10px 10px 5px 10px;
 }
@@ -50,7 +51,7 @@
 .merch-item-price {
   font-family: "Delius", cursive;
   font-size: 16px;
-  color: rgb(25, 0, 94);
+  color: rgb(198, 192, 214);
 
   margin: 0 10px 5px 10px;
 }

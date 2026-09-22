@@ -14,15 +14,29 @@
   border: 1px solid gray;
   border-radius: 8px;
 
-  background-color: white;
+  background-color: transparent;
 
   box-sizing: border-box;
 }
 
+.merch-filter::-webkit-scrollbar {
+  width: 8px;
+}
+
+.merch-filter::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+.merch-filter::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.596);
+  border-radius: 4px;
+}
+
 .merch-filter-title {
   font-family: "Delius", cursive;
-
   font-size: 24px;
+  color: white;
 
   margin: 0 0 20px 0;
 }
@@ -36,13 +50,13 @@
   padding-bottom: 16px;
   margin-bottom: 16px;
 
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid white;
 }
 
 .merch-filter-section-title {
   font-family: "Delius", cursive;
-
   font-size: 18px;
+  color: white;
 
   margin: 0 0 4px 0;
 }
@@ -54,6 +68,7 @@
   gap: 8px;
 
   font-family: "Delius", cursive;
+  color: white;
 
   text-transform: capitalize;
 
@@ -65,39 +80,53 @@
 }
 
 .merch-price-inputs {
-display: flex;
+  display: flex;
 
-flex-direction: column;
+  flex-direction: column;
 
-gap: 8px;
+  gap: 8px;
 }
 
 .merch-price-inputs input {
-width: 100%;
+  width: 100%;
 
-padding: 8px;
+  padding: 8px;
 
-box-sizing: border-box;
+  box-sizing: border-box;
 
-border: 1px solid gray;
+  border: 1px solid gray;
+  background-color: transparent;
 
-border-radius: 4px;
+  border-radius: 4px;
 
-font-family: "Delius", cursive;
+  font-family: "Delius", cursive;
+
+  -moz-appearance: textfield;
+}
+
+.merch-price-inputs input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.merch-price-inputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .clear-filters-button {
-width: 100%;
+  width: 100%;
 
-padding: 10px;
+  padding: 10px;
 
-border: 1px solid black;
+  border: 1px solid white;
 
-border-radius: 6px;
+  border-radius: 6px;
 
-background: transparent;
+  background: transparent;
 
-font-family: "Delius", cursive;
+  font-family: "Delius", cursive;
+  color: white;
 
-cursor: pointer;
+  cursor: pointer;
 }

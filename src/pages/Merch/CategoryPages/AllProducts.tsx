@@ -18,18 +18,26 @@ export function AllProducts() {
 
   const filteredItems = filterMerch(MerchData, filters, currentCurrency.code);
 
+  const bgImageUrl = {
+    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
+  };
+
   return (
     <>
       <title>Xoxxly | Merch All Products</title>
 
-      <MerchHeader />
-      
-      <div className="category-container">
-        <p className="category-title">All Products</p>
+      <div className="background-container" style={bgImageUrl}>
 
-        <MerchFilter items={MerchData} filters={filters} onFiltersChange={setFilters} showCategories={true} />
-        
-        <StoreLayout items={filteredItems}/>
+        <MerchHeader />
+
+        <div className="category-container">
+          <p className="category-title">All Products</p>
+
+          <MerchFilter items={MerchData} filters={filters} onFiltersChange={setFilters} showCategories={true} />
+
+          <StoreLayout items={filteredItems} />
+        </div>
+
       </div>
     </>
   );

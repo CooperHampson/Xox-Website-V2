@@ -231,128 +231,144 @@ export function AccountPage() {
     }
   }
 
+  const bgImageUrl = {
+    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
+  };
+
   return (
     <>
       <title>Xoxxly Merch Store | Account</title>
 
-      <MerchHeader />
+      <div className="background-container" style={bgImageUrl}>
 
-      <div className="account-page-container">
-        <h1 className="account-page-title">Account Page</h1>
+        <MerchHeader />
 
-        <div className="account-info-container">
-          <p className="account-info-title">Account</p>
+        <div className="account-page-container">
+          <h1 className="account-page-title">Account Page</h1>
 
-          <form className="account-info-form" onSubmit={handleSubmit}>
+          <div className="account-info-container">
+            <p className="account-info-title">Account</p>
 
-            <div className="account-info-field">
-              <label className="account-info-text">
-                <span>Username:</span>
-                <input className="account-info-input" type="text" value={username} onChange={(event) => setUsername(event.target.value)} minLength={3} maxLength={15} disabled={usernameOnCooldown} required />
-              </label>
+            <div className="account-info-details-container">
 
-              <p className={usernameOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
-                {formatCooldown(user?.usernameUpdatedAt ?? null)}
-              </p>
+              <form className="account-info-form" onSubmit={handleSubmit}>
 
-              <p className="account-info-req-title">
-                <span>Username Requirements</span>
-              </p>
-              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters <br /> &bull; No Spaces <br /> &bull; Must be unique</p>
+                <div className="account-info-field">
+                  <label className="account-info-text">
+                    <span>Username:</span>
+                    <input className="account-info-input" type="text" value={username} onChange={(event) => setUsername(event.target.value)} minLength={3} maxLength={15} disabled={usernameOnCooldown} required />
+                  </label>
+
+                  <p className={usernameOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
+                    {formatCooldown(user?.usernameUpdatedAt ?? null)}
+                  </p>
+
+                  <p className="account-info-req-title">
+                    <span>Username Requirements</span>
+                  </p>
+                  <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters <br /> &bull; No Spaces <br /> &bull; Must be unique</p>
+                </div>
+
+                <div className="account-info-field">
+                  <label className="account-info-text">
+                    <span>Email:</span>
+                    <input className="account-info-input" type="text" value={email} onChange={(event) => setEmail(event.target.value)} disabled={emailOnCooldown} required />
+                  </label>
+
+                  <p className={emailOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
+                    {formatCooldown(user?.emailUpdatedAt ?? null)}
+                  </p>
+                </div>
+
+                <div className="account-info-field">
+                  <label className="account-info-text">
+                    <span>Password:</span>
+                    <input className="account-info-input" type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} maxLength={18} disabled={passwordOnCooldown} />
+                  </label>
+
+                  <p className={passwordOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
+                    {formatCooldown(user?.passwordUpdatedAt ?? null)}
+                  </p>
+
+                  <p className="account-info-req-title">
+                    <span>Password Requirements</span>
+                  </p>
+                  <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters <br /> &bull; No Spaces <br /> &bull; At least one number <br /> &bull; At lease one special character</p>
+                </div>
+
+
+                {errorMessage && (
+                  <p className="auth-error">
+                    {errorMessage}
+                  </p>
+                )}
+
+                {successMessage && (
+                  <p className="account-success">
+                    {successMessage}
+                  </p>
+                )}
+
+                <button type="submit" disabled={isLoading} className="save-changes-button">
+                  {isLoading ? 'Saving...' : 'Save Changes'}
+                </button>
+              </form>
+
+              <form className="account-info-form-img" onSubmit={handleSubmit}>
+                <img
+                  src={
+                    user?.image ??
+                    `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`
+                  }
+                  alt="Profile"
+                  className="account-profile-image-preview"
+                />
+
+                <div className="img-button-container">
+                  <button
+                    type="button"
+                    onClick={handleProfileImageClick}
+                    disabled={isUploadingImage}
+                    className="change-profile-pic-button"
+                  >
+                    {isUploadingImage
+                      ? 'Uploading...'
+                      : 'Change profile image'}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleRemoveProfileImage}
+                    disabled={
+                      isUploadingImage || !user?.image
+                    }
+                    className="remove-profile-pic-button"
+                  >
+                    Remove profile image
+                  </button>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleProfileImageChange}
+                    hidden
+                  />
+                </div>
+
+                {profileImageError && (
+                  <p className="account-profile-image-error">
+                    {profileImageError}
+                  </p>
+                )}
+              </form>
+
             </div>
 
-            <div className="account-info-field">
-              <label className="account-info-text">
-                <span>Email:</span>
-                <input className="account-info-input" type="text" value={email} onChange={(event) => setEmail(event.target.value)} disabled={emailOnCooldown} required />
-              </label>
-
-              <p className={emailOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
-                {formatCooldown(user?.emailUpdatedAt ?? null)}
-              </p>
-            </div>
-
-            <div className="account-info-field">
-              <label className="account-info-text">
-                <span>Password:</span>
-                <input className="account-info-input" type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} maxLength={18} disabled={passwordOnCooldown} />
-              </label>
-
-              <p className={passwordOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
-                {formatCooldown(user?.passwordUpdatedAt ?? null)}
-              </p>
-
-              <p className="account-info-req-title">
-                <span>Password Requirements</span>
-              </p>
-              <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters <br /> &bull; No Spaces <br /> &bull; At least one number <br /> &bull; At lease one special character</p>
-            </div>
-
-
-            {errorMessage && (
-              <p className="auth-error">
-                {errorMessage}
-              </p>
-            )}
-
-            {successMessage && (
-              <p className="account-success">
-                {successMessage}
-              </p>
-            )}
-
-            <button type="submit" disabled={isLoading} className="save-changes-button">
-              {isLoading ? 'Saving...' : 'Save Changes'}
-            </button>
-
-            <img
-              src={
-                user?.image ??
-                `${import.meta.env.BASE_URL}Images/MerchHeader/MH-Account.png`
-              }
-              alt="Profile"
-              className="account-profile-image-preview"
-            />
-
-            <button
-              type="button"
-              onClick={handleProfileImageClick}
-              disabled={isUploadingImage}
-              className="change-profile-pic-button"
-            >
-              {isUploadingImage
-                ? 'Uploading...'
-                : 'Change profile image'}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleRemoveProfileImage}
-              disabled={
-                isUploadingImage || !user?.image
-              }
-              className="remove-profile-pic-button"
-            >
-              Remove profile image
-            </button>
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              onChange={handleProfileImageChange}
-              hidden
-            />
-
-            {profileImageError && (
-              <p className="account-profile-image-error">
-                {profileImageError}
-              </p>
-            )}
-          </form>
-
-          <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>
+            <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>
+          </div>
         </div>
+
       </div>
     </>
   );
