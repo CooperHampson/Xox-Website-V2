@@ -10,7 +10,7 @@
   background-attachment: fixed;
 }
 
-p, h1, h2 {
+p, h1, h2, span {
   font-family: "Delius", cursive;
   color: white;
 }

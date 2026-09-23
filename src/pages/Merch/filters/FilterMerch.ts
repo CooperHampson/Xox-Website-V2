@@ -5,7 +5,8 @@ import { convertPrice } from '../currency/CurrencyConverter';
 export function filterMerch(
   items: MerchItem[],
   filters: MerchFilters,
-  currencyCode: string
+  currencyCode: string,
+  exchangeRates: Record<string, number>,
 ): MerchItem[] {
 
   return items.filter((item) => {
@@ -20,7 +21,7 @@ export function filterMerch(
 
     // PRICE FILTER
 
-    const itemPrice = convertPrice(item.price, currencyCode);
+    const itemPrice = convertPrice(item.price, currencyCode, exchangeRates);
 
     const matchesMinPrice =
       filters.minPrice === null ||

@@ -14,7 +14,7 @@ import './CategoryPages.css';
 export function AllProducts() {
   const [filters, setFilters] = useState<MerchFilters>(defaultMerchFilters);
   const [merchItems, setMerchItems] = useState<MerchItem[]>([]);
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, exchangeRates } = useCurrency();
 
   useEffect(() => {
     async function loadMerch() {
@@ -30,7 +30,7 @@ export function AllProducts() {
     loadMerch();
   }, []);
 
-  const filteredItems = filterMerch(merchItems, filters, currentCurrency.code);
+  const filteredItems = filterMerch(merchItems, filters, currentCurrency.code, exchangeRates);
 
   const bgImageUrl = {
     backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`

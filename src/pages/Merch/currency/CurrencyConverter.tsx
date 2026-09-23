@@ -1,22 +1,13 @@
-export const exchangeRates: Record<string, number> = {
-  USD: 1,
-  JPY: 150,
-  AUD: 1.5,
-  EUR: 0.92,
-  GBP: 0.79,
-  CAD: 1.36,
-  NZD: 1.63,
-};
-
 export function convertPrice(
   priceInCents: string,
-  currencyCode: string
+  currencyCode: string,
+  exchangeRates: Record<string, number>,
 ) {
   const priceInUSD = Number(priceInCents) / 100;
 
-  const convertedPrice = priceInUSD * exchangeRates[currencyCode];
+  const exchangeRate = exchangeRates[currencyCode] ?? 1;
 
-  return convertedPrice;
+  return priceInUSD * exchangeRate;
 }
 
 export function formatPrice(

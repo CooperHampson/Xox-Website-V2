@@ -14,7 +14,7 @@ import './SearchResultsPage.css';
 
 export function SearchResultsPage() {
   const [searchParams] = useSearchParams();
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, exchangeRates } = useCurrency();
 
   const query = searchParams.get('q') ?? '';
 
@@ -58,6 +58,7 @@ export function SearchResultsPage() {
               const convertedPrice = convertPrice(
                 item.price,
                 currentCurrency.code,
+                exchangeRates
               );
 
               const formattedPrice = formatPrice(

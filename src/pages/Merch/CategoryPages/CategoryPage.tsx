@@ -32,7 +32,7 @@ export function CategoryPage({
 
   const [merchItems, setMerchItems] = useState<MerchItem[]>([]);
 
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, exchangeRates } = useCurrency();
 
   useEffect(() => {
     async function loadMerch() {
@@ -55,6 +55,7 @@ export function CategoryPage({
     categoryItems,
     filters,
     currentCurrency.code,
+    exchangeRates
   );
 
   useEffect(() => {

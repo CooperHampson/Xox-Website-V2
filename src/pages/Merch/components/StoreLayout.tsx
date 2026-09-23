@@ -15,7 +15,7 @@ interface StoreLayoutProps {
 }
 
 export function StoreLayout({ category, featured = false, items, layout = 'default' }: StoreLayoutProps) {
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, exchangeRates } = useCurrency();
 
   let displayedMerch = items;
 
@@ -32,7 +32,7 @@ export function StoreLayout({ category, featured = false, items, layout = 'defau
       <div className="merch-layout-container">
         <div className={`merch-row merch-row-${layout}`}>
           {displayedMerch.map((item) => {
-            const convertedPrice = convertPrice(item.price, currentCurrency.code);
+            const convertedPrice = convertPrice(item.price, currentCurrency.code, exchangeRates);
 
             const formattedPrice = formatPrice(convertedPrice, currentCurrency.code);
 

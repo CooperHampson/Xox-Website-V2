@@ -16,7 +16,7 @@ import "./ProductPage.css";
 export function ProductPage() {
   const { addItem } = useCart();
   const { productId } = useParams();
-  const { currentCurrency } = useCurrency();
+  const { currentCurrency, exchangeRates } = useCurrency();
 
   const [product, setProduct] = useState<MerchItem | null>(null);
   const [variants, setVariants] = useState<MerchProductVariant[]>([]);
@@ -76,6 +76,7 @@ export function ProductPage() {
   const convertedPrice = convertPrice(
     product.price,
     currentCurrency.code,
+    exchangeRates
   );
 
   const formattedPrice = formatPrice(
