@@ -1,0 +1,27 @@
+.background-container {
+  min-height: 100vh;
+  width: 100%;
+
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+p, h1, h2 {
+  font-family: "Delius", cursive;
+  color: white;
+}
+
+.cart-container {
+  display: grid;
+  row-gap: 16px;
+
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+  padding: 84px 48px 48px 48px;
+}

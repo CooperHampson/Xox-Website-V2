@@ -395,6 +395,8 @@
 .MH-RS-cart-link {
   text-decoration: none;
 
+  position: relative;
+
   display: grid;
   align-items: center;
   justify-content: center;
@@ -404,6 +406,31 @@
   height: 30px;
 
   margin-bottom: 4px;
+}
+
+.MH-RS-cart-count {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 0 4px;
+
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.4);
+  color: rgb(158, 128, 206);
+
+  font-family: "Delius", cursive;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .MH-RS-account-link {

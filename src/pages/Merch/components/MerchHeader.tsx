@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from './cart/CartContext';
 
 import { currencies, useCurrency, type Currency } from '../currency/CurrencyContext';
 
@@ -9,12 +10,14 @@ import { useAuth } from '../../../auth/AuthContext';
 import './MerchHeader.css';
 
 export function MerchHeader() {
+  const { cart } = useCart();
   const { currentCurrency, setCurrentCurrency } = useCurrency();
   const { isAuthenticated, user } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const cartItemCount = cart?.items.reduce((total, item) => total + item.quantity, 0) ?? 0;
 
   const handleCurrencyChange = (currency: Currency) => {
     setCurrentCurrency(currency);
@@ -137,6 +140,10 @@ export function MerchHeader() {
 
           <Link to="/store/cart" className="MH-RS-cart-link">
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T-white.png`} className="MH-RS-CL-img" />
+            
+            {cartItemCount > 0 && (
+              <span className="MH-RS-cart-count">{cartItemCount}</span>
+            )}
           </Link>
 
           <button type="button" className="MH-RS-account-link" onClick={() => {
