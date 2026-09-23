@@ -256,17 +256,21 @@ export function AccountPage() {
                 <div className="account-info-field">
                   <label className="account-info-text">
                     <span>Username:</span>
-                    <input className="account-info-input" type="text" value={username} onChange={(event) => setUsername(event.target.value)} minLength={3} maxLength={15} disabled={usernameOnCooldown} required />
+                    <div className="username-info-input">
+                      <input className="account-info-input" type="text" value={username} onChange={(event) => setUsername(event.target.value)} minLength={3} maxLength={15} disabled={usernameOnCooldown} required />
+
+                      <div className="user-req-container">
+                        <p className="account-info-req-title">
+                          <span>Username Requirements</span>
+                        </p>
+                        <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters <br /> &bull; No Spaces <br /> &bull; Must be unique</p>
+                      </div>
+                    </div>
                   </label>
 
                   <p className={usernameOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
                     {formatCooldown(user?.usernameUpdatedAt ?? null)}
                   </p>
-
-                  <p className="account-info-req-title">
-                    <span>Username Requirements</span>
-                  </p>
-                  <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 15 Characters <br /> &bull; No Spaces <br /> &bull; Must be unique</p>
                 </div>
 
                 <div className="account-info-field">
@@ -283,17 +287,22 @@ export function AccountPage() {
                 <div className="account-info-field">
                   <label className="account-info-text">
                     <span>Password:</span>
-                    <input className="account-info-input" type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} maxLength={18} disabled={passwordOnCooldown} />
+
+                    <div className="password-input-container">
+                      <input className="account-info-input" type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} maxLength={18} disabled={passwordOnCooldown} />
+
+                      <div className="password-req-container">
+                        <p className="account-info-req-title">
+                          <span>Password Requirements</span>
+                        </p>
+                        <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters <br /> &bull; No Spaces <br /> &bull; At least one number <br /> &bull; At lease one special character</p>
+                      </div>
+                    </div>
                   </label>
 
                   <p className={passwordOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>
                     {formatCooldown(user?.passwordUpdatedAt ?? null)}
                   </p>
-
-                  <p className="account-info-req-title">
-                    <span>Password Requirements</span>
-                  </p>
-                  <p className="account-info-req-text">&bull; Min 3 Characters <br /> &bull; Max 18 Characters <br /> &bull; No Spaces <br /> &bull; At least one number <br /> &bull; At lease one special character</p>
                 </div>
 
 

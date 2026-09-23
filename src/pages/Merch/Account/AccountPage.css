@@ -93,10 +93,41 @@
   row-gap: 4px;
 }
 
+.username-info-input {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.username-info-input .account-info-input {
+  width: 100%;
+}
+
+.user-req-container {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  padding: 8px 10px;
+
+  border: 1px solid lightgray;
+  border-radius: 8px;
+
+  background-color: rgba(0, 0, 0, 0.8);
+  font-family: "Delius", cursive;
+  font-size: 14px;
+}
+
 .account-info-text {
-  display: flex;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 400px);
   align-items: center;
   gap: 8px;
+
+  width: 100%;
 
   font-family: "Delius", cursive;
   font-size: 22px;
@@ -124,6 +155,45 @@
   color: white;
 
   margin: 0 0 0 16px;
+}
+
+.username-info-input:hover .user-req-container,
+.username-info-input:focus-within .user-req-container {
+  display: block;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.password-input-container .account-info-input {
+  width: 100%;
+}
+
+.password-req-container {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  padding: 8px 10px;
+
+  border: 1px solid lightgray;
+  border-radius: 8px;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  font-family: "Delius", cursive;
+  font-size: 14px;
+}
+
+.password-input-container:hover .password-req-container,
+.password-input-container:focus-within .password-req-container {
+  display: block;
 }
 
 .save-changes-button {
@@ -183,6 +253,7 @@
   font-size: 18px;
   color: white;
   background-color: transparent;
+  box-sizing: border-box;
 }
 
 .account-success {
