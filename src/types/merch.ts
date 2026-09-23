@@ -15,3 +15,18 @@ export type MerchItem = {
   isSoldOut?: boolean;
   isPublished?: boolean;
 };
+
+export type MerchProductVariant = {
+  id: string;
+  productId: string;
+  sku: string;
+  name?: string | null;
+  colour?: string | null;
+  size?: string | null;
+  material?: string | null;
+  isSoldOut: boolean;
+  isPublished: boolean;
+  metadata?: unknown;
+  createdAt: string;
+  updatedAt: string;
+};

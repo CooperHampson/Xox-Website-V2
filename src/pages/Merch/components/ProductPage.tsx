@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import type { MerchItem } from "../../../types/merch";
-import { getMerch } from "../../../api/merchApi";
+import type { MerchItem, MerchProductVariant, } from "../../../types/merch";
+import { getMerch, getMerchVariants, } from "../../../api/merchApi";
 
 import { useCurrency } from "../currency/CurrencyContext";
 import { convertPrice, formatPrice } from "../currency/CurrencyConverter";
@@ -16,6 +16,11 @@ export function ProductPage() {
   const { currentCurrency } = useCurrency();
 
   const [product, setProduct] = useState<MerchItem | null>(null);
+  const [variants, setVariants] = useState<MerchProductVariant[]>([]);
+  const [selectedVariant, setSelectedVariant] = useState<MerchProductVariant | null>(null);
+  const [selectedColour, setSelectedColour] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
@@ -32,6 +37,20 @@ export function ProductPage() {
         );
 
         setProduct(foundProduct ?? null);
+
+        if (foundProduct) {
+          const productVariants = await getMerchVariants(foundProduct.id);
+
+          setVariants(productVariants);
+
+          if (productVariants.length > 0) {
+            const firstVariant = productVariants[0];
+
+            setSelectedVariant(firstVariant);
+            setSelectedColour(firstVariant.colour ?? null,);
+            setSelectedSize(firstVariant.size ?? null,);
+          }
+        }
       } catch (error) {
         console.error("Failed to load product:", error);
         setProduct(null);
@@ -62,6 +81,54 @@ export function ProductPage() {
 
   const mainImage = product.images[selectedImage];
 
+  const availableColours = Array.from(
+    new Set(
+      variants.map((variant) => variant.colour).filter((colour): colour is string => colour !== null && colour !== undefined,),
+    ),
+  );
+
+  const availableSizes = Array.from(
+    new Set(
+      variants.map((variant) => variant.size).filter((size): size is string => size !== null && size !== undefined,),
+    ),
+  );
+
+  function handleColourChange(colour: string,) {
+    setSelectedColour(colour);
+
+    const matchingVariant = variants.find((variant) => variant.colour === colour && variant.size === selectedSize,);
+
+    if (matchingVariant) {
+      setSelectedVariant(matchingVariant);
+      return;
+    }
+
+    const firstColourVariant = variants.find((variant) => variant.colour === colour,);
+
+    if (firstColourVariant) {
+      setSelectedVariant(firstColourVariant,);
+      setSelectedSize(firstColourVariant.size ?? null,);
+    }
+  }
+
+  function handleSizeChange(size: string) {
+    setSelectedSize(size);
+
+    const matchingVariant = variants.find((variant) => variant.size === size && variant.colour === selectedColour,);
+
+    if (matchingVariant) {
+      setSelectedVariant(matchingVariant);
+      return;
+    }
+
+    const firstSizeVariant = variants.find((variant) => variant.size === size,);
+
+    if (firstSizeVariant) {
+      setSelectedVariant(firstSizeVariant,);
+      setSelectedColour(firstSizeVariant.colour ?? null,);
+    }
+  }
+
   return (
     <>
       <title>Xoxxly | {product.name}</title>
@@ -74,11 +141,10 @@ export function ProductPage() {
             {product.images.map((image, index) => (
               <button
                 key={image}
-                className={`product-thumbnail ${
-                  selectedImage === index
+                className={`product-thumbnail ${selectedImage === index
                     ? "product-thumbnail-selected"
                     : ""
-                }`}
+                  }`}
                 onClick={() => setSelectedImage(index)}
                 type="button"
               >
@@ -109,6 +175,48 @@ export function ProductPage() {
           <p className="product-description">
             {product.description}
           </p>
+
+          {availableColours.length > 0 && (
+            <div className="product-variants">
+              <h2>Colour</h2>
+
+              <div className="product-variant-list">
+                {availableColours.map((colour) => (
+                  <button key={colour} type="button" className={`product-variant-button ${selectedColour === colour ? "product-variant-selected" : ""}`} onClick={() => handleColourChange(colour,)}>{colour}</button>
+                ),
+                )}
+              </div>
+            </div>
+          )}
+
+          {availableSizes.length > 0 && (
+            <div className="product-variants">
+              <h2>Size</h2>
+
+              <div className="product-variant-list">
+                {availableSizes.map((size) => (
+                  <button key={size} type="button" className={`product-variant-button ${selectedSize === size ? "product-variant-selected" : ""}`} onClick={() => handleSizeChange(size)}>{size}</button>
+                ),
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="product-quantity">
+            <h2>Quantity</h2>
+
+            <div className="product-quantity-controls">
+              <button type="button" onClick={() => setQuantity((current) => Math.max(1, current - 1),)}>
+                −
+              </button>
+
+              <span>{quantity}</span>
+
+              <button type="button" onClick={() => setQuantity((current) => current + 1,)}>
+                +
+              </button>
+            </div>
+          </div>
 
           {product.details && product.details.length > 0 && (
             <div className="product-details">
