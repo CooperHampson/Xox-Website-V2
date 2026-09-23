@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { MerchData } from './MerchData';
-import type { MerchItem } from './MerchData';
+import type { MerchItem } from '../../../types/merch'
 import { useCurrency } from '../currency/CurrencyContext';
 
 import { convertPrice, formatPrice } from '../currency/CurrencyConverter';
@@ -11,14 +10,14 @@ import './StoreLayout.css';
 interface StoreLayoutProps {
   category?: string;
   featured?: boolean;
-  items?: MerchItem[];
+  items: MerchItem[];
   layout?: 'default' | 'featured';
 }
 
 export function StoreLayout({ category, featured = false, items, layout = 'default' }: StoreLayoutProps) {
   const { currentCurrency } = useCurrency();
 
-  let displayedMerch = items ?? MerchData;
+  let displayedMerch = items;
 
   if (category) {
     displayedMerch = displayedMerch.filter((item) => item.category === category);

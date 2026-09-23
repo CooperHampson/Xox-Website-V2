@@ -1,55 +1,101 @@
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
-import { MerchData } from "./MerchData";
+
+import type { MerchItem } from "../../../types/merch";
+import { getMerch } from "../../../api/merchApi";
+
 import { useCurrency } from "../currency/CurrencyContext";
 import { convertPrice, formatPrice } from "../currency/CurrencyConverter";
+
 import { MerchHeader } from "./MerchHeader";
 
-import './ProductPage.css';
+import "./ProductPage.css";
 
 export function ProductPage() {
   const { productId } = useParams();
   const { currentCurrency } = useCurrency();
 
-  const product = MerchData.find((item) => item.id === productId);
-
+  const [product, setProduct] = useState<MerchItem | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  useEffect(() => {
+    async function loadProduct() {
+      if (!productId) {
+        return;
+      }
+
+      try {
+        const items = await getMerch();
+
+        const foundProduct = items.find(
+          (item) => item.id === productId,
+        );
+
+        setProduct(foundProduct ?? null);
+      } catch (error) {
+        console.error("Failed to load product:", error);
+        setProduct(null);
+      }
+    }
+
+    loadProduct();
+  }, [productId]);
 
   if (!product) {
     return (
       <div className="product-not-found">
         <h1>Product not found</h1>
-
         <Link to="/store">Back to Store</Link>
       </div>
     );
   }
 
-  const convertedPrice = convertPrice(product.price, currentCurrency.code);
+  const convertedPrice = convertPrice(
+    product.price,
+    currentCurrency.code,
+  );
 
-  const formattedPrice = formatPrice(convertedPrice, currentCurrency.code);
+  const formattedPrice = formatPrice(
+    convertedPrice,
+    currentCurrency.code,
+  );
 
   const mainImage = product.images[selectedImage];
 
   return (
     <>
-      <title> Xoxxly | {product.name} </title>
+      <title>Xoxxly | {product.name}</title>
 
       <MerchHeader />
 
       <div className="product-page">
         <div className="product-images">
-
           <div className="product-thumbnail-list">
             {product.images.map((image, index) => (
-              <button key={image} className={`product-thumbnail ${selectedImage === index ? "product-thumbnail-selected" : ""}`} onClick={() => setSelectedImage(index)} type="button">
-                <img src={`${import.meta.env.BASE_URL}${image}`} alt={`${product.name} thumbnail ${index + 1}`} />
+              <button
+                key={image}
+                className={`product-thumbnail ${
+                  selectedImage === index
+                    ? "product-thumbnail-selected"
+                    : ""
+                }`}
+                onClick={() => setSelectedImage(index)}
+                type="button"
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}${image}`}
+                  alt={`${product.name} thumbnail ${index + 1}`}
+                />
               </button>
             ))}
           </div>
 
           <div className="product-main-image-container">
-            <img className="product-main-image" src={`${import.meta.env.BASE_URL}${mainImage}`} alt={product.name} />
+            <img
+              className="product-main-image"
+              src={`${import.meta.env.BASE_URL}${mainImage}`}
+              alt={product.name}
+            />
           </div>
         </div>
 
@@ -60,7 +106,9 @@ export function ProductPage() {
 
           <p className="product-price">{formattedPrice}</p>
 
-          <p className="product-description">{product.description}</p>
+          <p className="product-description">
+            {product.description}
+          </p>
 
           {product.details && product.details.length > 0 && (
             <div className="product-details">
@@ -68,9 +116,7 @@ export function ProductPage() {
 
               <ul>
                 {product.details.map((detail, index) => (
-                  <li key={index}>
-                    {detail}
-                  </li>
+                  <li key={index}>{detail}</li>
                 ))}
               </ul>
             </div>

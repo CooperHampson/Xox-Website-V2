@@ -1,4 +1,4 @@
-import type { MerchItem } from '../components/MerchData';
+import type { MerchItem } from '../../../types/merch';
 import type { MerchFilters } from './MerchFilters';
 import { convertPrice } from '../currency/CurrencyConverter';
 

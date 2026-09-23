@@ -1,4 +1,4 @@
-import type { MerchItem } from "./MerchData";
+import type { MerchItem } from "../../../types/merch";
 
 type SearchField = {
   value: string;

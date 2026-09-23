@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { MerchData } from './MerchData';
+
+import type { MerchItem } from '../../../types/merch';
+import { getMerch } from '../../../api/merchApi';
 import { searchMerch } from './SearchUtils';
 
 import { useCurrency } from '../currency/CurrencyContext';
@@ -15,7 +18,22 @@ export function SearchResultsPage() {
 
   const query = searchParams.get('q') ?? '';
 
-  const results = searchMerch(MerchData, query);
+  const [merchItems, setMerchItems] = useState<MerchItem[]>([]);
+
+  useEffect(() => {
+    async function loadMerch() {
+      try {
+        const items = await getMerch();
+        setMerchItems(items);
+      } catch (error) {
+        console.error('Failed to load merch:', error);
+      }
+    }
+
+    loadMerch();
+  }, []);
+
+  const results = searchMerch(merchItems, query);
 
   return (
     <>
@@ -28,24 +46,43 @@ export function SearchResultsPage() {
           <h1>Search Results</h1>
 
           {query && (
-            <p>Results for <strong>"{query}"</strong></p>
+            <p>
+              Results for <strong>"{query}"</strong>
+            </p>
           )}
         </div>
 
         {results.length > 0 ? (
           <div className="search-results-grid">
             {results.map((item) => {
-              const convertedPrice = convertPrice(item.price, currentCurrency.code);
-              const formattedPrice = formatPrice(convertedPrice, currentCurrency.code);
+              const convertedPrice = convertPrice(
+                item.price,
+                currentCurrency.code,
+              );
+
+              const formattedPrice = formatPrice(
+                convertedPrice,
+                currentCurrency.code,
+              );
 
               return (
-                <Link key={item.id} to={`/store/product/${item.id}`} className="search-result-link">
+                <Link
+                  key={item.id}
+                  to={`/store/product/${item.id}`}
+                  className="search-result-link"
+                >
                   <div className="search-result-item">
-                    <img className="search-result-image" src={`${import.meta.env.BASE_URL}${item.images[0]}`} alt={item.name} />
+                    <img
+                      className="search-result-image"
+                      src={`${import.meta.env.BASE_URL}${item.images[0]}`}
+                      alt={item.name}
+                    />
 
                     <h2 className="search-result-name">{item.name}</h2>
 
-                    <p className="search-result-price">{formattedPrice}</p>
+                    <p className="search-result-price">
+                      {formattedPrice}
+                    </p>
                   </div>
                 </Link>
               );
@@ -55,7 +92,9 @@ export function SearchResultsPage() {
           <div className="search-no-results">
             <h2>No products found</h2>
 
-            <p>We couldn't find any products matching "{query}".</p>
+            <p>
+              We couldn't find any products matching "{query}".
+            </p>
 
             <Link to="/store">Back to Store</Link>
           </div>
@@ -64,3 +103,4 @@ export function SearchResultsPage() {
     </>
   );
 }
+

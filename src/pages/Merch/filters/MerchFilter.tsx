@@ -1,6 +1,6 @@
 import type { MerchFilters } from './MerchFilters';
 import { getUniqueCategories, getUniqueColours, getUniqueTags, getUniqueMaterials } from './FilterOptions';
-import type { MerchItem } from '../components/MerchData';
+import type { MerchItem } from '../../../types/merch';
 import './MerchFilter.css';
 
 interface MerchFilterProps {

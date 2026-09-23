@@ -1,4 +1,4 @@
-import type { MerchItem } from "../components/MerchData";
+import type { MerchItem } from "../../../types/merch";
 
 export function getUniqueCategories( items: MerchItem[]): string[] {
   return [
