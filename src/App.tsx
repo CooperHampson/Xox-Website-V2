@@ -13,6 +13,7 @@ import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
 import { AccountPage } from './pages/Merch/Account/AccountPage';
 import { CartPage } from './pages/Merch/CartPage';
 import ResetPassword from './pages/Merch/ResetPassword/ResetPassword';
+import OrderConfirmationPage from './pages/Merch/OrderConfirmationPage';
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="store/account" element={<AccountPage />} />
         <Route path="store/reset-password" element={<ResetPassword />} />
         <Route path="store/cart" element={<CartPage />} />
+        <Route path="store/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
       </Routes>
 
     </>

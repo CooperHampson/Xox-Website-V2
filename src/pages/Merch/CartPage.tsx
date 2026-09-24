@@ -1,12 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import { useCart } from "./components/cart/CartContext";
 import { useCurrency } from "./currency/CurrencyContext";
 import { MerchHeader } from "./components/MerchHeader";
 import { convertPrice, formatPrice } from "./currency/CurrencyConverter";
+import { createOrder } from "../../api/orderApi";
+import { getCartSessionId } from "../../utils/cartSession";
 import './CartPage.css';
 
 export function CartPage() {
   const { cart, isLoading, updateItem, removeItem, clearCart, } = useCart();
   const { currentCurrency, exchangeRates } = useCurrency();
+  const navigate = useNavigate();
 
   const subtotal =
     cart?.items.reduce(
@@ -23,6 +27,24 @@ export function CartPage() {
 
   if (!cart || cart.items.length === 0) {
     return <div>Your cart is empty.</div>;
+  }
+
+  async function handleCheckout() {
+    try {
+      const sessionId = getCartSessionId();
+
+      const exchangeRate = exchangeRates[currentCurrency.code] ?? 1;
+
+      const order = await createOrder(sessionId, currentCurrency.code, exchangeRate);
+
+      console.log("Order created:", order);
+
+      await clearCart();
+
+      navigate(`/store/order-confirmation/${order.id}`);
+    } catch (error) {
+      console.error("Failed to create order:", error);
+    }
   }
 
   const bgImageUrl = {
@@ -79,7 +101,7 @@ export function CartPage() {
               Subtotal:{" "} {formatPrice(subtotal, currentCurrency.code)}
             </p>
 
-            <button type="button">Checkout</button> </div>
+            <button type="button" onClick={handleCheckout}>Checkout</button> </div>
         </div>
       </div>
     </>
