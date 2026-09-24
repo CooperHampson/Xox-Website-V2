@@ -1,11 +1,19 @@
 import api from './axios';
 
+export type OrderStatus =
+  | 'pending'
+  | 'paid'
+  | 'processing'
+  | 'shipped'
+  | 'completed'
+  | 'cancelled';
+
 export type CreateOrderResponse = {
   id: string;
   sessionId: string;
   currency: string;
   subtotal: string;
-  status: string;
+  status: OrderStatus;
   items: {
     id: string;
     productId: string;
@@ -29,6 +37,17 @@ export async function createOrder(
         currency,
         exchangeRate,
       },
+    );
+
+  return response.data;
+}
+
+export async function getOrder(
+  orderId: string,
+): Promise<CreateOrderResponse> {
+  const response =
+    await api.get<CreateOrderResponse>(
+      `/orders/${orderId}`,
     );
 
   return response.data;
