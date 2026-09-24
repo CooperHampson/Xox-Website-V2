@@ -93,13 +93,13 @@ export default function OrderConfirmationPage() {
               </p>
 
               <p>
-                Price:{" "}{formatPrice(Number(item.unitPrice),order.currency)}
+                Price:{" "}{formatPrice(Number(item.unitPrice), order.currency)}
               </p>
             </div>
           ))}
 
           <h2>
-            Total:{" "}{formatPrice(Number(order.subtotal),order.currency)}
+            Total:{" "}{formatPrice(Number(order.subtotal), order.currency)}
           </h2>
 
           <Link to="/store">

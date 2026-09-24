@@ -52,3 +52,18 @@ export async function getOrder(
 
   return response.data;
 }
+
+export async function updateOrderStatus(
+  orderId: string,
+  status: OrderStatus,
+): Promise<CreateOrderResponse> {
+  const response =
+    await api.patch<CreateOrderResponse>(
+      `/orders/${orderId}/status`,
+      {
+        status,
+      },
+    );
+
+  return response.data;
+}
