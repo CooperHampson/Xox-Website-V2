@@ -8,10 +8,12 @@ import './AuthModal.css';
 
 type AuthModalProps = {
   onClose: () => void;
+  onAuthSuccess?: () => void;
 };
 
 export function AuthModal({
   onClose,
+  onAuthSuccess,
 }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -21,6 +23,13 @@ export function AuthModal({
   function handleLoginSuccess() {
     setLoginSuccessful(true);
 
+    if (onAuthSuccess) {
+      setTimeout(() => {
+        onAuthSuccess();
+      }, 3000);
+      return;
+    }
+
     setTimeout(() => {
       onClose();
     }, 3000);
@@ -28,6 +37,13 @@ export function AuthModal({
 
   function handleRegisterSuccess() {
     setRegisterSuccessful(true);
+
+    if (onAuthSuccess) {
+      setTimeout(() => {
+        onAuthSuccess();
+      }, 3000);
+      return;
+    }
 
     setTimeout(() => {
       onClose();

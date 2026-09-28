@@ -12,6 +12,7 @@ import { ProductPage } from './pages/Merch/components/ProductPage';
 import { SearchResultsPage } from './pages/Merch/components/SearchResultsPage';
 import { AccountPage } from './pages/Merch/Account/AccountPage';
 import { CartPage } from './pages/Merch/CartPage';
+import { OrdersPage } from './pages/Merch/OrdersPage';
 import ResetPassword from './pages/Merch/ResetPassword/ResetPassword';
 import OrderConfirmationPage from './pages/Merch/OrderConfirmationPage';
 import './App.css'
@@ -37,6 +38,7 @@ function App() {
         <Route path="store/reset-password" element={<ResetPassword />} />
         <Route path="store/cart" element={<CartPage />} />
         <Route path="store/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
+        <Route path="store/orders" element={<OrdersPage />} />
       </Routes>
 
     </>

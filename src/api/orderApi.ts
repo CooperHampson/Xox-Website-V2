@@ -67,3 +67,9 @@ export async function updateOrderStatus(
 
   return response.data;
 }
+
+export async function getMyOrders(): Promise<CreateOrderResponse[]> {
+  const response = await api.get<CreateOrderResponse[]>('/orders/my',);
+
+  return response.data;
+}

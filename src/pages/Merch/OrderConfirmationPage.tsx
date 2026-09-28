@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { formatPrice } from "./currency/CurrencyConverter";
 
 import { getOrder, type CreateOrderResponse, } from "../../api/orderApi";
+import { MerchHeader } from "./components/MerchHeader";
+import './OrderConfirmationPage.css';
 
 export default function OrderConfirmationPage() {
   const { orderId } = useParams();
@@ -61,6 +63,8 @@ export default function OrderConfirmationPage() {
       <title>Xoxxly Store | Order Confirmation</title>
 
       <div className="background-container" style={bgImageUrl}>
+        <MerchHeader />
+        
         <div className="order-conf-container">
           <h1>Order Confirmed</h1>
 

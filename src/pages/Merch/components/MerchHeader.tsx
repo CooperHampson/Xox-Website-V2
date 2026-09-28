@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from './cart/CartContext';
 
 import { currencies, useCurrency, type Currency } from '../currency/CurrencyContext';
@@ -16,8 +16,15 @@ export function MerchHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
+  const location = useLocation();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const cartItemCount = cart?.items.reduce((total, item) => total + item.quantity, 0) ?? 0;
+
+  useEffect(() => {
+    if (location.state?.openAuthModal) {
+      setIsAuthOpen(true);
+    }
+  }, [location, navigate]);
 
   const handleCurrencyChange = (currency: Currency) => {
     setCurrentCurrency(currency);
@@ -133,10 +140,17 @@ export function MerchHeader() {
               </ul>
             </div>
           </div>
+          
+          <button type="button" className="MH-RS-order-link" onClick={() => {
+            if (isAuthenticated) {
+              navigate('/store/orders');
+              return;
+            }
 
-          <Link to="/store/orders" className="MH-RS-order-link">
+            setIsAuthOpen(true);
+          }}>
             <p className="MH-RS-OL-text">Orders</p>
-          </Link>
+          </button>
 
           <Link to="/store/cart" className="MH-RS-cart-link">
             <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/MH-Cart-T-white.png`} className="MH-RS-CL-img" />
@@ -160,7 +174,17 @@ export function MerchHeader() {
       </div>
 
       {isAuthOpen && (
-        <AuthModal onClose={() => setIsAuthOpen(false)} />
+        <AuthModal onClose={() => setIsAuthOpen(false)} onAuthSuccess={() => {
+          if (location.state?.openAuthModal) {
+            setIsAuthOpen(false);
+
+            navigate('/store/cart', {
+              replace: true,
+            });
+          } else {
+            setIsAuthOpen(false);
+          }
+        }} />
       )}
     </>
   );

@@ -5,12 +5,18 @@ import { MerchHeader } from "./components/MerchHeader";
 import { convertPrice, formatPrice } from "./currency/CurrencyConverter";
 import { createOrder } from "../../api/orderApi";
 import { getCartSessionId } from "../../utils/cartSession";
+import { useAuth } from "../../auth/AuthContext";
 import './CartPage.css';
 
 export function CartPage() {
   const { cart, isLoading, updateItem, removeItem, clearCart, } = useCart();
   const { currentCurrency, exchangeRates } = useCurrency();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  const bgImageUrl = {
+    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
+  };
 
   const subtotal =
     cart?.items.reduce(
@@ -26,10 +32,27 @@ export function CartPage() {
   }
 
   if (!cart || cart.items.length === 0) {
-    return <div>Your cart is empty.</div>;
+    return (
+      <>
+        <div className="background-container" style={bgImageUrl}>
+          <MerchHeader />
+
+          <div className="cart-container">
+            <h1>Your cart is empty</h1>
+          </div>
+        </div>
+      </>
+    );
   }
 
   async function handleCheckout() {
+    if (!isAuthenticated) {
+      navigate("/store", {
+        state: { openAuthModal: true},
+      });
+      return;
+    }
+
     try {
       const sessionId = getCartSessionId();
 
@@ -46,10 +69,6 @@ export function CartPage() {
       console.error("Failed to create order:", error);
     }
   }
-
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
 
   return (
     <>
