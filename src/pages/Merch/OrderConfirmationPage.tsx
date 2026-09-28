@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formatPrice } from "./currency/CurrencyConverter";
-
+import { useAuth } from "../../auth/AuthContext";
 import { getOrder, type CreateOrderResponse, } from "../../api/orderApi";
 import { MerchHeader } from "./components/MerchHeader";
 import './OrderConfirmationPage.css';
 
 export default function OrderConfirmationPage() {
+  const { isAuthenticated } = useAuth();
   const { orderId } = useParams();
+  const [order, setOrder] = useState<CreateOrderResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [order, setOrder] =
-    useState<CreateOrderResponse | null>(null);
-
-  const [isLoading, setIsLoading] =
-    useState(true);
+  const bgImageUrl = {
+    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
+  };
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      setIsLoading(false);
+      return;
+    }
+
     async function loadOrder() {
       if (!orderId) {
         setIsLoading(false);
@@ -36,7 +42,22 @@ export default function OrderConfirmationPage() {
     }
 
     loadOrder();
-  }, [orderId]);
+  }, [orderId, isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <div className="background-container" style={bgImageUrl}>
+          <MerchHeader />
+
+          <div className="order-conf-container">
+            <h1>Order Confirmation</h1>
+            <p>Please Log in to view this order.</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (isLoading) {
     return <div>Loading order...</div>;
@@ -54,17 +75,13 @@ export default function OrderConfirmationPage() {
     );
   }
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   return (
     <>
       <title>Xoxxly Store | Order Confirmation</title>
 
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
-        
+
         <div className="order-conf-container">
           <h1>Order Confirmed</h1>
 
