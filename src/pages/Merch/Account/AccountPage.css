@@ -38,6 +38,12 @@
   grid-template-rows: 32px 1fr;
   row-gap: 16px;
   width: 100%;
+
+  padding: 16px;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid gray;
+  border-radius: 12px;
 }
 
 .account-info-details-container {
