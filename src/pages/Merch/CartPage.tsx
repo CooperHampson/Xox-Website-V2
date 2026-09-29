@@ -10,7 +10,7 @@ import './CartPage.css';
 import { useState } from "react";
 
 export function CartPage() {
-  const { cart, isLoading, updateItem, removeItem, clearCart, } = useCart();
+  const { cart, isLoading, updateItem, removeItem, clearCart, refreshCart,} = useCart();
   const { currentCurrency, exchangeRates } = useCurrency();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -67,6 +67,8 @@ export function CartPage() {
       const order = await createOrder(sessionId, currentCurrency.code,);
 
       console.log("Order created:", order);
+
+      await refreshCart();
 
       navigate(`/store/order-confirmation/${order.id}`);
     } catch (error) {
