@@ -24,18 +24,25 @@ export function AccountPage() {
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [profileImageError, setProfileImageError] = useState('');
 
+  const [cropImage, setCropImage] = useState<string | null>(null);
+  const [cropImageElement, setCropImageElement] = useState<HTMLImageElement | null>(null);
+  const [cropX, setCropX] = useState(0);
+  const [cropY, setCropY] = useState(0);
+  const [cropScale, setCropScale] = useState(1);
+  const [isDraggingCrop, setIsDraggingCrop] = useState(false);
+  const [cropDragStart, setCropDragStart] = useState({ x: 0, y: 0, });
+  const cropAreaRef = useRef<HTMLDivElement>(null);
+
   const handleProfileImageClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleProfileImageChange = async (
+  const handleProfileImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
 
-    if (!file) {
-      return;
-    }
+    if (!file) return;
 
     const ALLOWED_TYPES = [
       'image/jpeg',
@@ -49,6 +56,7 @@ export function AccountPage() {
       setProfileImageError(
         'Only JPEG, PNG, and WebP images are allowed.',
       );
+
       event.target.value = '';
       return;
     }
@@ -57,32 +65,91 @@ export function AccountPage() {
       setProfileImageError(
         'Profile images must be 5MB or smaller.',
       );
+
       event.target.value = '';
       return;
     }
 
     setProfileImageError('');
 
-    setIsUploadingImage(true);
+    const imageUrl = URL.createObjectURL(file);
+    const image = new Image();
 
-    try {
-      const updatedUser =
-        await updateProfileImage(file);
+    image.onload = () => {
+      setCropImage(imageUrl);
+      setCropImageElement(image);
 
-      updateUser(updatedUser);
-    } catch (error) {
-      console.error(
-        'Failed to update profile image:',
-        error,
-      );
+      setCropX(0);
+      setCropY(0);
+      setCropScale(1);
+    };
 
-      setProfileImageError(
-        'Failed to update profile image. Please try again.',
-      );
-    } finally {
-      setIsUploadingImage(false);
-      event.target.value = '';
+    image.onerror = () => {
+      URL.revokeObjectURL(imageUrl);
+
+      setProfileImageError('Unable to load that image.');
+    };
+
+    image.src = imageUrl;
+
+    event.target.value = '';
+  };
+
+  const getCropBounds = (scale: number) => {
+    if (!cropImageElement) {
+      return {
+        minX: 0,
+        maxX: 0,
+        minY: 0,
+        maxY: 0,
+      };
     }
+
+    const cropCircleSize = 220;
+    const cropRadius = cropCircleSize / 2;
+
+    const baseScale = Math.max(
+      cropCircleSize / cropImageElement.naturalWidth,
+      cropCircleSize / cropImageElement.naturalHeight,
+    );
+
+    const displayWidth =
+      cropImageElement.naturalWidth * baseScale * scale;
+
+    const displayHeight =
+      cropImageElement.naturalHeight * baseScale * scale;
+
+    const maxX = Math.max(
+      0,
+      displayWidth / 2 - cropRadius,
+    );
+
+    const maxY = Math.max(
+      0,
+      displayHeight / 2 - cropRadius,
+    );
+
+    return {
+      minX: -maxX,
+      maxX,
+      minY: -maxY,
+      maxY,
+    };
+  };
+
+  const handleCropPointerDown = (
+    event: React.PointerEvent<HTMLDivElement>,
+  ) => {
+    if (isUploadingImage) return;
+
+    setIsDraggingCrop(true);
+
+    setCropDragStart({
+      x: event.clientX - cropX,
+      y: event.clientY - cropY,
+    });
+
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const handleRemoveProfileImage = async () => {
@@ -231,6 +298,225 @@ export function AccountPage() {
       setIsLoading(false);
     }
   }
+
+  const handleCropPointerMove = (
+    event: React.PointerEvent<HTMLDivElement>,
+  ) => {
+    if (!isDraggingCrop) return;
+
+    const bounds = getCropBounds(cropScale);
+
+    const nextX = event.clientX - cropDragStart.x;
+    const nextY = event.clientY - cropDragStart.y;
+
+    setCropX(
+      Math.min(
+        bounds.maxX,
+        Math.max(bounds.minX, nextX),
+      ),
+    );
+
+    setCropY(
+      Math.min(
+        bounds.maxY,
+        Math.max(bounds.minY, nextY),
+      ),
+    );
+  };
+
+  const handleCropPointerUp = (
+    event: React.PointerEvent<HTMLDivElement>,
+  ) => {
+    setIsDraggingCrop(false);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const handleCropZoomChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const nextScale = Number(event.target.value);
+
+    const bounds = getCropBounds(nextScale);
+
+    setCropScale(nextScale);
+
+    setCropX((currentX) =>
+      Math.min(
+        bounds.maxX,
+        Math.max(bounds.minX, currentX),
+      ),
+    );
+
+    setCropY((currentY) =>
+      Math.min(
+        bounds.maxY,
+        Math.max(bounds.minY, currentY),
+      ),
+    );
+  };
+
+  const createCroppedImage = async (): Promise<File | null> => {
+    if (!cropImageElement) {
+      return null;
+    }
+
+    const cropCircleSize = 220;
+    const outputSize = 512;
+
+    const image = cropImageElement;
+
+    const baseScale = Math.max(
+      cropCircleSize / image.naturalWidth,
+      cropCircleSize / image.naturalHeight,
+    );
+
+    const finalScale = baseScale * cropScale;
+
+    const displayedWidth =
+      image.naturalWidth * finalScale;
+
+    const displayedHeight =
+      image.naturalHeight * finalScale;
+
+    /*
+     * cropX / cropY represent the image's movement
+     * relative to the centre of the crop circle.
+     */
+    const imageX =
+      (cropCircleSize - displayedWidth) / 2 + cropX;
+
+    const imageY =
+      (cropCircleSize - displayedHeight) / 2 + cropY;
+
+    const canvas = document.createElement('canvas');
+
+    canvas.width = outputSize;
+    canvas.height = outputSize;
+
+    const context = canvas.getContext('2d');
+
+    if (!context) {
+      return null;
+    }
+
+    const scaleFactor =
+      outputSize / cropCircleSize;
+
+    context.clearRect(
+      0,
+      0,
+      outputSize,
+      outputSize,
+    );
+
+    context.save();
+
+    /*
+     * Make the final file circular as well.
+     */
+    context.beginPath();
+
+    context.arc(
+      outputSize / 2,
+      outputSize / 2,
+      outputSize / 2,
+      0,
+      Math.PI * 2,
+    );
+
+    context.clip();
+
+    context.drawImage(
+      image,
+      imageX * scaleFactor,
+      imageY * scaleFactor,
+      displayedWidth * scaleFactor,
+      displayedHeight * scaleFactor,
+    );
+
+    context.restore();
+
+    return new Promise((resolve) => {
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            resolve(null);
+            return;
+          }
+
+          resolve(
+            new File(
+              [blob],
+              'profile-image.png',
+              {
+                type: 'image/png',
+                lastModified: Date.now(),
+              },
+            ),
+          );
+        },
+        'image/png',
+      );
+    });
+  };
+
+  const handleSaveCroppedImage = async () => {
+    if (!cropImageElement) return;
+
+    setProfileImageError('');
+    setIsUploadingImage(true);
+
+    try {
+      const croppedFile = await createCroppedImage();
+
+      if (!croppedFile) {
+        throw new Error('Failed to create cropped image.');
+      }
+
+      const updatedUser =
+        await updateProfileImage(croppedFile);
+
+      updateUser(updatedUser);
+
+      if (cropImage) {
+        URL.revokeObjectURL(cropImage);
+      }
+
+      setCropImage(null);
+      setCropImageElement(null);
+
+      setCropX(0);
+      setCropY(0);
+      setCropScale(1);
+    } catch (error) {
+      console.error(
+        'Failed to update profile image:',
+        error,
+      );
+
+      setProfileImageError(
+        'Failed to update profile image. Please try again.',
+      );
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleCancelCrop = () => {
+    if (cropImage) {
+      URL.revokeObjectURL(cropImage);
+    }
+
+    setCropImage(null);
+    setCropImageElement(null);
+
+    setCropX(0);
+    setCropY(0);
+    setCropScale(1);
+  };
 
   const bgImageUrl = {
     backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
@@ -382,6 +668,93 @@ export function AccountPage() {
             <AdminSection />
           )}
         </div>
+
+        {cropImage && cropImageElement && (
+          <div className="profile-crop-modal-overlay">
+            <div className="profile-crop-modal">
+              <h2>Choose your profile image</h2>
+
+              <p>
+                Drag the image to position it inside the circle.
+              </p>
+
+              <div
+                ref={cropAreaRef}
+                className="profile-crop-area"
+                onPointerDown={handleCropPointerDown}
+                onPointerMove={handleCropPointerMove}
+                onPointerUp={handleCropPointerUp}
+                onPointerCancel={handleCropPointerUp}
+              >
+                <img
+                  src={cropImage}
+                  alt="Profile crop preview"
+                  className="profile-crop-image"
+                  draggable={false}
+                  style={{
+                    width: `${cropImageElement.naturalWidth}px`,
+                    height: `${cropImageElement.naturalHeight}px`,
+                    left: '50%',
+                    top: '50%',
+                    transform: `
+                      translate(
+                        calc(-50% + ${cropX}px),
+                        calc(-50% + ${cropY}px)
+                      )
+                      scale(${(() => {
+                        const baseScale = Math.max(
+                          220 / cropImageElement.naturalWidth,
+                          220 / cropImageElement.naturalHeight,
+                        );
+
+                        return baseScale * cropScale;
+                      })()})
+                    `,
+                  }}
+                />
+
+                <div className="profile-crop-circle" />
+              </div>
+
+              <div className="profile-crop-zoom">
+                <label>
+                  Zoom
+
+                  <input
+                    type="range"
+                    min="1"
+                    max="3"
+                    step="0.01"
+                    value={cropScale}
+                    onChange={handleCropZoomChange}
+                  />
+                </label>
+              </div>
+
+              <div className="profile-crop-buttons">
+                <button
+                  type="button"
+                  onClick={handleCancelCrop}
+                  disabled={isUploadingImage}
+                  className="crop-button"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSaveCroppedImage}
+                  disabled={isUploadingImage}
+                  className="crop-button"
+                >
+                  {isUploadingImage
+                    ? 'Saving...'
+                    : 'Save Image'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </>
