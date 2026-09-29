@@ -6,6 +6,7 @@ import { useAuth } from '../../../auth/AuthContext';
 import { updateCurrentUser } from '../../../api/authApi';
 import { updateProfileImage, removeProfileImage } from '../../../api/authApi';
 import { useHeaderOcclusion } from '../hooks/useHeaderOcclusion';
+import { AdminSection } from '../components/AccountComponents/AdminSection';
 
 import './AccountPage.css';
 
@@ -376,6 +377,10 @@ export function AccountPage() {
 
             <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>
           </div>
+
+          {user?.role === 'ADMIN' && (
+            <AdminSection />
+          )}
         </div>
 
       </div>

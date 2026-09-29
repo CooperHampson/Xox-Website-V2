@@ -22,6 +22,7 @@ export type AuthUser = {
   username: string;
   email: string;
   image: string | null;
+  role: 'USER' | 'MODERATOR' | 'ADMIN';
   createdAt: string;
   usernameUpdatedAt: string | null;
   emailUpdatedAt: string | null;
