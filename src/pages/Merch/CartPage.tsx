@@ -64,9 +64,7 @@ export function CartPage() {
     try {
       const sessionId = getCartSessionId();
 
-      const exchangeRate = exchangeRates[currentCurrency.code] ?? 1;
-
-      const order = await createOrder(sessionId, currentCurrency.code, exchangeRate);
+      const order = await createOrder(sessionId, currentCurrency.code,);
 
       console.log("Order created:", order);
 

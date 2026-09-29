@@ -29,14 +29,12 @@ export type CreateOrderResponse = {
 export async function createOrder(
   sessionId: string,
   currency: string,
-  exchangeRate: number,
 ): Promise<CreateOrderResponse> {
   const response =
     await api.post<CreateOrderResponse>(
       `/orders?sessionId=${sessionId}`,
       {
         currency,
-        exchangeRate,
       },
     );
 
