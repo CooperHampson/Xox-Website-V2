@@ -68,8 +68,6 @@ export function CartPage() {
 
       console.log("Order created:", order);
 
-      await clearCart();
-
       navigate(`/store/order-confirmation/${order.id}`);
     } catch (error) {
       console.error("Failed to create order:", error);
