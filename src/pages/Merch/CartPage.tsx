@@ -7,12 +7,14 @@ import { createOrder } from "../../api/orderApi";
 import { getCartSessionId } from "../../utils/cartSession";
 import { useAuth } from "../../auth/AuthContext";
 import './CartPage.css';
+import { useState } from "react";
 
 export function CartPage() {
   const { cart, isLoading, updateItem, removeItem, clearCart, } = useCart();
   const { currentCurrency, exchangeRates } = useCurrency();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const bgImageUrl = {
     backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
@@ -53,6 +55,12 @@ export function CartPage() {
       return;
     }
 
+    if (isCheckingOut) {
+      return;
+    }
+
+    setIsCheckingOut(true);
+
     try {
       const sessionId = getCartSessionId();
 
@@ -67,6 +75,8 @@ export function CartPage() {
       navigate(`/store/order-confirmation/${order.id}`);
     } catch (error) {
       console.error("Failed to create order:", error);
+
+      setIsCheckingOut(false);
     }
   }
 
@@ -120,7 +130,7 @@ export function CartPage() {
               Subtotal:{" "} {formatPrice(subtotal, currentCurrency.code)}
             </p>
 
-            <button type="button" onClick={handleCheckout}>Checkout</button> </div>
+            <button type="button" onClick={handleCheckout} disabled={isCheckingOut}>Checkout</button> </div>
         </div>
       </div>
     </>

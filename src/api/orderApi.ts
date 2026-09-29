@@ -14,6 +14,7 @@ export type CreateOrderResponse = {
   currency: string;
   subtotal: string;
   status: OrderStatus;
+  createdAt: string;
   items: {
     id: string;
     productId: string;

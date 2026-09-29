@@ -70,11 +70,17 @@ export function OrdersPage() {
             <div>
               {orders.map((order) => (
                 <div key={order.id}>
-                  <h2>Order {order.id}</h2>
+                  <h2>
+                    <Link to={`/store/orders/${order.id}`} className="order-links">
+                      Order #{order.id.slice(0, 8)}
+                    </Link>
+                  </h2>
                   
                   <p>Status:{" "}{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</p>
 
                   <p>Total:{" "}{formatPrice(Number(order.subtotal), order.currency,)}</p>
+
+                  <p>Date:{" "}{new Date(order.createdAt).toLocaleString()}</p>
 
                   <p>Items:{" "}{order.items.reduce((total, item) => total + item.quantity, 0,)}</p>
 
