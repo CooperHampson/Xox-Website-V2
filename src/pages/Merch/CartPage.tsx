@@ -8,13 +8,15 @@ import { getCartSessionId } from "../../utils/cartSession";
 import { useAuth } from "../../auth/AuthContext";
 import './CartPage.css';
 import { useState } from "react";
+import { useHeaderOcclusion } from "./hooks/useHeaderOcclusion";
 
 export function CartPage() {
-  const { cart, isLoading, updateItem, removeItem, clearCart, refreshCart,} = useCart();
+  const { cart, isLoading, updateItem, removeItem, clearCart, refreshCart, } = useCart();
   const { currentCurrency, exchangeRates } = useCurrency();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
 
   const bgImageUrl = {
     backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
@@ -40,7 +42,7 @@ export function CartPage() {
           <MerchHeader />
 
           <div className="cart-container">
-            <h1>Your cart is empty</h1>
+            <p className="OP-title">Your cart is empty</p>
           </div>
         </div>
       </>
@@ -50,7 +52,7 @@ export function CartPage() {
   async function handleCheckout() {
     if (!isAuthenticated) {
       navigate("/store", {
-        state: { openAuthModal: true},
+        state: { openAuthModal: true },
       });
       return;
     }
@@ -85,50 +87,57 @@ export function CartPage() {
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="cart-container">
-          <h1>Cart</h1>
+        <div className="cart-container" ref={divRef}>
+          <p className="cart-title">Cart</p>
 
-          <button type="button" onClick={clearCart}>Clear Cart</button>
+          <div className="cart-outer-container">
+            <div className="cart-info-container">
+              <button type="button" onClick={clearCart} className="clear-cart-button">Clear Cart</button>
 
-          {cart.items.map((item) => (
-            <div key={item.id}>
-              <h2>{item.product.name}</h2>
+              {cart.items.map((item) => (
+                <div key={item.id} className="item-container">
+                  <p className="item-title">{item.product.name}</p>
 
-              <p>
-                {item.variant.colour &&
-                  `Colour: ${item.variant.colour}`}
-              </p>
+                  <p className="item-text">
+                    {item.variant.colour &&
+                      `Colour: ${item.variant.colour}`}
+                  </p>
 
-              <p>
-                {item.variant.size &&
-                  `Size: ${item.variant.size}`}
-              </p>
+                  <p className="item-text">
+                    {item.variant.size &&
+                      `Size: ${item.variant.size}`}
+                  </p>
 
-              <div>
-                <button type="button" onClick={() => updateItem(item.id, item.quantity - 1,)} disabled={item.quantity <= 1}>
-                  −
-                </button>
+                  <div className="quant-div">
+                    <button type="button" onClick={() => updateItem(item.id, item.quantity - 1,)} disabled={item.quantity <= 1} className="quantity-button">
+                      −
+                    </button>
 
-                <span>{item.quantity}</span>
+                    <span className="item-span">{item.quantity}</span>
 
-                <button type="button" onClick={() => updateItem(item.id, item.quantity + 1,)}>
-                  +
-                </button>
-              </div>
+                    <button type="button" onClick={() => updateItem(item.id, item.quantity + 1,)} className="quantity-button">
+                      +
+                    </button>
+                  </div>
 
-              <p>Price:{" "}{formatPrice(convertPrice(item.product.price, currentCurrency.code, exchangeRates), currentCurrency.code)}</p>
+                  <p className="item-text">Price:{" "}{formatPrice(convertPrice(item.product.price, currentCurrency.code, exchangeRates), currentCurrency.code)}</p>
 
-              <button type="button" onClick={() => removeItem(item.id)}>Remove</button>
+                  <button type="button" onClick={() => removeItem(item.id)} className="item-remove-button">Remove</button>
+                </div>
+              ))}
             </div>
-          ))}
 
-          <div className="cart-summary">
-            <h2>Cart Summary</h2>
-            <p>
-              Subtotal:{" "} {formatPrice(subtotal, currentCurrency.code)}
-            </p>
+            <div className="cart-transaction-container">
+              <div className="cart-summary">
+                <p className="cart-sum-title">Cart Summary</p>
+                <p className="cart-sum-text">
+                  Subtotal:{" "} {formatPrice(subtotal, currentCurrency.code)}
+                </p>
 
-            <button type="button" onClick={handleCheckout} disabled={isCheckingOut}>Checkout</button> </div>
+                <button type="button" onClick={handleCheckout} disabled={isCheckingOut} className="checkout-button">Checkout</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

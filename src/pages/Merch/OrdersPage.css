@@ -10,11 +10,6 @@
   background-attachment: fixed;
 }
 
-p, h1, h2, span {
-  font-family: "Delius", cursive;
-  color: white;
-}
-
 .orders-page-container {
   display: grid;
   row-gap: 16px;
@@ -23,5 +18,59 @@ p, h1, h2, span {
   max-width: 1400px;
 
   margin: 0 auto;
-  padding: 84px 48px 48px 48px;
+  margin-top: 60px;
+  padding: 60px 48px 48px 48px;
+}
+
+.order-container {
+  display: grid;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid gray;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.OP-title {
+  justify-self: center;
+  
+  font-family: "Delius", cursive;
+  font-size: 36px;
+  font-weight: 400;
+  color: white;
+}
+
+.link-span {
+  margin: 0 0 16px 0;
+}
+
+.order-links {
+  text-decoration: none;
+  color: white;
+
+  font-family: "Delius", cursive;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.order-links:hover {
+  text-decoration: underline;
+}
+
+.order-info-text {
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.shopping-link {
+  text-decoration: none;
+  color: white;
+
+  font-family: "Delius", cursive;
+  font-size: 18px;
+  margin: 0;
 }

@@ -10,18 +10,185 @@
   background-attachment: fixed;
 }
 
-p, h1, h2, span {
-  font-family: "Delius", cursive;
-  color: white;
-}
-
 .cart-container {
   display: grid;
-  row-gap: 16px;
+  grid-template-rows: 48px 1fr;
+  row-gap: 64px;
 
   width: 100%;
   max-width: 1400px;
 
   margin: 0 auto;
   padding: 84px 48px 48px 48px;
+}
+
+.cart-title {
+  font-family: "Delius", cursive;
+  font-size: 36px;
+  color: white;
+
+  justify-self: center;
+}
+
+.cart-outer-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  column-gap: 48px;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 16px;
+}
+
+.cart-info-container {
+  display: grid;
+  row-gap: 16px;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 8px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.clear-cart-button {
+  font-family: "Delius", cursive;
+  font-size: 28px;
+  color: white;
+
+  background: transparent;
+  
+  border: 2px solid white;
+  border-radius: 12px;
+
+  transition: background 0.3s ease;
+}
+
+.clear-cart-button:hover {
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.item-container {
+  display: grid;
+
+  border: 1px solid gray;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.item-title {
+  font-family: "Delius", cursive;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 16px 0;
+}
+
+.item-text {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+  margin: 0 0 16px 0;
+}
+
+.quant-div {
+  margin-bottom: 8px;
+}
+
+.item-span {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+  margin: 0 8px 16px 8px;
+}
+
+.quantity-button {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+
+  background: transparent;
+  
+  border: 1px solid gray;
+  border-radius: 6px;
+
+  transition: background 0.3s ease;
+}
+
+.quantity-button:hover {
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.item-remove-button {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+
+  background: transparent;
+  
+  border: 1px solid gray;
+  border-radius: 6px;
+
+  transition: background 0.3s ease;
+}
+
+.item-remove-button:hover {
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.cart-summary {
+  display: grid;
+  row-gap: 16px;
+
+  width: 100%;
+  max-width: 400px;
+
+  margin: 0;
+  padding: 8px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.cart-sum-title {
+  font-family: "Delius", cursive;
+  font-size: 24px;
+  color: white;
+  margin: 0 8px 16px 8px;
+}
+
+.cart-sum-text {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+  margin: 0 8px 16px 8px;
+}
+
+.checkout-button {
+  font-family: "Delius", cursive;
+  font-size: 16px;
+  color: white;
+
+  background: transparent;
+  
+  border: 1px solid gray;
+  border-radius: 6px;
+
+  transition: background 0.3s ease;
+}
+
+.checkout-button:hover {
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.7);
 }

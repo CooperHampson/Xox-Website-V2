@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from './cart/CartContext';
 
@@ -48,9 +48,40 @@ export function MerchHeader() {
     setIsSearchOpen(false);
   };
 
+  useLayoutEffect(() => {
+    const header = document.getElementById('merch-header');
+
+    if (!header) {
+      return;
+    }
+
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        '--merch-header-height',
+        `${header.getBoundingClientRect().height}px`,
+      );
+    };
+
+    updateHeaderHeight();
+
+    const observer = new ResizeObserver(
+      updateHeaderHeight,
+    );
+
+    observer.observe(header);
+
+    return () => {
+      observer.disconnect();
+
+      document.documentElement.style.removeProperty(
+        '--merch-header-height',
+      );
+    };
+  }, []);
+
   return (
     <>
-      <div className="Merch-Header">
+      <div className="Merch-Header" id="merch-header">
         <div className="MH-left-section">
           <Link to="/" className="MH-Main-Site">
             <img src={`${import.meta.env.BASE_URL}Images/Header/LogoWhite.png`} className="MH-MS-img" />

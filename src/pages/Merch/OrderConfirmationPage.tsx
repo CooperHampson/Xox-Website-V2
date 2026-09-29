@@ -4,13 +4,15 @@ import { formatPrice } from "./currency/CurrencyConverter";
 import { useAuth } from "../../auth/AuthContext";
 import { getOrder, type CreateOrderResponse, } from "../../api/orderApi";
 import { MerchHeader } from "./components/MerchHeader";
-import './OrderConfirmationPage.css';
+import { useHeaderOcclusion } from "./hooks/useHeaderOcclusion";
+import './OrderDetailsPage.css';
 
 export default function OrderConfirmationPage() {
   const { isAuthenticated } = useAuth();
   const { orderId } = useParams();
   const [order, setOrder] = useState<CreateOrderResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
 
   const bgImageUrl = {
     backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
@@ -50,9 +52,9 @@ export default function OrderConfirmationPage() {
         <div className="background-container" style={bgImageUrl}>
           <MerchHeader />
 
-          <div className="order-conf-container">
-            <h1>Order Confirmation</h1>
-            <p>Please Log in to view this order.</p>
+          <div className="orders-page-container" ref={divRef}>
+            <p className="OP-title">Order Confirmation</p>
+            <p className="order-info-text">Please Log in to view this order.</p>
           </div>
         </div>
       </>
@@ -66,9 +68,9 @@ export default function OrderConfirmationPage() {
   if (!order) {
     return (
       <div>
-        <h1>Order not found</h1>
+        <p className="OP-title">Order not found</p>
 
-        <Link to="/store">
+        <Link to="/store" className="order-links">
           Back to Store
         </Link>
       </div>
@@ -77,55 +79,59 @@ export default function OrderConfirmationPage() {
 
   return (
     <>
-      <title>Xoxxly Store | Order Confirmation</title>
+      <title>Xoxxly Store | Order {order.orderNumber}</title>
 
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="order-conf-container">
-          <h1>Order Confirmed</h1>
+        <div className="orders-page-container" ref={divRef}>
+          <div className="order-info-container">
+            <p className="OP-title">Order Confirmed</p>
 
-          <p>
-            Thank you for your order.
-          </p>
+            <p className="order-info-text">
+              Thank you for your order.
+            </p>
 
-          <p>
-            Order ID: {order.id}
-          </p>
+            <p className="order-info-text">
+              Order ID: {order.orderNumber}
+            </p>
 
-          <p>
-            Status:{" "}{order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-          </p>
+            <p className="order-info-text">
+              Status:{" "}{order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+            </p>
 
-          <h2>Items</h2>
+            <p className="items-title">Items</p>
 
-          {order.items.map((item) => (
-            <div key={item.id}>
-              <p>
-                {item.productName}
-              </p>
+            {order.items.map((item) => (
+              <div key={item.id} className="item-container">
+                <p className="order-item-text">
+                  {item.productName}
+                </p>
 
-              <p>
-                SKU: {item.variantSku}
-              </p>
+                <p className="order-item-text">
+                  SKU: {item.variantSku}
+                </p>
 
-              <p>
-                Quantity: {item.quantity}
-              </p>
+                <p className="order-item-text">
+                  Quantity: {item.quantity}
+                </p>
 
-              <p>
-                Price:{" "}{formatPrice(Number(item.unitPrice), order.currency)}
-              </p>
-            </div>
-          ))}
+                <p className="order-item-text">
+                  Price:{" "}{formatPrice(Number(item.unitPrice), order.currency)}
+                </p>
+              </div>
+            ))}
 
-          <h2>
-            Total:{" "}{formatPrice(Number(order.subtotal), order.currency)}
-          </h2>
+            <p className="total-price-text">
+              Total:{" "}{formatPrice(Number(order.subtotal), order.currency)}
+            </p>
 
-          <Link to="/store">
-            Continue Shopping
-          </Link>
+            <span>
+              <Link to="/store" className="order-links">
+                Continue Shopping
+              </Link>
+            </span>
+          </div>
         </div>
       </div>
     </>

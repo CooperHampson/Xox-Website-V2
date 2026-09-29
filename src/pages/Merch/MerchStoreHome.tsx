@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-
 import { MerchHeader } from "./components/MerchHeader";
 import { StoreLayout } from "./components/StoreLayout";
-
 import type { MerchItem } from "../../types/merch";
 import { getMerch } from "../../api/merchApi";
+import { useHeaderOcclusion } from "./hooks/useHeaderOcclusion";
 
 import "./MerchStoreHome.css";
 
 export function MerchStore() {
   const [featuredItems, setFeaturedItems] = useState<MerchItem[]>([]);
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
 
   useEffect(() => {
     async function loadFeaturedMerch() {
@@ -49,7 +49,7 @@ export function MerchStore() {
       >
         <MerchHeader />
 
-        <div className="home-page-container">
+        <div className="home-page-container" ref={divRef}>
           <p className="hp-title">Featured Products</p>
 
           <div className="featured-page-grid">

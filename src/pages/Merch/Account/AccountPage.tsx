@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { MerchHeader } from '../components/MerchHeader';
 import { useAuth } from '../../../auth/AuthContext';
 import { updateCurrentUser } from '../../../api/authApi';
 import { updateProfileImage, removeProfileImage } from '../../../api/authApi';
+import { useHeaderOcclusion } from '../hooks/useHeaderOcclusion';
 
 import './AccountPage.css';
 
@@ -18,7 +18,7 @@ export function AccountPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [profileImageError, setProfileImageError] = useState('');
@@ -243,7 +243,7 @@ export function AccountPage() {
 
         <MerchHeader />
 
-        <div className="account-page-container">
+        <div className="account-page-container" ref={divRef}>
           <h1 className="account-page-title">Account Page</h1>
 
           <div className="account-info-container">

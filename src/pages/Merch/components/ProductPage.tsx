@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-
 import type { MerchItem, MerchProductVariant, } from "../../../types/merch";
 import { getMerch, getMerchVariants, } from "../../../api/merchApi";
-
 import { useCart } from "./cart/CartContext";
-
 import { useCurrency } from "../currency/CurrencyContext";
 import { convertPrice, formatPrice } from "../currency/CurrencyConverter";
-
 import { MerchHeader } from "./MerchHeader";
+import { useHeaderOcclusion } from "../hooks/useHeaderOcclusion";
 
 import "./ProductPage.css";
 
@@ -26,6 +23,7 @@ export function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
 
   useEffect(() => {
     async function loadProduct() {
@@ -163,104 +161,106 @@ export function ProductPage() {
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="product-page">
-          <div className="product-images">
-            <div className="product-thumbnail-list">
-              {product.images.map((image, index) => (
-                <button
-                  key={image}
-                  className={`product-thumbnail ${selectedImage === index
-                    ? "product-thumbnail-selected"
-                    : ""
-                    }`}
-                  onClick={() => setSelectedImage(index)}
-                  type="button"
-                >
-                  <img
-                    src={`${import.meta.env.BASE_URL}${image}`}
-                    alt={`${product.name} thumbnail ${index + 1}`}
-                  />
-                </button>
-              ))}
+        <div className="product-page" ref={divRef}>
+          <div className="product-page-outer-container">
+            <div className="product-images">
+              <div className="product-thumbnail-list">
+                {product.images.map((image, index) => (
+                  <button
+                    key={image}
+                    className={`product-thumbnail ${selectedImage === index
+                      ? "product-thumbnail-selected"
+                      : ""
+                      }`}
+                    onClick={() => setSelectedImage(index)}
+                    type="button"
+                  >
+                    <img
+                      src={`${import.meta.env.BASE_URL}${image}`}
+                      alt={`${product.name} thumbnail ${index + 1}`}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <div className="product-main-image-container">
+                <img
+                  className="product-main-image"
+                  src={`${import.meta.env.BASE_URL}${mainImage}`}
+                  alt={product.name}
+                />
+              </div>
             </div>
 
-            <div className="product-main-image-container">
-              <img
-                className="product-main-image"
-                src={`${import.meta.env.BASE_URL}${mainImage}`}
-                alt={product.name}
-              />
-            </div>
-          </div>
+            <div className="product-info">
+              <p className="product-category">{product.category}</p>
 
-          <div className="product-info">
-            <p className="product-category">{product.category}</p>
+              <h1 className="product-title">{product.name}</h1>
 
-            <h1 className="product-title">{product.name}</h1>
+              <p className="product-price">{formattedPrice}</p>
 
-            <p className="product-price">{formattedPrice}</p>
+              <p className="product-description">
+                {product.description}
+              </p>
 
-            <p className="product-description">
-              {product.description}
-            </p>
+              {availableColours.length > 0 && (
+                <div className="product-variants">
+                  <h2>Colour</h2>
 
-            {availableColours.length > 0 && (
-              <div className="product-variants">
-                <h2>Colour</h2>
+                  <div className="product-variant-list">
+                    {availableColours.map((colour) => (
+                      <button key={colour} type="button" className={`product-variant-button ${selectedColour === colour ? "product-variant-selected" : ""}`} onClick={() => handleColourChange(colour,)}>{colour}</button>
+                    ),
+                    )}
+                  </div>
+                </div>
+              )}
 
-                <div className="product-variant-list">
-                  {availableColours.map((colour) => (
-                    <button key={colour} type="button" className={`product-variant-button ${selectedColour === colour ? "product-variant-selected" : ""}`} onClick={() => handleColourChange(colour,)}>{colour}</button>
-                  ),
-                  )}
+              {availableSizes.length > 0 && (
+                <div className="product-variants">
+                  <h2>Size</h2>
+
+                  <div className="product-variant-list">
+                    {availableSizes.map((size) => (
+                      <button key={size} type="button" className={`product-variant-button ${selectedSize === size ? "product-variant-selected" : ""}`} onClick={() => handleSizeChange(size)}>{size}</button>
+                    ),
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="product-quantity">
+                <h2>Quantity</h2>
+
+                <div className="product-quantity-controls">
+                  <button type="button" onClick={() => setQuantity((current) => Math.max(1, current - 1),)} className="product-quantity-button">
+                    −
+                  </button>
+
+                  <span>{quantity}</span>
+
+                  <button type="button" onClick={() => setQuantity((current) => current + 1,)} className="product-quantity-button">
+                    +
+                  </button>
                 </div>
               </div>
-            )}
 
-            {availableSizes.length > 0 && (
-              <div className="product-variants">
-                <h2>Size</h2>
+              <button type="button" className="product-add-to-cart" onClick={handleAddToCart} disabled={!selectedVariant || selectedVariant.isSoldOut || isAddingToCart}>
+                {isAddingToCart ? "Adding..." : selectedVariant?.isSoldOut ? "Sold Out" : "Add to Cart"}
+              </button>
 
-                <div className="product-variant-list">
-                  {availableSizes.map((size) => (
-                    <button key={size} type="button" className={`product-variant-button ${selectedSize === size ? "product-variant-selected" : ""}`} onClick={() => handleSizeChange(size)}>{size}</button>
-                  ),
-                  )}
+              {product.details && product.details.length > 0 && (
+                <div className="product-details">
+                  <h2>Details</h2>
+
+                  <ul>
+                    {product.details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            )}
-
-            <div className="product-quantity">
-              <h2>Quantity</h2>
-
-              <div className="product-quantity-controls">
-                <button type="button" onClick={() => setQuantity((current) => Math.max(1, current - 1),)}>
-                  −
-                </button>
-
-                <span>{quantity}</span>
-
-                <button type="button" onClick={() => setQuantity((current) => current + 1,)}>
-                  +
-                </button>
-              </div>
+              )}
             </div>
-
-            <button type="button" className="product-add-to-cart" onClick={handleAddToCart} disabled={!selectedVariant || selectedVariant.isSoldOut || isAddingToCart}>
-              {isAddingToCart ? "Adding..." : selectedVariant?.isSoldOut ? "Sold Out" : "Add to Cart"}
-            </button>
-
-            {product.details && product.details.length > 0 && (
-              <div className="product-details">
-                <h2>Details</h2>
-
-                <ul>
-                  {product.details.map((detail, index) => (
-                    <li key={index}>{detail}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
         </div>
       </div>

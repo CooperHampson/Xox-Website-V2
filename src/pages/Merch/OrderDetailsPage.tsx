@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getOrder, type CreateOrderResponse,} from "../../api/orderApi";
+import { getOrder, type CreateOrderResponse, } from "../../api/orderApi";
 import { formatPrice } from "./currency/CurrencyConverter";
 import { MerchHeader } from "./components/MerchHeader";
 import { useAuth } from "../../auth/AuthContext";
-import "./OrdersPage.css";
+import { useHeaderOcclusion } from "./hooks/useHeaderOcclusion";
+import "./OrderDetailsPage.css";
 
 export function OrderDetailsPage() {
   const { orderId } = useParams();
   const { isAuthenticated } = useAuth();
 
   const [order, setOrder] = useState<CreateOrderResponse | null>(null);
-
   const [isLoading, setIsLoading] = useState(true);
+  const divRef = useHeaderOcclusion<HTMLDivElement>();
 
   useEffect(() => {
     if (!isAuthenticated || !orderId) {
@@ -46,9 +47,9 @@ export function OrderDetailsPage() {
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="orders-page-container">
-          <h1>Order Details</h1>
-          <p>Please log in to view this order.</p>
+        <div className="orders-page-container" ref={divRef}>
+          <p className="OP-title">Order Details</p>
+          <p className="order-info-text">Please log in to view this order.</p>
 
           <Link to="/store">Back to Store</Link>
         </div>
@@ -65,10 +66,10 @@ export function OrderDetailsPage() {
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="orders-page-container">
-          <h1>Order Not Found</h1>
+        <div className="orders-page-container" ref={divRef}>
+          <p className="OP-title">Order Not Found</p>
 
-          <Link to="/store/orders">
+          <Link to="/store/orders" className="order-links">
             Back to Orders
           </Link>
         </div>
@@ -85,74 +86,82 @@ export function OrderDetailsPage() {
       <div className="background-container" style={bgImageUrl}>
         <MerchHeader />
 
-        <div className="orders-page-container">
-          <h1>
-            Order #{order.id.slice(0, 8)}
-          </h1>
+        <div className="orders-page-container" ref={divRef}>
+          <div className="order-info-container">
+            <p className="OP-title">
+              {order.orderNumber}
+            </p>
 
-          <p>
-            Date:{" "}
-            {new Date(
-              order.createdAt,
-            ).toLocaleString()}
-          </p>
+            <p className="order-info-text">
+              Date:{" "}
+              {new Date(
+                order.createdAt,
+              ).toLocaleString()}
+            </p>
 
-          <p>
-            Status:{" "}
-            {order.status.charAt(0).toUpperCase() +
-              order.status.slice(1)}
-          </p>
+            <p className="order-info-text">
+              Order Number: {order.orderNumber}
+            </p>
 
-          <p>
-            Currency: {order.currency}
-          </p>
+            <p className="order-info-text">
+              Status:{" "}
+              {order.status.charAt(0).toUpperCase() +
+                order.status.slice(1)}
+            </p>
 
-          <h2>Items</h2>
+            <p className="order-info-text">
+              Currency: {order.currency}
+            </p>
 
-          <p>
-            {itemCount} item{itemCount !== 1 ? "s" : ""}
-          </p>
+            <p className="items-title">Items</p>
 
-          {order.items.map((item) => (
-            <div key={item.id}>
-              <p>
-                {item.productName}
-              </p>
+            <p className="order-info-text">
+              {itemCount} item{itemCount !== 1 ? "s" : ""}
+            </p>
 
-              <p>
-                Variant: {item.variantSku}
-              </p>
+            {order.items.map((item) => (
+              <div key={item.id} className="item-container">
+                <p className="order-item-text">
+                  {item.productName}
+                </p>
 
-              <p>
-                Quantity: {item.quantity}
-              </p>
+                <p className="order-item-text">
+                  Variant: {item.variantSku}
+                </p>
 
-              <p>
-                Price:{" "}
-                {formatPrice(
-                  Number(item.unitPrice),
-                  order.currency,
-                )}{" "}
-                × {item.quantity} ={" "}
-                {formatPrice(
-                  Number(item.unitPrice) * item.quantity,
-                  order.currency,
-                )}
-              </p>
-            </div>
-          ))}
+                <p className="order-item-text">
+                  Quantity: {item.quantity}
+                </p>
 
-          <h2>
-            Total:{" "}
-            {formatPrice(
-              Number(order.subtotal),
-              order.currency,
-            )}
-          </h2>
+                <p className="order-item-text">
+                  Price:{" "}
+                  {formatPrice(
+                    Number(item.unitPrice),
+                    order.currency,
+                  )}{" "}
+                  × {item.quantity} ={" "}
+                  {formatPrice(
+                    Number(item.unitPrice) * item.quantity,
+                    order.currency,
+                  )}
+                </p>
+              </div>
+            ))}
 
-          <Link to="/store/orders">
-            Back to Orders
-          </Link>
+            <p className="total-price-text">
+              Total:{" "}
+              {formatPrice(
+                Number(order.subtotal),
+                order.currency,
+              )}
+            </p>
+
+            <span className="link-span">
+              <Link to="/store/orders" className="order-links">
+                Back to Orders
+              </Link>
+            </span>
+          </div>
         </div>
       </div>
     </>

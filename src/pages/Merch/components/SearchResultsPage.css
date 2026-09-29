@@ -1,3 +1,15 @@
+.background-container {
+  min-height: 100vh;
+  width: 100%;
+
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .search-results-page {
   width: 100%;
   max-width: 1400px;
@@ -13,6 +25,7 @@
   font-family: "Delius", cursive;
   font-size: 36px;
   margin: 0 0 8px 0;
+  color: white;
 
   border-bottom: 1px solid gray;
 }
@@ -21,6 +34,7 @@
   font-family: "Delius", cursive;
   font-size: 18px;
   margin: 0;
+  color: white;
 }
 
 .search-results-grid {
@@ -43,7 +57,7 @@
   display: flex;
   flex-direction: column;
   width: 168px;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 6px;
   overflow: hidden;
 }
@@ -59,12 +73,13 @@
   font-family: "Delius", cursive;
   font-size: 18px;
   margin: 0 10px 5px 10px;
+  color: white;
 }
 
 .search-result-price {
   font-family: "Delius", cursive;
   font-size: 16px;
-  color: rgb(25, 0, 94);
+  color: rgb(198, 192, 214);
   margin: 0 10px 8px 10px;
 }
 
@@ -75,14 +90,17 @@
   text-align: center;
   font-family: "Delius", cursive;
   padding: 80px 20px;
+  color: white;
 }
 
 .search-no-results h2 {
   margin-bottom: 8px;
+  color: white;
 }
 
 .search-no-results p {
   margin-bottom: 24px;
+  color: white;
 }
 
 .search-no-results a {

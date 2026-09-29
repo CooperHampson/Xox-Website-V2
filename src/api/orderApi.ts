@@ -10,6 +10,7 @@ export type OrderStatus =
 
 export type CreateOrderResponse = {
   id: string;
+  orderNumber: string;
   sessionId: string;
   currency: string;
   subtotal: string;
@@ -47,21 +48,6 @@ export async function getOrder(
   const response =
     await api.get<CreateOrderResponse>(
       `/orders/${orderId}`,
-    );
-
-  return response.data;
-}
-
-export async function updateOrderStatus(
-  orderId: string,
-  status: OrderStatus,
-): Promise<CreateOrderResponse> {
-  const response =
-    await api.patch<CreateOrderResponse>(
-      `/orders/${orderId}/status`,
-      {
-        status,
-      },
     );
 
   return response.data;

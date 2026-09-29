@@ -5,7 +5,6 @@ import { MerchFilter } from "../filters/MerchFilter";
 import type { MerchItem } from "../../../types/merch";
 import { defaultMerchFilters, type MerchFilters } from "../filters/MerchFilters";
 import { filterMerch } from "../filters/FilterMerch";
-
 import { useCurrency } from "../currency/CurrencyContext";
 import { getMerch } from "../../../api/merchApi";
 
