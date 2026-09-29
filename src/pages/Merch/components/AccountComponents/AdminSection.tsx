@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getAdminUsers, updateAdminUserRole, deactivateAdminUser, activateAdminUser, type AdminUser } from '../../../../api/adminApi';
+import { getAdminUsers, updateAdminUserRole, deactivateAdminUser, activateAdminUser, updateAdminUsername, updateAdminPassword, type AdminUser } from '../../../../api/adminApi';
 
 export function AdminSection() {
   const [showUsers, setShowUsers] = useState(false);
@@ -7,6 +7,8 @@ export function AdminSection() {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [usernameInput, setUsernameInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
 
   async function handleManageUsers() {
     setShowUsers(true);
@@ -81,6 +83,73 @@ export function AdminSection() {
     }
   }
 
+  async function handleUsernameChange() {
+    if (!selectedUser) return;
+
+    setError('');
+
+    try {
+      const updatedUser = await updateAdminUsername(
+        selectedUser.id,
+        usernameInput,
+      );
+
+      setUsers((currentUsers) =>
+        currentUsers.map((user) =>
+          user.id === updatedUser.id
+            ? { ...user, ...updatedUser }
+            : user,
+        ),
+      );
+
+      setSelectedUser((currentUser) =>
+        currentUser
+          ? { ...currentUser, ...updatedUser }
+          : currentUser,
+      );
+
+      setUsernameInput(updatedUser.username);
+    } catch {
+      setError('Failed to update username.');
+    }
+  }
+
+  async function handlePasswordChange() {
+    if (!selectedUser) return;
+
+    setError('');
+
+    if (passwordInput.length < 8) {
+      setError('Password must be at least 8 characters.');
+      return;
+    }
+
+    try {
+      const updatedUser = await updateAdminPassword(
+        selectedUser.id,
+        passwordInput,
+      );
+
+      setUsers((currentUsers) =>
+        currentUsers.map((user) =>
+          user.id === updatedUser.id
+            ? { ...user, ...updatedUser }
+            : user,
+        ),
+      );
+
+      setSelectedUser((currentUser) =>
+        currentUser
+          ? { ...currentUser, ...updatedUser }
+          : currentUser,
+      );
+
+      setPasswordInput('');
+    } catch {
+      setError('Failed to change user password.');
+    }
+  }
+
   return (
     <section>
       <h2>Admin</h2>
@@ -132,7 +201,7 @@ export function AdminSection() {
                       <td>
                         <button
                           type="button"
-                          onClick={() => setSelectedUser(user)}
+                          onClick={() => { setSelectedUser(user); setUsernameInput(user.username); setPasswordInput(''); }}
                         >
                           View
                         </button>
@@ -150,9 +219,24 @@ export function AdminSection() {
                     <strong>ID:</strong> {selectedUser.id}
                   </p>
 
-                  <p>
-                    <strong>Username:</strong> {selectedUser.username}
-                  </p>
+                  <div>
+                    <label>
+                      <strong>Username:</strong>{' '}
+                      <input
+                        type="text"
+                        value={usernameInput}
+                        onChange={(event) => setUsernameInput(event.target.value)}
+                      />
+                    </label>
+
+                    <button
+                      type="button"
+                      onClick={handleUsernameChange}
+                      disabled={usernameInput === selectedUser.username}
+                    >
+                      Save Username
+                    </button>
+                  </div>
 
                   <p>
                     <strong>Email:</strong> {selectedUser.email}
@@ -204,14 +288,35 @@ export function AdminSection() {
                       : 'Never'}
                   </p>
 
-                  <p>
-                    <strong>Password last changed:</strong>{' '}
-                    {selectedUser.passwordUpdatedAt
-                      ? new Date(
-                        selectedUser.passwordUpdatedAt,
-                      ).toLocaleString()
-                      : 'Never'}
-                  </p>
+                  <div>
+                    <h4>Password</h4>
+
+                    <p>
+                      <strong>Last changed:</strong>{' '}
+                      {selectedUser.passwordUpdatedAt
+                        ? new Date(
+                          selectedUser.passwordUpdatedAt,
+                        ).toLocaleString()
+                        : 'Never'}
+                    </p>
+
+                    <input
+                      type="password"
+                      placeholder="New password"
+                      value={passwordInput}
+                      onChange={(event) =>
+                        setPasswordInput(event.target.value)
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handlePasswordChange}
+                      disabled={!passwordInput}
+                    >
+                      Set New Password
+                    </button>
+                  </div>
 
                   <button
                     type="button"

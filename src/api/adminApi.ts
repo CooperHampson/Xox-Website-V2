@@ -44,3 +44,27 @@ export async function activateAdminUser(userId: number) {
 
   return response.data;
 }
+
+export async function updateAdminUsername(
+  userId: number,
+  username: string,
+) {
+  const response = await api.patch<AdminUser>(
+    `/admin/users/${userId}/username`,
+    { username },
+  );
+
+  return response.data;
+}
+
+export async function updateAdminPassword(
+  userId: number,
+  password: string,
+) {
+  const response = await api.patch<AdminUser>(
+    `/admin/users/${userId}/password`,
+    { password },
+  );
+
+  return response.data;
+}
