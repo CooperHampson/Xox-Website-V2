@@ -13,7 +13,6 @@ export type LoginData = {
 
 export type UpdateUserData = {
   username?: string;
-  email?: string;
   password?: string;
 };
 
@@ -71,6 +70,15 @@ export type ForgotPasswordData = {
 
 export type ForgotPasswordResponse = {
   message: string;
+};
+
+export type RequestEmailChangeResponse = {
+  message: string;
+};
+
+export type VerifyEmailChangeResponse = {
+  message: string;
+  user: AuthUser;
 };
 
 export async function startRegistration(data: RegisterData) {
@@ -164,3 +172,27 @@ export async function removeProfileImage() {
 
   return response.data;
 }
+
+export const requestEmailChange = async (
+  email: string,
+) => {
+  const response =
+    await api.post<RequestEmailChangeResponse>(
+      '/users/me/email-change',
+      { email },
+    );
+
+  return response.data;
+};
+
+export const verifyEmailChange = async (
+  token: string,
+) => {
+  const response =
+    await api.post<VerifyEmailChangeResponse>(
+      '/users/email-change/verify',
+      { token },
+    );
+
+  return response.data;
+};

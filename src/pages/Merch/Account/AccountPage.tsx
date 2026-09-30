@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MerchHeader } from '../components/MerchHeader';
 import { useAuth } from '../../../auth/AuthContext';
-import { updateCurrentUser } from '../../../api/authApi';
+import { updateCurrentUser, requestEmailChange } from '../../../api/authApi';
 import { updateProfileImage, removeProfileImage } from '../../../api/authApi';
 import { useHeaderOcclusion } from '../hooks/useHeaderOcclusion';
 import { AdminSection } from '../components/AccountComponents/AdminSection';
@@ -226,18 +226,15 @@ export function AccountPage() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>,) {
     event.preventDefault();
 
-    setErrorMessage('');
-    setSuccessMessage('');
-    setIsLoading(true);
-
     const hasUsernameChanged =
       username !== user?.username;
 
     const hasEmailChanged =
-      email !== user?.email;
+      email.trim().toLowerCase() !==
+      user?.email.toLowerCase();
 
     const hasPasswordChanged =
-      password.length > 0;
+      Boolean(password);
 
     if (
       !hasUsernameChanged &&
@@ -245,53 +242,62 @@ export function AccountPage() {
       !hasPasswordChanged
     ) {
       setErrorMessage(
-        'No changes were made.',
+        'There are no changes to save.',
       );
-      setIsLoading(false);
       return;
     }
 
-    try {
-      const updatedUser = await updateCurrentUser({
-        ...(username !== user?.username
-          ? { username }
-          : {}),
-        ...(email !== user?.email
-          ? { email }
-          : {}),
-        ...(password
-          ? { password }
-          : {}),
-      });
+    setIsLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
 
-      updateUser(updatedUser);
+    try {
+      if (
+        hasUsernameChanged ||
+        hasPasswordChanged
+      ) {
+        const updatedUser =
+          await updateCurrentUser({
+            ...(hasUsernameChanged
+              ? { username }
+              : {}),
+            ...(hasPasswordChanged
+              ? { password }
+              : {}),
+          });
+
+        updateUser(updatedUser);
+      }
+
+      if (hasEmailChanged) {
+        await requestEmailChange(
+          email.trim(),
+        );
+      }
 
       setPassword('');
-      setSuccessMessage('Account updated successfully',);
-    } catch (error) {
-      console.error(error);
 
+      if (hasEmailChanged) {
+        setSuccessMessage(
+          hasUsernameChanged ||
+            hasPasswordChanged
+            ? 'Your account was updated. Please check your new email address to verify the email change.'
+            : 'Please check your new email address to verify the email change.',
+        );
+      } else {
+        setSuccessMessage(
+          'Account updated successfully.',
+        );
+      }
+    } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (!error.response) {
-          setErrorMessage(
-            'Unable to connect to the server.',
-          );
-        } else if (
-          error.response.status === 409
-        ) {
-          setErrorMessage(
-            error.response.data?.message ??
-            'That username or email is already in use.',
-          );
-        } else {
-          setErrorMessage(
-            error.response.data?.message ??
-            'Unable to update your account.',
-          );
-        }
+        setErrorMessage(
+          error.response?.data?.message ??
+          'Failed to update your account.',
+        );
       } else {
         setErrorMessage(
-          'Something went wrong. Please try again.',
+          'Failed to update your account.',
         );
       }
     } finally {
@@ -563,7 +569,7 @@ export function AccountPage() {
                 <div className="account-info-field">
                   <label className="account-info-text">
                     <span>Email:</span>
-                    <input className="account-info-input" type="text" value={email} onChange={(event) => setEmail(event.target.value)} disabled={emailOnCooldown} required />
+                    <input className="account-info-input" type="email" value={email} onChange={(event) => setEmail(event.target.value)} disabled={emailOnCooldown} required />
                   </label>
 
                   <p className={emailOnCooldown ? 'account-info-cooldown account-info-cooldown-locked' : 'account-info-cooldown'}>

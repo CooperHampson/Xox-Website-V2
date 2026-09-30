@@ -14,6 +14,7 @@ import { AccountPage } from './pages/Merch/Account/AccountPage';
 import { CartPage } from './pages/Merch/CartPage';
 import { OrdersPage } from './pages/Merch/OrdersPage';
 import { OrderDetailsPage } from './pages/Merch/OrderDetailsPage';
+import { VerifyEmailChangePage } from './pages/Merch/Account/VerifyEmailChangePage';
 import ResetPassword from './pages/Merch/ResetPassword/ResetPassword';
 import OrderConfirmationPage from './pages/Merch/OrderConfirmationPage';
 import './App.css'
@@ -41,6 +42,7 @@ function App() {
         <Route path="store/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
         <Route path="store/orders" element={<OrdersPage />} />
         <Route path="store/orders/:orderId" element={<OrderDetailsPage />} />
+        <Route path="store/verify-email-change" element={<VerifyEmailChangePage />} />
       </Routes>
 
     </>
