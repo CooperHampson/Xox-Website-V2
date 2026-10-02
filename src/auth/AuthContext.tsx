@@ -14,6 +14,7 @@ type AuthContextType = {
   user: AuthUser | null;
   accessToken: string | null;
   isAuthenticated: boolean;
+  isAuthReady: boolean;
   login: (
     user: AuthUser,
     accessToken: string,
@@ -32,16 +33,10 @@ type AuthProviderProps = {
 
 const AUTH_STORAGE_KEY = 'xox_auth';
 
-export function AuthProvider({
-  children,
-}: AuthProviderProps) {
-  const [user, setUser] = useState<AuthUser | null>(
-    null,
-  );
-
-  const [accessToken, setAccessToken] = useState<
-    string | null
-  >(null);
+export function AuthProvider({ children, }: AuthProviderProps) {
+  const [user, setUser] = useState<AuthUser | null>(null,);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   useEffect(() => {
     function handleAuthExpired() {
@@ -67,34 +62,45 @@ export function AuthProvider({
       localStorage.getItem(AUTH_STORAGE_KEY);
 
     if (!storedAuth) {
+      setIsAuthReady(true);
       return;
     }
 
-    const parsedAuth = JSON.parse(storedAuth);
+    try {
+      const parsedAuth = JSON.parse(storedAuth);
 
-    setUser(parsedAuth.user);
-    setAccessToken(parsedAuth.accessToken);
+      setUser(parsedAuth.user);
+      setAccessToken(parsedAuth.accessToken);
 
-    getCurrentUser()
-      .then((currentUser) => {
-        setUser(currentUser);
+      getCurrentUser()
+        .then((currentUser) => {
+          setUser(currentUser);
 
-        localStorage.setItem(
-          AUTH_STORAGE_KEY,
-          JSON.stringify({
-            user: currentUser,
-            accessToken: parsedAuth.accessToken,
-          }),
-        );
-      })
-      .catch(() => {
-        setUser(null);
-        setAccessToken(null);
+          localStorage.setItem(
+            AUTH_STORAGE_KEY,
+            JSON.stringify({
+              user: currentUser,
+              accessToken: parsedAuth.accessToken,
+            }),
+          );
+        })
+        .catch(() => {
+          setUser(null);
+          setAccessToken(null);
 
-        localStorage.removeItem(
-          AUTH_STORAGE_KEY,
-        );
-      });
+          localStorage.removeItem(
+            AUTH_STORAGE_KEY,
+          );
+        })
+        .finally(() => {
+          setIsAuthReady(true);
+        });
+    } catch {
+      setUser(null);
+      setAccessToken(null);
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+      setIsAuthReady(true);
+    }
   }, []);
 
   function login(
@@ -144,6 +150,7 @@ export function AuthProvider({
         user,
         accessToken,
         isAuthenticated: user !== null,
+        isAuthReady,
         login,
         updateUser,
         logout,

@@ -7,11 +7,13 @@ import { updateCurrentUser, requestEmailChange } from '../../../api/authApi';
 import { updateProfileImage, removeProfileImage } from '../../../api/authApi';
 import { useHeaderOcclusion } from '../hooks/useHeaderOcclusion';
 import { AdminSection } from '../components/AccountComponents/AdminSection';
+import { ModeratorSection } from '../components/AccountComponents/ModeratorSection/ModeratorSection';
 
 import './AccountPage.css';
 
 export function AccountPage() {
-  const { user, updateUser, logout } = useAuth();
+  const { user, updateUser, logout, isAuthReady } = useAuth();
+  console.log('Account auth state:', {isAuthReady, user, role: user?.role,});
   const navigate = useNavigate();
   const [username, setUsername] = useState(user?.username ?? '');
   const [email, setEmail] = useState(user?.email ?? '');
@@ -670,7 +672,11 @@ export function AccountPage() {
             <button className="logout-button" type="button" onClick={handleLogout}>Logout</button>
           </div>
 
-          {user?.role === 'ADMIN' && (
+          {isAuthReady && (user?.role === 'MODERATOR' || user?.role === 'ADMIN') && (
+            <ModeratorSection />
+          )}
+
+          {isAuthReady && user?.role === 'ADMIN' && (
             <AdminSection />
           )}
         </div>

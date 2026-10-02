@@ -142,3 +142,11 @@ export async function deleteMerchProduct(
 ): Promise<void> {
   await api.delete(`/merch/${productId}`);
 }
+
+export async function getOrderAgainMerch(): Promise<MerchItem[]> {
+  const response = await api.get<MerchItem[]>(
+    '/merch/order-again',
+  );
+
+  return response.data;
+}

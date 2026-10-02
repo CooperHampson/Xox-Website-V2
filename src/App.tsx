@@ -15,6 +15,7 @@ import { CartPage } from './pages/Merch/CartPage';
 import { OrdersPage } from './pages/Merch/OrdersPage';
 import { OrderDetailsPage } from './pages/Merch/OrderDetailsPage';
 import { VerifyEmailChangePage } from './pages/Merch/Account/VerifyEmailChangePage';
+import DesignStudioPage from './pages/DesignStudio/DesignStudioPage';
 import ResetPassword from './pages/Merch/ResetPassword/ResetPassword';
 import OrderConfirmationPage from './pages/Merch/OrderConfirmationPage';
 import './App.css'
@@ -43,6 +44,8 @@ function App() {
         <Route path="store/orders" element={<OrdersPage />} />
         <Route path="store/orders/:orderId" element={<OrderDetailsPage />} />
         <Route path="store/verify-email-change" element={<VerifyEmailChangePage />} />
+        <Route path="design-studio" element={<DesignStudioPage />} />
+        <Route path="design-studio/:designId" element={<DesignStudioPage />} />
       </Routes>
 
     </>
