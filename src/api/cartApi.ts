@@ -22,6 +22,10 @@ export type CartItem = {
     price: string;
     isSoldOut: boolean;
     isPublished: boolean;
+    metadata?: {
+      images?: string[];
+      [key: string]: unknown;
+    } | null;
   };
 };
 
