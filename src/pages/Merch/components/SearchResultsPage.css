@@ -22,19 +22,19 @@
 }
 
 .search-results-header h1 {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 36px;
   margin: 0 0 8px 0;
-  color: white;
+  color: rgb(78, 78, 78);
 
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(78, 78, 78);
 }
 
 .search-results-header p {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   margin: 0;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .search-results-grid {
@@ -57,7 +57,7 @@
   display: flex;
   flex-direction: column;
   width: 168px;
-  border: 1px solid white;
+  border: 1px solid rgb(78, 78, 78);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -70,16 +70,16 @@
 }
 
 .search-result-name {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   margin: 0 10px 5px 10px;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .search-result-price {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: rgb(198, 192, 214);
+  color: rgb(92, 92, 92);
   margin: 0 10px 8px 10px;
 }
 
@@ -88,19 +88,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   padding: 80px 20px;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .search-no-results h2 {
   margin-bottom: 8px;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .search-no-results p {
   margin-bottom: 24px;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .search-no-results a {

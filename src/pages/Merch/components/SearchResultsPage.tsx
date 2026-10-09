@@ -31,15 +31,11 @@ export function SearchResultsPage() {
 
   const results = searchMerch(merchItems, query);
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`,
-  };
-
   return (
     <>
       <title>Xoxxly | Search Results</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <main className="search-results-page" ref={divRef}>
