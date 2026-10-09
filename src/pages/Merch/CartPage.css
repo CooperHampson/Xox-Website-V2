@@ -4,10 +4,7 @@
 
   position: relative;
 
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: rgb(19, 19, 19);
 }
 
 .cart-container {
@@ -22,12 +19,17 @@
   padding: 84px 48px 48px 48px;
 }
 
-.cart-title {
-  font-family: "Delius", cursive;
-  font-size: 36px;
-  color: white;
+.ct-span {
+  border-bottom: 1px solid rgb(78, 78, 78);
+}
 
-  justify-self: center;
+.cart-title {
+  font-family: "Raleway", cursive;
+  font-size: 36px;
+  color: rgb(78, 78, 78);
+
+  text-align: center;
+  margin: 0;
 }
 
 .cart-outer-container {
@@ -51,18 +53,20 @@
   padding: 8px;
 
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
 .clear-cart-button {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 28px;
   color: white;
 
-  background: transparent;
-  
-  border: 2px solid white;
-  border-radius: 12px;
+  border: none;
+
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 
   transition: background 0.3s ease;
 }
@@ -70,31 +74,30 @@
 .clear-cart-button:hover {
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(57, 22, 87, 0.7);
 }
 
 .item-container {
   display: grid;
+  row-gap: 4px;
 
-  border: 1px solid gray;
-  border-radius: 12px;
-  margin-bottom: 16px;
   padding: 8px;
+
+  background-color: rgb(32, 32, 32);
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
 .item-title {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
   font-weight: 600;
-  color: white;
-  margin: 0 0 16px 0;
+  color: rgb(78, 78, 78);
 }
 
 .item-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: white;
-  margin: 0 0 16px 0;
+  color: rgb(78, 78, 78);
 }
 
 .quant-div {
@@ -102,21 +105,24 @@
 }
 
 .item-span {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: white;
-  margin: 0 8px 16px 8px;
+  color: rgb(78, 78, 78);
+
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .quantity-button {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
-  background: transparent;
-  
-  border: 1px solid gray;
-  border-radius: 6px;
+  border: none;
+
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px);
 
   transition: background 0.3s ease;
 }
@@ -124,18 +130,19 @@
 .quantity-button:hover {
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(57, 22, 87, 0.7);
 }
 
 .item-remove-button {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
-  background: transparent;
-  
-  border: 1px solid gray;
-  border-radius: 6px;
+  border: none;
+
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
 
   transition: background 0.3s ease;
 }
@@ -143,7 +150,7 @@
 .item-remove-button:hover {
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(57, 22, 87, 0.7);
 }
 
 .cart-summary {
@@ -157,32 +164,34 @@
   padding: 8px;
 
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
 .cart-sum-title {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 8px 16px 8px;
 }
 
 .cart-sum-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 8px 16px 8px;
 }
 
 .checkout-button {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
-  background: transparent;
-  
-  border: 1px solid gray;
-  border-radius: 6px;
+  border: none;
+
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
 
   transition: background 0.3s ease;
 }
@@ -190,5 +199,5 @@
 .checkout-button:hover {
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(57, 22, 87, 0.7);
 }

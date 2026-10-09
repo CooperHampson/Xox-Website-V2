@@ -68,17 +68,12 @@ export function MerchStore() {
     );
   }
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`,
-  };
-
   return (
     <>
       <title>Xoxxly | Merch Store</title>
 
       <div
         className="background-container"
-        style={bgImageUrl}
       >
         <MerchHeader />
 
@@ -97,6 +92,12 @@ export function MerchStore() {
                 />
               </div>
             ))}
+          </div>
+
+          <p className="hp-title">New Releases</p>
+
+          <div className="featured-page-grid">
+            
           </div>
 
           <p className="hp-title">Order Again</p>

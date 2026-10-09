@@ -150,15 +150,11 @@ export function ProductPage() {
     }
   }
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   return (
     <>
       <title>Xoxxly | {product.name}</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="product-page" ref={divRef}>

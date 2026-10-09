@@ -21,11 +21,11 @@
 }
 
 .category-title {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 32px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 8px 0;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgb(78, 78, 78);
 
   text-align: center;
 }

@@ -33,9 +33,11 @@
 }
 
 .MH-MS-img {
-  height: 44px;
+  height: 20px;
   margin-top: 8px;
   margin-bottom: 8px;
+
+  transform: skew(-15deg);
 }
 
 .MH-Store-Site {
@@ -50,7 +52,7 @@
   margin: 0;
   margin-left: 24px;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   color: white;
 }
@@ -91,7 +93,7 @@
   z-index: 999;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
 
   flex-direction: row;
@@ -115,14 +117,14 @@
 }
 
 .phz-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   color: white;
 }
 
 .products-dropdown {
   margin: 0;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   color: white;
 
@@ -201,7 +203,7 @@
   background: none;
   outline: none;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
   color: white;
 
@@ -223,7 +225,7 @@
   margin: 0;
   margin-bottom: 4px;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 32px;
   color: white;
 }
@@ -231,7 +233,7 @@
 .icb-text {
   margin: 0;
   
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
   color: white;
 }
@@ -248,7 +250,7 @@
   margin: 0;
   margin-bottom: 8px;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 40px;
   color: white;
 
@@ -282,8 +284,8 @@
 .MH-Middle-text {
   margin: 0;
 
-  font-family: "Delius", cursive;
-  font-size: 36px;
+  font-family: "Raleway", cursive;
+  font-size: 24px;
   color: white;
 }
 
@@ -300,7 +302,7 @@
   align-items: center;
   justify-content: center;
 
-  margin-right: 24px;
+  margin-right: 12px;
 }
 
 .currency-dropdown {
@@ -314,7 +316,7 @@
   background-color: transparent;
   color: white;
   
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
 
   transform: scale(1.10);
@@ -359,7 +361,7 @@
   text-align: left;
   color: white;
   font-size: 14px;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   cursor: pointer;
   display: block;
   padding: 8px 12px;
@@ -385,16 +387,21 @@
   background-color: transparent;
   border: none;
   margin: 0;
-  padding: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  height: 32px;
   
   cursor: pointer;
 }
 
 .MH-RS-OL-text {
   margin: 0;
-  margin-right: 24px;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   color: white;
 }
@@ -434,7 +441,7 @@
   background: rgba(0, 0, 0, 0.4);
   color: rgb(158, 128, 206);
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 15px;
   font-weight: 700;
   line-height: 1;
@@ -455,8 +462,8 @@
 }
 
 .MH-RS-ACC-img {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   margin-bottom: 2px;
   border-radius: 50%;
   object-fit: cover;

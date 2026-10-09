@@ -31,15 +31,11 @@ export function AllProducts() {
 
   const filteredItems = filterMerch(merchItems, filters, currentCurrency.code, exchangeRates);
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   return (
     <>
       <title>Xoxxly | Merch All Products</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
 
         <MerchHeader />
 

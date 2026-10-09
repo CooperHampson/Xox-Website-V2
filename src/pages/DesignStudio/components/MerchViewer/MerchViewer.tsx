@@ -172,11 +172,8 @@ function MerchModel({
   onDraggingChange,
 }: {
   colour: string;
-
   assets: MerchAsset[];
-
   placedArtworks: PlacedArtwork[];
-
   selectedArtworkId: number | null;
 
   onSelectArtwork: (
@@ -215,9 +212,6 @@ function MerchModel({
     setIsDragging,
   ] = useState(false);
 
-  /*
-   * Find the actual mesh inside the GLB.
-   */
   const sourceMesh =
     useMemo<THREE.Mesh | null>(() => {
       let foundMesh:
@@ -236,10 +230,6 @@ function MerchModel({
       return foundMesh;
     }, [scene]);
 
-  /*
-   * Calculate the model's bounds
-   * dynamically from the loaded model.
-   */
   const modelBounds =
     useMemo<ModelBounds | null>(() => {
       const box =
@@ -283,61 +273,30 @@ function MerchModel({
     return null;
   }
 
-  /*
-   * Clone the original material so
-   * we don't modify the cached GLB.
-   */
   const merchMaterial =
     sourceMaterial.clone();
 
-  /*
-   * Remove the baked artwork/textures
-   * from the original shirt model.
-   */
   merchMaterial.map = null;
-
   merchMaterial.normalMap = null;
-
-  merchMaterial.roughnessMap =
-    null;
-
-  merchMaterial.metalnessMap =
-    null;
-
+  merchMaterial.roughnessMap = null;
+  merchMaterial.metalnessMap = null;
   merchMaterial.aoMap = null;
 
-  /*
-   * Apply the selected shirt colour.
-   */
   merchMaterial.color.set(colour);
-
   merchMaterial.roughness = 0.8;
-
   merchMaterial.metalness = 0;
-
   merchMaterial.needsUpdate = true;
 
   const modelHeight =
     bounds.maxY -
     bounds.minY;
 
-  /*
-   * Artwork scale is still based on
-   * the shirt's model height.
-   */
   function getArtworkScale(
     artwork: PlacedArtwork,
   ) {
-    return (
-      artwork.placement.scale *
-      modelHeight
-    );
+    return artwork.placement.scale;
   }
 
-  /*
-   * Start dragging the currently
-   * selected artwork.
-   */
   function handleArtworkDragStart(
     event: ThreeEvent<PointerEvent>,
   ) {
@@ -352,15 +311,6 @@ function MerchModel({
     onDraggingChange(true);
   }
 
-  /*
-   * During dragging, use the actual
-   * camera ray to find the point on
-   * the shirt underneath the mouse.
-   *
-   * This gives us a true 3D surface
-   * position instead of reconstructing
-   * the position from X/Y.
-   */
   function handlePointerMove(
     event: ThreeEvent<PointerEvent>,
   ) {
@@ -391,7 +341,9 @@ function MerchModel({
         false,
       );
 
-    if (intersections.length === 0) {
+    if (
+      intersections.length === 0
+    ) {
       return;
     }
 
@@ -402,29 +354,16 @@ function MerchModel({
       return;
     }
 
-    /*
-     * Convert the hit point from WORLD
-     * coordinates into the shirt mesh's
-     * local coordinate system.
-     */
     const localPoint =
       mesh.worldToLocal(
         intersection.point.clone(),
       );
 
-    /*
-     * The face normal is already expressed
-     * in the mesh's local coordinate system.
-     */
     const localNormal =
       intersection.face.normal
         .clone()
         .normalize();
 
-    /*
-     * Keep the decal slightly above the
-     * shirt surface to prevent z-fighting.
-     */
     const surfaceOffset =
       modelHeight * 0.003;
 
@@ -457,9 +396,6 @@ function MerchModel({
     );
   }
 
-  /*
-   * Finish artwork dragging.
-   */
   function handlePointerUp(
     event: ThreeEvent<PointerEvent>,
   ) {

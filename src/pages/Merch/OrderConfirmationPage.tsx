@@ -14,10 +14,6 @@ export default function OrderConfirmationPage() {
   const [isLoading, setIsLoading] = useState(true);
   const divRef = useHeaderOcclusion<HTMLDivElement>();
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   useEffect(() => {
     if (!isAuthenticated) {
       setIsLoading(false);
@@ -49,7 +45,7 @@ export default function OrderConfirmationPage() {
   if (!isAuthenticated) {
     return (
       <>
-        <div className="background-container" style={bgImageUrl}>
+        <div className="background-container">
           <MerchHeader />
 
           <div className="orders-page-container" ref={divRef}>
@@ -81,7 +77,7 @@ export default function OrderConfirmationPage() {
     <>
       <title>Xoxxly Store | Order {order.orderNumber}</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="orders-page-container" ref={divRef}>

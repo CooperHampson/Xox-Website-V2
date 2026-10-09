@@ -24,10 +24,11 @@
 
 .order-container {
   display: grid;
+  
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 2px solid gray;
-  border-radius: 12px;
   margin-bottom: 16px;
   padding: 8px;
 }
@@ -35,10 +36,10 @@
 .OP-title {
   justify-self: center;
   
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 36px;
   font-weight: 400;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .link-span {
@@ -47,9 +48,9 @@
 
 .order-links {
   text-decoration: none;
-  color: white;
+  color: rgb(78, 78, 78);
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 16px 0;
@@ -60,17 +61,17 @@
 }
 
 .order-info-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 8px 0;
 }
 
 .shopping-link {
   text-decoration: none;
-  color: white;
+  color: rgb(78, 78, 78);
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   margin: 0;
 }

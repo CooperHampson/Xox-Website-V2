@@ -13,10 +13,6 @@ export function OrdersPage() {
   const [isLoading, setIsLoading] = useState(true);
   const divRef = useHeaderOcclusion<HTMLDivElement>();
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   useEffect(() => {
     async function loadOrders() {
       try {
@@ -36,7 +32,7 @@ export function OrdersPage() {
   if (!isAuthenticated) {
     return (
       <>
-        <div className="background-container" style={bgImageUrl}>
+        <div className="background-container">
           <MerchHeader />
 
           <div className="orders-page-container" ref={divRef}>
@@ -56,7 +52,7 @@ export function OrdersPage() {
     <>
       <title>Xoxxly Store | Orders Page</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="orders-page-container" ref={divRef}>

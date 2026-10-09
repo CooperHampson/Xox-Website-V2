@@ -84,11 +84,7 @@ export function MerchHeader() {
       <div className="Merch-Header" id="merch-header">
         <div className="MH-left-section">
           <Link to="/" className="MH-Main-Site">
-            <img src={`${import.meta.env.BASE_URL}Images/Header/LogoWhite.png`} className="MH-MS-img" />
-          </Link>
-
-          <Link to="/" className="MH-Store-Site">
-            <p className="MH-SS-text">Home</p>
+            <img src={`${import.meta.env.BASE_URL}Images/MerchHeader/WhiteText.png`} className="MH-MS-img" />
           </Link>
 
           <div className="products-button-container">
@@ -147,7 +143,7 @@ export function MerchHeader() {
 
         <div className="MH-middle-section">
           <Link to="/store" className="MH-Middle-link">
-            <p className="MH-Middle-text">Xoxxly Store</p>
+            <p className="MH-Middle-text">Home</p>
           </Link>
         </div>
 

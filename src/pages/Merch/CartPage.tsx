@@ -18,10 +18,6 @@ export function CartPage() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const divRef = useHeaderOcclusion<HTMLDivElement>();
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   const subtotal =
     cart?.items.reduce(
       (total, item) => total + convertPrice(
@@ -38,7 +34,7 @@ export function CartPage() {
   if (!cart || cart.items.length === 0) {
     return (
       <>
-        <div className="background-container" style={bgImageUrl}>
+        <div className="background-container">
           <MerchHeader />
 
           <div className="cart-container">
@@ -84,11 +80,13 @@ export function CartPage() {
     <>
       <title>Xoxxly Store | Cart</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="cart-container" ref={divRef}>
-          <p className="cart-title">Cart</p>
+          <span className="ct-span">
+            <p className="cart-title">Cart</p>
+          </span>
 
           <div className="cart-outer-container">
             <div className="cart-info-container">

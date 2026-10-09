@@ -23,10 +23,10 @@
 
 .account-page-title {
   
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 36px;
   font-weight: 400;
-  color: white;
+  color: rgb(78, 78, 78);
 
   text-align: center;
 
@@ -41,9 +41,9 @@
 
   padding: 16px;
 
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 2px solid gray;
-  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
 .account-info-details-container {
@@ -84,12 +84,12 @@
 }
 
 .account-info-title {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 28px;
-  color: white;
+  color: rgb(78, 78, 78);
 
   text-align: start;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(78, 78, 78);
   margin: 0;
 }
 
@@ -119,12 +119,12 @@
   width: 100%;
   padding: 8px 10px;
 
-  border: 1px solid lightgray;
-  border-radius: 8px;
-
-  background-color: rgba(0, 0, 0, 0.8);
-  font-family: "Delius", cursive;
+  background-color: rgb(0, 0, 0);
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+  font-family: "Raleway", cursive;
   font-size: 14px;
+  color: rgb(78, 78, 78);
 }
 
 .account-info-text {
@@ -135,30 +135,30 @@
 
   width: 100%;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 22px;
-  color: white;
+  color: rgb(78, 78, 78);
 
   text-align: start;
   margin: 0 0 8px 0;
 }
 
 .account-info-req-title {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: white;
+  color: rgb(78, 78, 78);
 
   margin: 0 0 0 16px;
 }
 
 .account-info-req-title span {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(78, 78, 78);
 }
 
 .account-info-req-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 14px;
-  color: white;
+  color: rgb(78, 78, 78);
 
   margin: 0 0 0 16px;
 }
@@ -188,13 +188,13 @@
   width: 100%;
   padding: 8px 10px;
 
-  border: 1px solid lightgray;
-  border-radius: 8px;
+  background-color: rgb(0, 0, 0);
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 
-  background-color: rgba(0, 0, 0, 0.8);
-
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 14px;
+  color: rgb(78, 78, 78);
 }
 
 .password-input-container:hover .password-req-container,
@@ -206,12 +206,13 @@
   width: 120px;
   height: 30px;
 
-  background-color: transparent;
+  border: none;
 
-  border: 1px solid gray;
-  border-radius: 8px;
+  background: rgb(57, 22, 87);
 
-  font-family: "Delius", cursive;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
@@ -219,7 +220,7 @@
 }
 
 .save-changes-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(57, 22, 87, 0.4);
   cursor: pointer;
 }
 
@@ -227,12 +228,13 @@
   width: 150px;
   height: 40px;
 
-  background-color: transparent;
+  border: none;
 
-  border: 1px solid gray;
-  border-radius: 12px;
+  background: rgb(57, 22, 87);
 
-  font-family: "Delius", cursive;
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  font-family: "Raleway", cursive;
   font-size: 20px;
   font-weight: 600;
   color: white;
@@ -241,7 +243,7 @@
 }
 
 .logout-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(57, 22, 87, 0.4);
   cursor: pointer;
 }
 
@@ -252,28 +254,30 @@
   height: 32px;
   padding: 4px;
 
-  border: 1px solid gray;
-  border-radius: 8px;
+  border: none;
 
-  font-family: "Delius", cursive;
+  background: rgb(24, 24, 24);
+
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  font-family: "Raleway", cursive;
   font-size: 18px;
   color: white;
-  background-color: transparent;
   box-sizing: border-box;
 }
 
 .account-success {
   margin: 0 0 1rem;
   color: #16803c;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-weight: 600;
 }
 
 .account-info-cooldown {
   margin: 0 0 4px 0;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 14px;
-  color: rgb(206, 206, 206);
+  color: rgb(78, 78, 78);
 }
 
 .account-info-cooldown-locked {
@@ -303,12 +307,13 @@
   width: 200px;
   height: 30px;
 
-  background-color: transparent;
+  border: none;
 
-  border: 1px solid gray;
-  border-radius: 8px;
+  background: rgb(57, 22, 87);
 
-  font-family: "Delius", cursive;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
@@ -316,7 +321,7 @@
 }
 
 .change-profile-pic-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(57, 22, 87, 0.4);
   cursor: pointer;
 }
 
@@ -324,12 +329,13 @@
   width: 200px;
   height: 30px;
 
-  background-color: transparent;
+  border: none;
 
-  border: 1px solid gray;
-  border-radius: 8px;
+  background: rgb(57, 22, 87);
 
-  font-family: "Delius", cursive;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
@@ -337,13 +343,13 @@
 }
 
 .remove-profile-pic-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(57, 22, 87, 0.4);
   cursor: pointer;
 }
 
 .account-profile-image-error {
   margin: 0;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 14px;
   color: #b00020;
 }
@@ -363,14 +369,15 @@
 }
 
 .crop-button {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
   color: white;
 
-  background-color: transparent;
+  border: none;
 
-  border: 1px solid white;
-  border-radius: 8px;
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
 
   cursor: pointer;
 
@@ -378,7 +385,7 @@
 }
 
 .crop-button:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(57, 22, 87, 0.6);
 }
 
 .profile-crop-modal {
@@ -391,8 +398,8 @@
   border: 1px solid gray;
   border-radius: 12px;
 
-  color: white;
-  font-family: "Delius", cursive;
+  color: rgb(78, 78, 78);
+  font-family: "Raleway", cursive;
 }
 
 .profile-crop-modal h2 {

@@ -69,14 +69,10 @@ export function VerifyEmailChangePage() {
     void verify();
   }, [searchParams, updateUser]);
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`
-  };
-
   return (
     <main>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
 
         <MerchHeader />
 

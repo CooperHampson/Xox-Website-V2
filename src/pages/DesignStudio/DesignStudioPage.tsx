@@ -2,6 +2,7 @@ import {
   useState,
   type ChangeEvent,
 } from 'react';
+
 import { useParams } from 'react-router-dom';
 
 import {
@@ -39,16 +40,12 @@ export default function DesignStudioPage() {
   const [
     placedArtworks,
     setPlacedArtworks,
-  ] = useState<PlacedArtwork[]>(
-    [],
-  );
+  ] = useState<PlacedArtwork[]>([]);
 
   const [
     selectedArtworkId,
     setSelectedArtworkId,
-  ] = useState<number | null>(
-    null,
-  );
+  ] = useState<number | null>(null);
 
   function handleAssetUpload(
     event: ChangeEvent<HTMLInputElement>,
@@ -104,12 +101,6 @@ export default function DesignStudioPage() {
       },
     );
 
-    /*
-     * If this asset is already on the
-     * merch item, select its existing
-     * artwork instead of creating another
-     * one.
-     */
     const existingArtwork =
       placedArtworks.find(
         (artwork) =>
@@ -125,32 +116,25 @@ export default function DesignStudioPage() {
       return;
     }
 
-    /*
-     * New artwork starts in the centre
-     * of the model.
-     *
-     * These are normalized coordinates,
-     * not shirt-specific coordinates.
-     */
     const newArtwork: PlacedArtwork =
-    {
-      id: Date.now(),
-      assetId,
-      placement: {
-        position: {
-          x: 0,
-          y: 50,
-          z: 5.5,
+      {
+        id: Date.now(),
+        assetId,
+        placement: {
+          position: {
+            x: 0,
+            y: 50,
+            z: 5.7,
+          },
+          normal: {
+            x: 0,
+            y: 0,
+            z: 1,
+          },
+          scale: 2.5,
+          rotation: 0,
         },
-        normal: {
-          x: 0,
-          y: 0,
-          z: 1,
-        },
-        scale: 2.5,
-        rotation: 0,
-      },
-    };
+      };
 
     setPlacedArtworks(
       (currentArtworks) => [
@@ -236,19 +220,21 @@ export default function DesignStudioPage() {
   ) {
     setPlacedArtworks(
       (currentArtworks) =>
-        currentArtworks.map((artwork) =>
-          artwork.id === artworkId
-            ? {
-              ...artwork,
-              placement: {
-                ...artwork.placement,
-                position:
-                  surface.position,
-                normal:
-                  surface.normal,
-              },
-            }
-            : artwork,
+        currentArtworks.map(
+          (artwork) =>
+            artwork.id ===
+            artworkId
+              ? {
+                  ...artwork,
+                  placement: {
+                    ...artwork.placement,
+                    position:
+                      surface.position,
+                    normal:
+                      surface.normal,
+                  },
+                }
+              : artwork,
         ),
     );
   }
@@ -268,14 +254,14 @@ export default function DesignStudioPage() {
         currentArtworks.map(
           (artwork) =>
             artwork.id ===
-              selectedArtworkId
+            selectedArtworkId
               ? {
-                ...artwork,
-                placement: {
-                  ...artwork.placement,
-                  scale,
-                },
-              }
+                  ...artwork,
+                  placement: {
+                    ...artwork.placement,
+                    scale,
+                  },
+                }
               : artwork,
         ),
     );
@@ -296,14 +282,14 @@ export default function DesignStudioPage() {
         currentArtworks.map(
           (artwork) =>
             artwork.id ===
-              selectedArtworkId
+            selectedArtworkId
               ? {
-                ...artwork,
-                placement: {
-                  ...artwork.placement,
-                  rotation,
-                },
-              }
+                  ...artwork,
+                  placement: {
+                    ...artwork.placement,
+                    rotation,
+                  },
+                }
               : artwork,
         ),
     );
@@ -361,10 +347,11 @@ export default function DesignStudioPage() {
                 return (
                   <div
                     key={asset.id}
-                    className={`asset-item ${isSelected
+                    className={`asset-item ${
+                      isSelected
                         ? 'asset-item-selected'
                         : ''
-                      }`}
+                    }`}
                     onClick={() =>
                       handleAssetSelection(
                         asset.id,
@@ -534,9 +521,9 @@ export default function DesignStudioPage() {
 
                   <input
                     type="range"
-                    min="0.03"
-                    max="0.4"
-                    step="0.01"
+                    min="0.5"
+                    max="5"
+                    step="0.1"
                     value={
                       selectedArtwork
                         .placement
@@ -554,6 +541,14 @@ export default function DesignStudioPage() {
                     }
                   />
                 </label>
+
+                <span>
+                  {
+                    selectedArtwork
+                      .placement
+                      .scale
+                  }
+                </span>
               </div>
 
               <div className="control-section">

@@ -12,7 +12,7 @@
   position: relative;
   width: min(90%, 420px);
   padding: 2rem;
-  background: white;
+  background: rgb(51, 51, 51);
   border-radius: 12px;
 }
 
@@ -22,7 +22,7 @@
   right: 0.75rem;
   border: none;
   background: transparent;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -30,9 +30,10 @@
 .auth-modal h3 {
   margin: 0 0 2rem;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 1.75rem;
   font-weight: 700;
+  color: rgb(78, 78, 78)
 }
 
 .auth-modal form {
@@ -42,9 +43,10 @@
 }
 
 .auth-modal label {
-  font-family: "Delius", cursive;
-  font-size: 0.9rem;
+  font-family: "Raleway", cursive;
+  font-size: 18px;
   font-weight: 600;
+  color: rgb(78, 78, 78);
 }
 
 .auth-modal input {
@@ -53,13 +55,15 @@
 
   padding: 0.85rem 1rem;
 
-  border: 1px solid #000000;
-  border-radius: 10px;
+  border: none;
 
-  background: #ffffff;
+  background: rgb(29, 29, 29);
 
-  font-family: "Delius", cursive;
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  font-family: "Raleway", cursive;
   font-size: 1rem;
+  color: rgb(78, 78, 78);
 }
 
 .auth-modal input:focus {
@@ -72,29 +76,30 @@
 
   padding: 0.9rem 1rem;
 
-  border: 1px solid #000000;
-  border-radius: 10px;
+  border: none;
 
-  background: #000000;
+  background: rgb(57, 22, 87);
   color: #ffffff;
 
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  font-family: "Raleway", cursive;
   font-size: 1rem;
   font-weight: 600;
 
   cursor: pointer;
 
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .auth-modal form button:hover {
-  background: #ffffff;
-  color: #000000;
+  background: rgba(57, 22, 87, 0.6);
 }
 
 .auth-modal > div > p {
   margin: 1.5rem 0 0.5rem;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   text-align: center;
   font-size: 0.9rem;
 }
@@ -106,6 +111,7 @@
   border: none;
   background: transparent;
 
+  font-family: "Raleway", cursive;
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: underline;
@@ -126,7 +132,7 @@
 
   font-size: 36px;
   font-weight: 700;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
 }
 
 .auth-register-success {
@@ -142,13 +148,13 @@
 
   font-size: 36px;
   font-weight: 700;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
 }
 
 .auth-error {
   margin: 0 0 1rem;
   color: #d00000;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-weight: 600;
 }
 
@@ -165,16 +171,19 @@
   display: none;
   margin-top: 4px;
   padding: 8px 10px;
-  border: 1px solid lightgray;
-  border-radius: 8px;
-  background-color: white;
-  font-family: "Delius", cursive;
+
+  border: none;
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  background-color: rgb(29, 29, 29);
+  font-family: "Raleway", cursive;
   font-size: 14px;
+  color: white;
 }
 
 .register-input-rules p {
   margin: 0 0 4px;
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-weight: 600;
 }
 
@@ -189,6 +198,6 @@
 }
 
 .rfv-t {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
 }

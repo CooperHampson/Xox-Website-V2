@@ -23,19 +23,21 @@
 }
 
 .order-info-container {
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 1px solid darkgray;
-  border-radius: 12px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
   padding: 16px;
 }
 
 .OP-title {
   justify-self: center;
   
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 36px;
   font-weight: 400;
-  color: white;
+  color: rgb(78, 78, 78);
 }
 
 .link-span {
@@ -44,9 +46,9 @@
 
 .order-links {
   text-decoration: none;
-  color: white;
+  color: rgb(78, 78, 78);
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 16px 0;
@@ -57,40 +59,41 @@
 }
 
 .order-info-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 16px 0;
 }
 
 .items-title{
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 26px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 8px 0;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgb(78, 78, 78);
 }
 
 .item-container {
   display: grid;
+  row-gap: 4px;
 
-  border: 1px solid gray;
-  border-radius: 12px;
-  margin-bottom: 16px;
   padding: 8px;
+
+  background-color: rgb(32, 32, 32);
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 }
 
 .order-item-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 16px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 16px 0;
 }
 
 .total-price-text {
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 26px;
-  color: white;
+  color: rgb(78, 78, 78);
   margin: 0 0 8px 0;
 }
 
@@ -98,7 +101,7 @@
   text-decoration: none;
   color: white;
 
-  font-family: "Delius", cursive;
+  font-family: "Raleway", cursive;
   font-size: 18px;
   margin: 0;
 }
