@@ -78,6 +78,7 @@
   row-gap: 4px;
 
   padding: 8px;
+  margin-bottom: 8px;
 
   background-color: rgb(32, 32, 32);
   clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
