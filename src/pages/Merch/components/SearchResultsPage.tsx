@@ -55,13 +55,21 @@ export function SearchResultsPage() {
                 const convertedPrice = convertPrice(
                   item.price,
                   currentCurrency.code,
-                  exchangeRates
+                  exchangeRates,
                 );
 
                 const formattedPrice = formatPrice(
                   convertedPrice,
                   currentCurrency.code,
                 );
+
+                const image = item.images?.[0];
+
+                const imageSrc = image
+                  ? /^https?:\/\//i.test(image)
+                    ? image
+                    : `${import.meta.env.BASE_URL}${image.replace(/^\/+/, '')}`
+                  : undefined;
 
                 return (
                   <Link
@@ -70,17 +78,18 @@ export function SearchResultsPage() {
                     className="search-result-link"
                   >
                     <div className="search-result-item">
-                      <img
-                        className="search-result-image"
-                        src={`${import.meta.env.BASE_URL}${item.images[0]}`}
-                        alt={item.name}
-                      />
+                      {imageSrc && (
+                        <img
+                          className="search-result-image"
+                          src={imageSrc}
+                          alt={item.name}
+                          loading="lazy"
+                        />
+                      )}
 
                       <h2 className="search-result-name">{item.name}</h2>
 
-                      <p className="search-result-price">
-                        {formattedPrice}
-                      </p>
+                      <p className="search-result-price">{formattedPrice}</p>
                     </div>
                   </Link>
                 );
