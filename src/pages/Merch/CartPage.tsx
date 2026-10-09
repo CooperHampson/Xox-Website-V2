@@ -21,7 +21,7 @@ export function CartPage() {
   const subtotal =
     cart?.items.reduce(
       (total, item) => total + convertPrice(
-        item.product.price,
+        String(Number(item.variant.price)),
         currentCurrency.code,
         exchangeRates,
       ) * item.quantity, 0,
@@ -118,7 +118,7 @@ export function CartPage() {
                     </button>
                   </div>
 
-                  <p className="item-text">Price:{" "}{formatPrice(convertPrice(item.product.price, currentCurrency.code, exchangeRates), currentCurrency.code)}</p>
+                  <p className="item-text">Price:{" "}{formatPrice(convertPrice(String(Number(item.variant.price)), currentCurrency.code, exchangeRates), currentCurrency.code)}</p>
 
                   <button type="button" onClick={() => removeItem(item.id)} className="item-remove-button">Remove</button>
                 </div>

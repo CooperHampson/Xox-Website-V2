@@ -19,6 +19,7 @@ export type CartItem = {
     colour?: string | null;
     size?: string | null;
     material?: string | null;
+    price: string;
     isSoldOut: boolean;
     isPublished: boolean;
   };

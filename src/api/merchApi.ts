@@ -17,8 +17,11 @@ export type CreateMerchVariantInput = {
   colour?: string;
   size?: string;
   material?: string;
+  price?: number;
+  promotionPrice?: number;
   isSoldOut?: boolean;
   isPublished?: boolean;
+  metadata?: Record<string, unknown>;
 };
 
 export type UpdateMerchVariantInput =
@@ -149,4 +152,27 @@ export async function getOrderAgainMerch(): Promise<MerchItem[]> {
   );
 
   return response.data;
+}
+
+export async function uploadColourImages(
+  productId: string,
+  colour: string,
+  files: File[],
+) {
+  const formData = new FormData();
+
+  files.forEach((file) => {
+    formData.append('images', file);
+  });
+
+  const response = await api.post(
+    `/merch/${encodeURIComponent(productId)}/colours/${encodeURIComponent(colour)}/images`,
+    formData,
+  );
+
+  return response.data as {
+    productId: string;
+    colour: string;
+    images: string[];
+  };
 }

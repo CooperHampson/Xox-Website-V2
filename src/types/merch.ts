@@ -14,6 +14,9 @@ export type MerchItem = {
   promotionPrice?: string | null;
   isSoldOut?: boolean;
   isPublished?: boolean;
+  _count?: {
+    variants: number;
+  };
 };
 
 export type MerchProductVariant = {
@@ -24,9 +27,13 @@ export type MerchProductVariant = {
   colour?: string | null;
   size?: string | null;
   material?: string | null;
+  price: number;
   isSoldOut: boolean;
   isPublished: boolean;
-  metadata?: unknown;
+  metadata?: {
+    images?: string[];
+    [key: string]: unknown;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };

@@ -111,6 +111,7 @@
   border-radius: 4px;
 
   font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
 
   -moz-appearance: textfield;
 }

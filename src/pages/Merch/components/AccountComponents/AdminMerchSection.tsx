@@ -9,6 +9,7 @@ import {
   getAdminMerchVariants,
   updateMerchProduct,
   updateMerchVariant,
+  uploadColourImages,
 } from '../../../../api/merchApi';
 
 import type {
@@ -49,7 +50,6 @@ export default function AdminMerchSection() {
 
   const [productForm, setProductForm] = useState({
     name: '',
-    price: '',
     category: '',
     featured: false,
     description: '',
@@ -70,10 +70,17 @@ export default function AdminMerchSection() {
     colour: '',
     size: '',
     material: '',
+    price: '',
     isSoldOut: false,
     isPublished: true,
   });
   const [creatingProduct, setCreatingProduct] = useState(false);
+  const [galleryColour, setGalleryColour] = useState('');
+  const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [gallerySaving, setGallerySaving] = useState(false);
+  const [galleryError, setGalleryError] = useState('');
+  const [gallerySuccess, setGallerySuccess] = useState('');
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
 
   useEffect(() => {
     loadProducts();
@@ -119,7 +126,6 @@ export default function AdminMerchSection() {
 
     setProductForm({
       name: '',
-      price: '',
       category: '',
       featured: false,
       description: '',
@@ -144,6 +150,7 @@ export default function AdminMerchSection() {
       colour: '',
       size: '',
       material: '',
+      price: '',
       isSoldOut: false,
       isPublished: true,
     });
@@ -165,7 +172,6 @@ export default function AdminMerchSection() {
 
     setProductForm({
       name: product.name,
-      price: product.price,
       category: product.category,
       featured: product.featured,
       description: product.description,
@@ -213,6 +219,7 @@ export default function AdminMerchSection() {
       colour: variant.colour ?? '',
       size: variant.size ?? '',
       material: variant.material ?? '',
+      price: (Number(variant.price) / 100).toFixed(2),
       isSoldOut: variant.isSoldOut,
       isPublished: variant.isPublished,
     });
@@ -235,15 +242,6 @@ export default function AdminMerchSection() {
 
     if (!productForm.description.trim()) {
       setError('Product description is required.');
-      return;
-    }
-
-    const price = Number(productForm.price);
-
-    if (!Number.isFinite(price) || price < 0) {
-      setError(
-        'Product price must be a valid number.',
-      );
       return;
     }
 
@@ -270,7 +268,6 @@ export default function AdminMerchSection() {
 
       const payload = {
         name: productForm.name.trim(),
-        price,
         category: productForm.category.trim(),
         featured: productForm.featured,
         description: productForm.description.trim(),
@@ -328,7 +325,7 @@ export default function AdminMerchSection() {
         setSelectedProduct(updated);
       } else {
         const created =
-          await createMerchProduct(payload);
+          await createMerchProduct({ ...payload, price: 0 });
 
         setProducts((currentProducts) => [
           created,
@@ -399,6 +396,19 @@ export default function AdminMerchSection() {
       return;
     }
 
+    const priceInDollars = Number(variantForm.price);
+
+    if (
+      variantForm.price.trim() === '' ||
+      !Number.isFinite(priceInDollars) ||
+      priceInDollars < 0
+    ) {
+      setError('Variant price must be a valid number.');
+      return;
+    }
+
+    const priceInCents = Math.round(priceInDollars * 100);
+
     try {
       setVariantSaving(true);
 
@@ -417,6 +427,7 @@ export default function AdminMerchSection() {
         material:
           variantForm.material.trim() || undefined,
 
+        price: priceInCents,
         isSoldOut: variantForm.isSoldOut,
         isPublished: variantForm.isPublished,
       };
@@ -497,6 +508,77 @@ export default function AdminMerchSection() {
     }
   }
 
+  async function handleUploadColourImages() {
+    if (!selectedProduct) {
+      setGalleryError('Select a product first.');
+      return;
+    }
+
+    if (!galleryColour) {
+      setGalleryError('Select a colour.');
+      return;
+    }
+
+    if (galleryFiles.length === 0) {
+      setGalleryError('Select at least one image.');
+      return;
+    }
+
+    if (galleryFiles.length > 20) {
+      setGalleryError('You can upload a maximum of 20 images at once.');
+      return;
+    }
+
+    const allowedTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+    ];
+
+    const invalidFile = galleryFiles.find(
+      (file) =>
+        !allowedTypes.includes(file.type) ||
+        file.size > 5 * 1024 * 1024,
+    );
+
+    if (invalidFile) {
+      setGalleryError(
+        'Use JPEG, PNG, or WebP images, each no larger than 5 MB.',
+      );
+      return;
+    }
+
+    try {
+      setGallerySaving(true);
+      setGalleryError('');
+      setGallerySuccess('');
+      setGalleryImages([]);
+
+      const result = await uploadColourImages(
+        selectedProduct.id,
+        galleryColour,
+        galleryFiles,
+      );
+
+      setGalleryImages(result.images);
+      setGalleryFiles([]);
+      setGallerySuccess(
+        `Gallery uploaded successfully for ${galleryColour}.`,
+      );
+
+      // Refresh variants so the admin data reflects the latest gallery.
+      const refreshedVariants = await getAdminMerchVariants(
+        selectedProduct.id,
+      );
+
+      setVariants(refreshedVariants);
+    } catch {
+      setGalleryError('Failed to upload the colour gallery.');
+    } finally {
+      setGallerySaving(false);
+    }
+  }
+
   return (
     <section>
       <p className="area-title">Merch Management</p>
@@ -546,7 +628,7 @@ export default function AdminMerchSection() {
                   <tr>
                     <th>Product</th>
                     <th>Category</th>
-                    <th>Price</th>
+                    <th>Variants</th>
                     <th>Published</th>
                     <th>Sold Out</th>
                     <th>Actions</th>
@@ -562,7 +644,7 @@ export default function AdminMerchSection() {
                         {product.category}
                       </td>
 
-                      <td>{product.price}</td>
+                      <td>{product._count?.variants ?? 0}{' '}{(product._count?.variants ?? 0) === 1 ? 'variant' : 'variants'}</td>
 
                       <td>
                         {product.isPublished
@@ -638,28 +720,6 @@ export default function AdminMerchSection() {
                       setProductForm({
                         ...productForm,
                         name:
-                          event.target.value,
-                      })
-                    }
-                    className="merch-input"
-                  />
-                </label>
-              </div>
-
-              <div>
-                <label className="merch-label">
-                  Price
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={
-                      productForm.price
-                    }
-                    onChange={(event) =>
-                      setProductForm({
-                        ...productForm,
-                        price:
                           event.target.value,
                       })
                     }
@@ -965,7 +1025,7 @@ export default function AdminMerchSection() {
 
               {selectedProduct && (
                 <>
-                  <hr />
+                  <hr className="variant-hr" />
 
                   <p className="area-smaller-title">
                     Variants —{' '}
@@ -987,6 +1047,7 @@ export default function AdminMerchSection() {
                         <thead>
                           <tr>
                             <th>SKU</th>
+                            <th>Price</th>
                             <th>Colour</th>
                             <th>Size</th>
                             <th>
@@ -1013,6 +1074,16 @@ export default function AdminMerchSection() {
                                   {
                                     variant.sku
                                   }
+                                </td>
+
+                                <td>
+                                  {(Number(variant.price) / 100).toLocaleString(
+                                    'en-US',
+                                    {
+                                      style: 'currency',
+                                      currency: 'USD',
+                                    },
+                                  )}
                                 </td>
 
                                 <td>
@@ -1070,6 +1141,123 @@ export default function AdminMerchSection() {
                           )}
                         </tbody>
                       </table>
+                    </div>
+                  )}
+
+                  <hr />
+
+                  <p className="area-smaller-title">
+                    Colour Image Galleries
+                  </p>
+
+                  <p className="merch-text">
+                    Upload up to 20 images for a colour. Uploading a new
+                    gallery replaces the existing gallery for that colour.
+                    Each image must be JPEG, PNG, or WebP and no larger
+                    than 5 MB.
+                  </p>
+
+                  <div>
+                    <label className="merch-label">
+                      Colour
+
+                      <select
+                        value={galleryColour}
+                        onChange={(event) => {
+                          setGalleryColour(event.target.value);
+                          setGalleryImages([]);
+                          setGalleryError('');
+                          setGallerySuccess('');
+                        }}
+                        className="merch-input"
+                      >
+                        <option value="">Select a colour</option>
+
+                        {[...new Set(
+                          variants
+                            .map((variant) => variant.colour?.trim())
+                            .filter((colour): colour is string => Boolean(colour)),
+                        )].map((colour) => (
+                          <option key={colour} value={colour}>
+                            {colour}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+
+                  <div>
+                    <div className="merch-image-upload-control">
+                      <label
+                        htmlFor="merch-gallery-images"
+                        className="merch-image-upload-button"
+                      >
+                        Choose images
+                      </label>
+
+                      <input
+                        id="merch-gallery-images"
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        multiple
+                        onChange={(event) => {
+                          setGalleryFiles(Array.from(event.target.files ?? []));
+                        }}
+                        className="merch-image-file-input"
+                      />
+
+                      <span className="merch-image-file-count">
+                        {galleryFiles.length > 0
+                          ? `${galleryFiles.length} selected`
+                          : "No images selected"}
+                      </span>
+                    </div>
+
+                    <p className="merch-text">
+                      {galleryFiles.length} image
+                      {galleryFiles.length === 1 ? '' : 's'} selected
+                    </p>
+                  </div>
+
+                  {galleryError && (
+                    <p style={{ color: 'red', fontFamily: "Raleway" }}>{galleryError}</p>
+                  )}
+
+                  {gallerySuccess && (
+                    <p style={{ color: 'green', fontFamily: "Raleway" }}>{gallerySuccess}</p>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handleUploadColourImages}
+                    disabled={gallerySaving || !galleryColour || galleryFiles.length === 0}
+                    className="ap-button"
+                  >
+                    {gallerySaving ? 'Uploading...' : 'Upload Colour Gallery'}
+                  </button>
+
+                  {galleryImages.length > 0 && (
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                        gap: '12px',
+                        marginTop: '16px',
+                      }}
+                    >
+                      {galleryImages.map((image, index) => (
+                        <img
+                          key={`${image}-${index}`}
+                          src={image}
+                          alt={`${galleryColour} gallery image ${index + 1}`}
+                          style={{
+                            width: '100%',
+                            aspectRatio: '1 / 1',
+                            objectFit: 'cover',
+                            borderRadius: '6px',
+                          }}
+                        />
+                      ))}
                     </div>
                   )}
 
@@ -1177,6 +1365,25 @@ export default function AdminMerchSection() {
                             material:
                               event.target
                                 .value,
+                          })
+                        }
+                        className="merch-input"
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="merch-label">
+                      Price (USD)
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={variantForm.price}
+                        onChange={(event) =>
+                          setVariantForm({
+                            ...variantForm,
+                            price: event.target.value,
                           })
                         }
                         className="merch-input"
