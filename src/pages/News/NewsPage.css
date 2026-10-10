@@ -136,6 +136,7 @@
   box-sizing: border-box;
 
   overflow: hidden;
+  background-color: transparent;
 
   transition: border 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
