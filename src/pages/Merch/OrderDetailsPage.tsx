@@ -38,13 +38,9 @@ export function OrderDetailsPage() {
     loadOrder();
   }, [isAuthenticated, orderId]);
 
-  const bgImageUrl = {
-    backgroundImage: `url("${import.meta.env.BASE_URL}Images/MerchPage/FeaturedPage/xox-background.png")`,
-  };
-
   if (!isAuthenticated) {
     return (
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="orders-page-container" ref={divRef}>
@@ -63,7 +59,7 @@ export function OrderDetailsPage() {
 
   if (!order) {
     return (
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="orders-page-container" ref={divRef}>
@@ -83,7 +79,7 @@ export function OrderDetailsPage() {
     <>
       <title>Xoxxly Store | Order Details</title>
 
-      <div className="background-container" style={bgImageUrl}>
+      <div className="background-container">
         <MerchHeader />
 
         <div className="orders-page-container" ref={divRef}>
