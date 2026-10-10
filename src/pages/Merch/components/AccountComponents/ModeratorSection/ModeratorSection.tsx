@@ -276,7 +276,7 @@ export function ModeratorSection() {
               />
             </label>
 
-            <label>
+            <label className="image-input-lab">
               Article Image {editingId && '(optional replacement)'}
               <input
                 type="file"
@@ -288,6 +288,7 @@ export function ModeratorSection() {
                     event.target.files?.[0] ?? null,
                   )
                 }
+                className="image-input-button"
               />
             </label>
 
