@@ -48,9 +48,17 @@
 /* ---------- News System ---------- */
 
 
+h3 {
+  font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
+}
+
 .news-management {
   margin-top: 2rem;
   width: 100%;
+
+  font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
 }
 
 .news-management-form {
@@ -64,17 +72,36 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
 }
 
 .news-management-form input:not([type="checkbox"]),
 .news-management-form textarea {
   width: 100%;
   box-sizing: border-box;
+
+  font-family: "Raleway", cursive;
+  font-size: 18px;
+  color: rgb(78, 78, 78);
+
+  border: none;
+
+  background: rgb(24, 24, 24);
+
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  margin: 0 4px 0 0;
+  padding: 4px;
 }
 
 .news-publish-toggle {
   flex-direction: row !important;
   align-items: center;
+
+  font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
 }
 
 .news-management-actions {
@@ -83,8 +110,34 @@
   gap: 0.75rem;
 }
 
+.news-management-actions button {
+  font-family: "Raleway", cursive;
+  font-size: 28px;
+  color: white;
+  
+  border: none;
+
+  background: rgb(57, 22, 87);
+
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+
+  cursor: pointer;
+
+  margin: 0 4px 0 4px;
+  padding: 8px;
+
+  transition: background-color 0.3s ease;
+}
+
+.news-management-actions button:hover {
+  background-color: rgba(57, 22, 87, 0.8);
+}
+
 .news-management-list {
   margin-top: 2rem;
+
+  font-family: "Raleway", cursive;
+  color: rgb(78, 78, 78);
 }
 
 .news-management-item {
@@ -93,15 +146,17 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgb(78, 78, 78);
 }
 
 .news-management-error {
   color: #c62828;
+  font-family: "Raleway", cursive;
 }
 
 .news-management-success {
   color: #237a38;
+  font-family: "Raleway", cursive;
 }
 
 .News-Card {
