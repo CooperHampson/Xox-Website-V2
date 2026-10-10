@@ -163,18 +163,15 @@ h3 {
   padding: 1rem;
 }
 
-.image-input-lab {
+.news-image-upload-control {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
   min-width: 0;
-
-  font-family: "Raleway", cursive;
-  color: rgb(78, 78, 78);
 }
 
-.image-input-button {
+.image-input-lab {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -190,4 +187,16 @@ h3 {
   line-height: 1.2;
   cursor: pointer;
   transition: background-color 0.15s ease;
+}
+
+.image-input-button {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

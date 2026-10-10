@@ -276,8 +276,11 @@ export function ModeratorSection() {
               />
             </label>
 
-            <label className="image-input-lab">
-              Article Image {editingId && '(optional replacement)'}
+            <div className="news-image-upload-control">
+              <label className="image-input-lab">
+                Article Image {editingId && '(optional replacement)'}
+              </label>
+
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
@@ -290,7 +293,8 @@ export function ModeratorSection() {
                 }
                 className="image-input-button"
               />
-            </label>
+            </div>
+
 
             {editingId && (
               <p>
