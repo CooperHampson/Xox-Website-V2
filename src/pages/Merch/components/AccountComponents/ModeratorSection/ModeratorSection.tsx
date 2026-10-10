@@ -276,12 +276,17 @@ export function ModeratorSection() {
               />
             </label>
 
+
             <div className="news-image-upload-control">
-              <label className="image-input-lab">
-                Article Image {editingId && '(optional replacement)'}
+              <label
+                className="image-input-lab"
+                htmlFor="news-article-image"
+              >
+                {form.image ? form.image.name : 'Choose Article Image'}
               </label>
 
               <input
+                id="news-article-image"
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
                 required={!editingId}

@@ -7,7 +7,7 @@
   padding: 16px;
 
   background-color: rgba(0, 0, 0, 0.5);
-  
+
   clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
 
   box-sizing: border-box;
@@ -27,7 +27,7 @@
   font-family: "Raleway", cursive;
   font-size: 28px;
   color: white;
-  
+
   border: none;
 
   background: rgb(57, 22, 87);
@@ -41,6 +41,7 @@
 
   transition: background-color 0.3s ease;
 }
+
 .open-design-studio-button:hover {
   background-color: rgba(57, 22, 87, 0.8);
 }
@@ -75,6 +76,29 @@ h3 {
 
   font-family: "Raleway", cursive;
   color: rgb(78, 78, 78);
+}
+
+
+.news-management-form label.image-input-lab {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: none;
+  background: rgb(57, 22, 87);
+  color: #fff;
+  font-family: "Raleway", cursive;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.news-management-form label.image-input-lab:hover {
+  background-color: rgba(57, 22, 87, 0.8);
 }
 
 .news-management-form input:not([type="checkbox"]),
@@ -114,7 +138,7 @@ h3 {
   font-family: "Raleway", cursive;
   font-size: 28px;
   color: white;
-  
+
   border: none;
 
   background: rgb(57, 22, 87);
